@@ -43,9 +43,9 @@ html {
 .sub-header-2 {
   @apply text-xl font-medium;
 }
-{/*
+{/*}
   .paragraph {
-    @apply xs:text-[16px] md:text-lg max-w-xl text-center text-slate-400 px-1 sm:px-0;
+    @apply xs:text-[16px] md:text-lg max-w-xl text-center text-slate-400 px-1 sm:px-0
   }
   */}
   .paragraph-2 {
