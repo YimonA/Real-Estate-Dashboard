@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
 const PropertyCreate = () => {
   return (
-    <div>propertyCreate</div>
-  )
-}
+    <div>
+      
+    </div>
+  );
+};
 
-export default PropertyCreate
+export default PropertyCreate;

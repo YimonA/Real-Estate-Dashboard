@@ -1,5 +1,8 @@
 import React from "react";
 import PropertyList from "./Pages/PropertyList";
+import PropertyCreate from "./Pages/propertyCreate"
+import PropertyDetail from "./Pages/PropertyDetail"
+
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
 
@@ -45,10 +48,13 @@ const App = () => {
   return (
     <div>
         <Routes>
-        <Route path={"/"} element={<PropertyList/>} />
+        <Route path={"/"} element={<PropertyDetail/>} />
+        <Route path={"/propertyList"} element={<PropertyList/>} />
         </Routes>
     </div>
   );
 };
 
 export default App;
+
+//https://property-eof8.onrender.com/property
