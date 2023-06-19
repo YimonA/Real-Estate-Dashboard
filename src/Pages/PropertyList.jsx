@@ -1,17 +1,15 @@
-import React from "react";
+import React, {  useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
-import { LuBed } from "react-icons/lu";
-import { LuBath } from "react-icons/lu";
-import { GiHomeGarage } from "react-icons/gi";
-import { HiLocationMarker } from "react-icons/hi";
-
-import { Chip } from "@material-tailwind/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import {
   Accordion,
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
+import RentCard from "../Components/RentCard";
+import SaleCard from "../Components/SaleCard";
+import { useGetSaleQuery } from "../redux/api/saleApi";
+import { useGetRentQuery } from "../redux/api/rentApi";
 
 function Icon({ id, open }) {
   return (
@@ -32,6 +30,17 @@ function Icon({ id, open }) {
 
 const PropertyList = () => {
   const [open, setOpen] = useState(0);
+  const { data: rentData, isLoading } = useGetRentQuery();
+  const { data: saleData } = useGetSaleQuery();
+  console.log("rd", saleData);
+
+  if (isLoading) {
+    return (
+      <div className=" flex justify-center item-center h-screen">
+        Loading...
+      </div>
+    );
+  }
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
@@ -125,62 +134,19 @@ const PropertyList = () => {
             Search
           </button>
         </div>
-        {/* Card Section Start */}
-        <div className="w-full  lg:basis-8/12  bg-white flex flex-col lg:flex-row justify-start items-center relative">
-          <Chip
-            className=" absolute top-2 left-0 font-normal text-base bg-red-700 normal-case rounded-none pb-0"
-            color="red"
-            value="For Rent"
-          />
-          <img
-            src="https://hously-react.vercel.app/static/media/1.bfd273967d5b93df7a02.jpg"
-            className=" w-full h-52 lg:w-56 lg:h-56 object-center object-cover"
-            alt=""
-          />
+        {/* Rent Card Start*/}
+        <div className="w-full  lg:basis-8/12 flex flex-wrap gap-5 justify-center align-center">
+          {rentData?.map((rentProperty) => {
+            return <RentCard key={rentProperty.id} {...rentProperty} />;
+          })}
+          {/* Rent Card End*/}
 
-          <div className="w-full h-fit md:basis-8/12 md:h-56 px-3 flex flex-col  bg-white ">
-            <div className=" w-full md:basis-8/12 flex flex-col lg:flex-row md:justify-between items-center">
-              <div className=" w-full md:basis-8/12 h-full md:px-5 py-5">
-                <p className="font-semibold">Florida 5, Pinecrest, FL </p>
-                <p className=" text-red-300">$ 220,000</p>
-              </div>
-              <div className=" w-full md:basis-8/12 text-gray-500 border-t-2 lg:border-t-0 lg:border-l-2 border-gray-300 md:px-5 py-5 h-full">
-                <p className=" flex justify-start items-center gap-4">
-                  <LuBath size={"1.7rem"} />{" "}
-                  <span className=" text-gray-500	">Bathrooms</span>
-                </p>
-                <p className="	 flex justify-start items-center gap-4">
-                  <LuBed size={"1.7rem"} />
-                  Beds
-                </p>
-                <p className=" flex justify-start items-center gap-4">
-                  <GiHomeGarage size={"1.7rem"} />
-                  Garages
-                </p>
-              </div>
-            </div>
-            <div className=" w-full md:basis-4/12 flex gap-2 md:gap-5   justify-start items-center md:px-5 py-5 h-full border-t-2 lg::border-t-0  border-gray-300 ">
-              <div className=" basis-2/12">
-                <img
-                  className="w-12 h-12 rounded-full"
-                  src="https://hously-react.vercel.app/static/media/01.6ac85de7298319b1f8d5.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="w-full flex justify-between items-center">
-                <div>
-                  <p className=" font-semibold">Jon Doe</p>
-                  <p className="  text-gray-500 ">5 Property</p>
-                </div>
-
-                <p className=" flex justify-start gap-2  text-gray-500  ">
-                  <HiLocationMarker className=" text-red-400" /> New York City
-                </p>
-              </div>
-            </div>
-          </div>
+          {/* Sale Card Start*/}
+          {saleData?.map((saleProperty) => {
+            return <SaleCard key={saleProperty.id} {...saleProperty} />;
+          })}
         </div>
-        {/* Card Section End */}
+        {/* Sale Card End*/}
       </div>
     </div>
   );

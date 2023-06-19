@@ -1,10 +1,11 @@
 import React from "react";
 import PropertyList from "./Pages/PropertyList";
-import PropertyCreate from "./Pages/propertyCreate"
-import PropertyDetail from "./Pages/PropertyDetail"
-
+import SaleDetail from "./Pages/SaleDetail";
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
+import RentDetail from "./Pages/RentDetail";
+import SaleCreate from './Pages/SaleCreate';
+import RentCreate from './Pages/RentCreate'
 
 const App = () => {
   const properties = [
@@ -48,8 +49,17 @@ const App = () => {
   return (
     <div>
         <Routes>
-        <Route path={"/"} element={<PropertyDetail/>} />
-        <Route path={"/propertyList"} element={<PropertyList/>} />
+        <Route path={"/"} element={<PropertyList/>} />
+        <Route path='/saledetail/:id' element={<SaleDetail/>} />
+        <Route path='/rentdetail/:id' element={<RentDetail/>} />
+        <Route path='/salecreatel/:id' element={<SaleCreate/>} />
+        <Route path='/rentcreate/:id' element={<RentCreate/>} />
+
+        {/* 
+        <Route path='/edit/:id' element={<Edit/>} />
+        <Route path='/create' element={<Create/>} />
+        */}
+
         </Routes>
     </div>
   );
