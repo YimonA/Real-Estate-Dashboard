@@ -1,4 +1,7 @@
 import React from 'react'
+import { Route,Routes } from 'react-router-dom'
+import Clients from './pages/Clients'
+import ClientsDetails from './pages/ClientsDetails'
 
 
 const App = () => {
@@ -35,9 +38,11 @@ const App = () => {
     },
 ]
   return (
-    <div>
-
-    </div>
+   <Routes>
+    <Route path='/clients' element={<Clients/>}/>
+    <Route path='/clientsDetail/:id' element={<ClientsDetails/>}/>
+   
+   </Routes>
   )
 }
 
