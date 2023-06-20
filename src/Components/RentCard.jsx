@@ -7,6 +7,9 @@ import { Link } from "react-router-dom";
 import { Chip } from "@material-tailwind/react";
 
 const RentCard = (rentProperty) => {
+  const scrollYHandler=()=>{
+    window.scroll(0,0);
+  }
   console.log("rr", rentProperty?.image[0]);
   return (
     <div className="w-full bg-white flex flex-col lg:flex-row justify-start items-center relative">
@@ -26,7 +29,7 @@ const RentCard = (rentProperty) => {
         <div className=" w-full md:basis-8/12 flex flex-col lg:flex-row md:justify-between items-center">
           <div className=" w-full md:basis-8/12 h-full md:px-5 py-5">
             <Link to={`/rentdetail/${rentProperty?.id}`}>
-              <p className="font-semibold hover:text-green-600">
+              <p onClick={scrollYHandler} className="font-semibold hover:text-green-600">
                 {rentProperty?.addressLine1}{" "}
               </p>
             </Link>

@@ -7,11 +7,20 @@ import { Carousel } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
 import { useGetDetailRentQuery } from "../redux/api/rentApi";
 
-import { Input, Textarea } from "@mantine/core";
+import { Input, Loader, Textarea } from "@mantine/core";
 
 const RentDetail = () => {
   const { id } = useParams();
   const { data: rentDetailData, isLoading } = useGetDetailRentQuery(id);
+
+  if (isLoading) {
+    return (
+      <div className=" flex justify-center items-center h-screen">
+        <Loader variant="dots" />
+      </div>
+    );
+  }
+
   console.log("id", id);
   console.log("p", rentDetailData);
   return (
@@ -44,18 +53,6 @@ const RentDetail = () => {
                   />
                 );
               })}
-              {/* 
-              <img
-                src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-                alt="image 2"
-                className="h-[450px] w-full object-center object-cover"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-                alt="image 3"
-                className=" h-[450px] w-full object-center object-cover"
-              />
-                            */}
             </Carousel>
 
             <p className=" text-lg py-5" style={{ fontWeight: "550" }}>
@@ -110,19 +107,27 @@ const RentDetail = () => {
               <ul className=" text-gray-500 lg:flex flex-col gap-2">
                 <li className=" flex justify-between items-center pb-2">
                   <span>Living Room</span>
-                  <span>{rentDetailData?.roomDimensions?.livingRoom}</span>
+                  <span>{rentDetailData?.roomDimensions?.livingRoom=== null
+                      ? "9x10"
+                      : rentDetailData?.roomDimensions?.livingRoom}</span>
                 </li>
                 <li className=" flex justify-between items-center pb-2">
                   <span>Bedroom</span>
-                  <span>{rentDetailData?.roomDimensions?.bedRoom}</span>
+                  <span>{rentDetailData?.roomDimensions?.bedRoom=== null
+                      ? "12x10"
+                      : rentDetailData?.roomDimensions?.bedRoom}</span>
                 </li>
                 <li className=" flex justify-between items-center pb-2">
                   <span>Dining Room</span>
-                  <span>{rentDetailData?.roomDimensions?.diningRoom}</span>
+                  <span>{rentDetailData?.roomDimensions?.diningRoom=== null
+                      ? "15x10"
+                      : rentDetailData?.roomDimensions?.diningRoom}</span>
                 </li>
                 <li className=" flex justify-between items-center pb-2">
                   <span>Kitchen</span>
-                  <span>{rentDetailData?.roomDimensions?.kitchen}</span>
+                  <span>{rentDetailData?.roomDimensions?.kitchen=== null
+                      ? "9x7"
+                      : rentDetailData?.roomDimensions?.kitchen}</span>
                 </li>
               </ul>
             </div>
@@ -159,11 +164,15 @@ const RentDetail = () => {
               </li>
               <li className=" flex justify-between items-center pb-2">
                 <span>Bedrooms</span>
-                <span>{rentDetailData?.bedrooms}</span>
+                <span>{rentDetailData?.bedrooms === null
+                    ? "1"
+                    : rentDetailData?.bedrooms}</span>
               </li>
               <li className=" flex justify-between items-center pb-2">
                 <span>Bathrooms</span>
-                <span>{rentDetailData?.bathrooms}</span>
+                <span>{rentDetailData?.bathrooms === null
+                    ? "1"
+                    : rentDetailData?.bathrooms}</span>
               </li>
               <li className=" flex justify-between items-center pb-2">
                 <span>Square Footage</span>
@@ -219,7 +228,7 @@ const RentDetail = () => {
                 <Textarea placeholder="Message" size="md" withAsterisk />
               </div>
 
-              <button className="py-3 px-5 my-5 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-full border-none cursor-pointer">
+              <button className="py-2 px-3 my-5 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-full border-none cursor-pointer">
                 Submit Request{" "}
               </button>
             </div>

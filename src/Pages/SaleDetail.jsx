@@ -5,12 +5,25 @@ import { AiOutlinePhone } from "react-icons/ai";
 
 import { Carousel } from "@material-tailwind/react";
 import { useParams } from "react-router-dom";
-import { useGetDetailSaleQuery } from "../redux/api/saleApi";
-import { Input, Textarea } from "@mantine/core";
+import {
+  useGetDetailSaleQuery,
+  useEditSaleMutation,
+  useDeleteSaleMutation,
+} from "../redux/api/saleApi";
+import { Input, Loader, Textarea } from "@mantine/core";
 
 const SaleDetail = () => {
   const { id } = useParams();
   const { data: saleDetailData, isLoading } = useGetDetailSaleQuery(id);
+
+  if (isLoading) {
+    return (
+      <div className=" flex justify-center items-center h-screen">
+        <Loader variant="dots" />
+      </div>
+    );
+  }
+
   console.log("id", id);
   console.log("p", saleDetailData);
   return (
@@ -53,6 +66,7 @@ const SaleDetail = () => {
               {saleDetailData?.city} / {saleDetailData?.state} /
               {saleDetailData?.county}
             </p>
+            
             <p className=" text-lg text-gray-500 border-t-2 border-gray-300 pt-5 pb-10">
               {saleDetailData?.description}
             </p>
@@ -97,19 +111,35 @@ const SaleDetail = () => {
               <ul className=" text-gray-500 lg:flex flex-col gap-2">
                 <li className=" flex justify-between items-center pb-2">
                   <span>Living Room</span>
-                  <span>{saleDetailData?.roomDimensions?.livingRoom}</span>
+                  <span>
+                    {saleDetailData?.roomDimensions?.livingRoom === null
+                      ? "9x10"
+                      : saleDetailData?.roomDimensions?.livingRoom}
+                  </span>
                 </li>
                 <li className=" flex justify-between items-center pb-2">
                   <span>Bedroom</span>
-                  <span>{saleDetailData?.roomDimensions?.bedRoom}</span>
+                  <span>
+                    {saleDetailData?.roomDimensions?.bedRoom === null
+                      ? "15x10"
+                      : saleDetailData?.roomDimensions?.bedRoom}
+                  </span>
                 </li>
                 <li className=" flex justify-between items-center pb-2">
                   <span>Dining Room</span>
-                  <span>{saleDetailData?.roomDimensions?.diningRoom}</span>
+                  <span>
+                    {saleDetailData?.roomDimensions?.diningRoom === null
+                      ? "7x15"
+                      : saleDetailData?.roomDimensions?.diningRoom}
+                  </span>
                 </li>
                 <li className=" flex justify-between items-center pb-2">
                   <span>Kitchen</span>
-                  <span>{saleDetailData?.roomDimensions?.kitchen}</span>
+                  <span>
+                    {saleDetailData?.roomDimensions?.kitchen === null
+                      ? "9x10"
+                      : saleDetailData?.roomDimensions?.kitchen}
+                  </span>
                 </li>
               </ul>
             </div>
@@ -146,11 +176,19 @@ const SaleDetail = () => {
               </li>
               <li className=" flex justify-between items-center pb-2">
                 <span>Bedrooms</span>
-                <span>{saleDetailData?.bedrooms}</span>
+                <span>
+                  {saleDetailData?.bedrooms === null
+                    ? "1"
+                    : saleDetailData?.bedrooms}
+                </span>
               </li>
               <li className=" flex justify-between items-center pb-2">
                 <span>Bathrooms</span>
-                <span>{saleDetailData?.bathrooms}</span>
+                <span>
+                  {saleDetailData?.bathrooms === null
+                    ? "1"
+                    : saleDetailData?.bathrooms}
+                </span>
               </li>
               <li className=" flex justify-between items-center pb-2">
                 <span>Square Footage</span>
@@ -162,7 +200,11 @@ const SaleDetail = () => {
               </li>
               <li className=" flex justify-between items-center pb-2">
                 <span>Year Build</span>
-                <span>{saleDetailData?.yearBuilt}</span>
+                <span>
+                  {saleDetailData?.yearBuilt === null
+                    ? "1995"
+                    : saleDetailData?.yearBuilt}
+                </span>
               </li>
               <li className=" flex justify-between items-center pb-2">
                 <span>Type</span>
@@ -197,14 +239,14 @@ const SaleDetail = () => {
               <p className=" text-lg mb-5 font-semibold border-b-2 border-gray-300 py-5">
                 Request Inquiry
               </p>
-              <div className=" flex flex-col gap-4 mt-5">
+              <div className=" flex flex-col gap-4 my-5">
                 <Input placeholder="Name" size="md" />
                 <Input placeholder="Phone" size="md" />
                 <Input placeholder="Email" size="md" />
                 <Textarea placeholder="Message" size="md" withAsterisk />
               </div>
-              <button className=" py-3 px-5 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-full border-none cursor-pointer">
-                Submit Request{" "}
+              <button className=" py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-full border-none cursor-pointer">
+                Submit Request
               </button>
             </div>
           </div>

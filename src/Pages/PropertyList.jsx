@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { Fragment } from "react";
 import {
@@ -10,6 +10,9 @@ import RentCard from "../Components/RentCard";
 import SaleCard from "../Components/SaleCard";
 import { useGetSaleQuery } from "../redux/api/saleApi";
 import { useGetRentQuery } from "../redux/api/rentApi";
+import { Loader } from "@mantine/core";
+import { Button, IconButton } from "@material-tailwind/react";
+import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 function Icon({ id, open }) {
   return (
@@ -30,20 +33,54 @@ function Icon({ id, open }) {
 
 const PropertyList = () => {
   const [open, setOpen] = useState(0);
+  //const [activePage, setPage] = useState(1);
+
+  const [arr,setArr]=useState([])
+
   const { data: rentData, isLoading } = useGetRentQuery();
   const { data: saleData } = useGetSaleQuery();
-  console.log("rd", saleData);
+  console.log("sd", saleData);
+  console.log("rd", rentData);
+
+  //console.log(rentData.length)
+
+  //const totalPage = ([...rentData].length + [...saleData].length) / 4;
+  //console.log("totalPage", totalPage);
+
+  const [active, setActive] = React.useState(1);
+
+  const getItemProps = (index) => ({
+    variant: active === index ? "filled" : "text",
+    color: active === index ? "blue" : "blue-gray",
+    onClick: () => setActive(index),
+  });
+
+  const next = () => {
+    if (active === 5) return;
+
+    setActive(active + 1);
+  };
+
+  const prev = () => {
+    if (active === 1) return;
+
+    setActive(active - 1);
+  };
 
   if (isLoading) {
     return (
-      <div className=" flex justify-center item-center h-screen">
-        Loading...
+      <div className=" flex justify-center items-center h-screen">
+        <Loader variant="dots" />
       </div>
     );
   }
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
+  };
+
+  const scrollYHandler = () => {
+    window.scroll(0, 0);
   };
 
   return (
@@ -129,7 +166,7 @@ const PropertyList = () => {
               </AccordionBody>
             </Accordion>
           </Fragment>
-          <button className="btn flex-center-center gap-1 px-4 py-2 mt-6">
+          <button className=" flex justify-start my-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none cursor-pointer">
             <BiSearchAlt className="xs:mb-[4px] md:mb-1 sm:text-lg" />
             Search
           </button>
@@ -137,14 +174,56 @@ const PropertyList = () => {
         {/* Rent Card Start*/}
         <div className="w-full  lg:basis-8/12 flex flex-wrap gap-5 justify-center align-center">
           {rentData?.map((rentProperty) => {
-            return <RentCard key={rentProperty.id} {...rentProperty} />;
+            return (
+              <RentCard
+                key={rentProperty.id}
+                {...rentProperty}
+              />
+            );
           })}
           {/* Rent Card End*/}
 
           {/* Sale Card Start*/}
+          
           {saleData?.map((saleProperty) => {
-            return <SaleCard key={saleProperty.id} {...saleProperty} />;
+            return (
+              <SaleCard
+                key={saleProperty.id}
+                {...saleProperty}
+              />
+            );
           })}
+          {/* Pagination Start*/}
+
+          <div className="flex items-center gap-4">
+            <Button
+              variant="text"
+              color="blue-gray"
+              className="flex items-center gap-2"
+              onClick={prev}
+              disabled={active === 1}
+            >
+              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+            </Button>
+            <div className="flex items-center gap-2">
+              <IconButton {...getItemProps(1)}>1</IconButton>
+              <IconButton {...getItemProps(2)}>2</IconButton>
+              <IconButton {...getItemProps(3)}>3</IconButton>
+              <IconButton {...getItemProps(4)}>4</IconButton>
+              <IconButton {...getItemProps(5)}>5</IconButton>
+            </div>
+            <Button
+              variant="text"
+              color="blue-gray"
+              className="flex items-center gap-2"
+              onClick={next}
+              disabled={active === 5}
+            >
+              Next
+              <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+            </Button>
+          </div>
+          {/* Pagination End*/}
         </div>
         {/* Sale Card End*/}
       </div>
