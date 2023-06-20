@@ -1,10 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import {  Card, Typography } from "@material-tailwind/react";
-import BgBlockCard from "./BgBlockCard";
 import {AiFillStar} from "react-icons/ai"
 import {MdArrowBack} from "react-icons/md"
 import { Link } from "react-router-dom";
+import BgBlockCard from "../components/BgBlockCard";
 
 const ClientsDetails = () => {
     const location = useLocation();
@@ -12,7 +12,7 @@ const ClientsDetails = () => {
   console.log(clientData);
   return (
     <div className=" container mx-auto my-5 ">
-    <Link to={"/"}>
+    <Link to={"/clients"}>
     <div className=" px-8 md:px-0">
     <MdArrowBack className="w-7 h-7"/>
     </div>

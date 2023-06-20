@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import ClientCard from "./ClientCard";
-
+import ClientCard from "../components/ClientCard";
 const Clients = () => {
     const [clients, setClients] = useState([]);
   const fetchData = async () => {

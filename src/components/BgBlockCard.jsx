@@ -7,7 +7,7 @@ import {
     Avatar,
   } from "@material-tailwind/react";
 
-const BgBlockCard = () => {
+const BgBlockCard = ({clientData}) => {
   return (
     <Card
     shadow={true}
