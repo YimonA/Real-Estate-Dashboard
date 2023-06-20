@@ -20,7 +20,7 @@ export const saleApi = createApi({
       query: (sale) => ({
         url: "/sale",
         method: "POST",
-        body: rent,
+        body: sale,
       }),
       invalidatesTags: ["sale"],
     }),

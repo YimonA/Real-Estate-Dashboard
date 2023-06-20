@@ -49,16 +49,12 @@ const App = () => {
   return (
     <div>
         <Routes>
-        <Route path={"/"} element={<PropertyList/>} />
+        <Route path={"/property"} element={<PropertyList/>} />
         <Route path='/saledetail/:id' element={<SaleDetail/>} />
         <Route path='/rentdetail/:id' element={<RentDetail/>} />
-        <Route path='/salecreatel/:id' element={<SaleCreate/>} />
-        <Route path='/rentcreate/:id' element={<RentCreate/>} />
-
-        {/* 
-        <Route path='/edit/:id' element={<Edit/>} />
-        <Route path='/create' element={<Create/>} />
-        */}
+        <Route path='/salecreate' element={<SaleCreate/>} />
+        <Route path='/rentcreate' element={<RentCreate/>} />
+        
 
         </Routes>
     </div>
