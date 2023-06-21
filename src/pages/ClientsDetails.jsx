@@ -4,7 +4,7 @@ import {  Card, Typography } from "@material-tailwind/react";
 import {AiFillStar} from "react-icons/ai"
 import {MdArrowBack} from "react-icons/md"
 import { Link } from "react-router-dom";
-import BgBlockCard from "../components/BgBlockCard";
+import BgBlockCard from "../Components/BgBlockCard";
 
 const ClientsDetails = () => {
     const location = useLocation();
