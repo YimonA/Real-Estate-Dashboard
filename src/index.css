@@ -16,3 +16,124 @@
 html {
   scroll-behavior: smooth;
 }
+
+
+.myGlassBg {
+  /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.3);
+  width: 100wh;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(9px);
+}
+.myliForDropDown:hover .myDivDrop {
+  display: block;
+}
+.myliForDropDown:active .myDivDrop {
+  display: block;
+}
+.myZImg {
+  position: absolute;
+  z-index: -5;
+}
+.myBorderColor:focus{
+  border-color: rgb(163 230 53);
+}
+
+.snow-bg {
+  position: relative;
+}
+
+.snow-bg:after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 2;
+  opacity: 85%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image: url("https://library.elementor.com/resources/christmas-snow-effect/s1.png"),
+    url("https://library.elementor.com/resources/christmas-snow-effect/s2.png"),
+    url("https://library.elementor.com/resources/christmas-snow-effect/s3.png");
+  animation: snow 10s linear infinite;
+}
+
+@keyframes snow {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px;
+  }
+  50% {
+    background-position: 500px 500px, 100px 200px, -100px 150px;
+  }
+  100% {
+    background-position: 500px 1000px, 200px 400px, -100px 300px;
+  }
+}
+
+.myImg {
+  animation-name: myImg;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+
+@keyframes myImg {
+  from {
+    transform: scale(1.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.myDarkBtnMoveUp {
+  animation-name: myDarkBtnMoveUp;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-direction: alternate;
+}
+
+@keyframes myDarkBtnMoveUp {
+  from {
+    transform: translateX(20px);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+.myDarkBtnMoveDown {
+  animation-name: myDarkBtnMoveDown;
+  animation-fill-mode: forwards;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-direction: alternate;
+}
+
+@keyframes myDarkBtnMoveDown {
+  from {
+    transform: translateX(0px);
+  }
+  to {
+    transform: translateX(26px);
+  }
+}
+
+
+.active{
+  @apply border-l-4 border-green-700 text-green-700
+}
+
+.flex-between-center{
+  @apply flex flex-wrap justify-between items-center;
+}
+.flex-center-center{
+  @apply flex flex-wrap justify-center items-center;
+}
+
+.btn {
+  @apply rounded-md text-sm md:text-lg font-medium;
+}

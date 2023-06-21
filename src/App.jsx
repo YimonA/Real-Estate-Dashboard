@@ -2,13 +2,26 @@
 import Clients from './pages/Clients'
 import ClientsDetails from './pages/ClientsDetai
 import React from "react";
+import { createTheme, ThemeProvider} from "@mui/material";
+
 import PropertyList from "./Pages/PropertyList";
 import SaleDetail from "./Pages/SaleDetail";
 import { Route, Routes } from "react-router-dom";
 import "./index.css";
 import RentDetail from "./Pages/RentDetail";
-import SaleCreate from './Pages/SaleCreate';
-import RentCreate from './Pages/RentCreate'
+import SaleCreate from "./Pages/SaleCreate";
+import RentCreate from "./Pages/RentCreate";
+
+
+import 'animate.css';
+import Login from "./Pages/Login";
+import Dashboard from "./Pages/Dashboard";
+import Home from "./Pages/Home";
+import Profile from "./Pages/Profile";
+import PropertyListItem from "./Components/PropertyListItem";
+import Error from "./Pages/Error";
+import AddProperty from "./Pages/AddProperty";
+import Customer from "./Pages/Customer";
 
 
 const App = () => {
@@ -50,9 +63,31 @@ const App = () => {
         "https://hously-react.vercel.app/static/media/6.e926f8483d02a9e86342.jpg",
     },
   ];
+
+  const theme = createTheme({
+    palette: {
+      mode: "light",
+      lightWhite: {
+        main: "rgb(255,255,255,0.55)",
+      },
+      lightWhiteHover: {
+        main: "rgb(255,255,255,0.75)",
+      },
+      caption: {
+        fontSize: "14px",
+      },
+    },
+    typography: {
+      fontFamily: ["League Spartan", "sans-serif"].join(","),
+    },
+  });
+
   return (
 
-   <Routes>
+    <div>
+      <ThemeProvider theme={theme}>
+        <Routes>
+          
     <Route path='/clients' element={<Clients/>}/>
     <Route path='/clientsDetail/:id' element={<ClientsDetails/>}/>
    
@@ -64,8 +99,18 @@ const App = () => {
         <Route path='/rentcreate' element={<RentCreate/>} />
         
 
+
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/propertylist" element={<PropertyList />} />
+          <Route path="/customer" element={<Customer />} />
+          <Route path="*" element={<Error />} />
         </Routes>
-   
+      </ThemeProvider>
+    </div>
+
   );
 };
 
