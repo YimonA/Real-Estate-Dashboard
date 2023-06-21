@@ -41,7 +41,7 @@ const Home = () => {
         <div className=" w-full shadow-custom bg-[#FFF]">
           <div className="flex flex-wrap justify-between items-center px-6 py-4 ">
             <div className=" capitalize text-[#212529] text-xl w-80">
-              real estate dashboard
+              real estate dashboard dashboard dashboard dashboard
             </div>
             <div className="flex justify-between items-center gap-3 ml-auto">
               <Breadcrumbs separator={<NavigateNextIcon fontSize="small" className=" text-[#8d97ad]" />} aria-label="breadcrumb">
