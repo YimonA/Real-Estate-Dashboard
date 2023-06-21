@@ -1,3 +1,6 @@
+
+import Clients from './pages/Clients'
+import ClientsDetails from './pages/ClientsDetai
 import React from "react";
 import { createTheme, ThemeProvider} from "@mui/material";
 
@@ -19,6 +22,7 @@ import PropertyListItem from "./Components/PropertyListItem";
 import Error from "./Pages/Error";
 import AddProperty from "./Pages/AddProperty";
 import Customer from "./Pages/Customer";
+
 
 const App = () => {
   const properties = [
@@ -79,14 +83,22 @@ const App = () => {
   });
 
   return (
+
     <div>
       <ThemeProvider theme={theme}>
         <Routes>
-          <Route path={"/property"} element={<PropertyList />} />
-          <Route path="/saledetail/:id" element={<SaleDetail />} />
-          <Route path="/rentdetail/:id" element={<RentDetail />} />
-          <Route path="/salecreate" element={<SaleCreate />} />
-          <Route path="/rentcreate" element={<RentCreate />} />
+          
+    <Route path='/clients' element={<Clients/>}/>
+    <Route path='/clientsDetail/:id' element={<ClientsDetails/>}/>
+   
+  
+        <Route path={"/property"} element={<PropertyList/>} />
+        <Route path='/saledetail/:id' element={<SaleDetail/>} />
+        <Route path='/rentdetail/:id' element={<RentDetail/>} />
+        <Route path='/salecreate' element={<SaleCreate/>} />
+        <Route path='/rentcreate' element={<RentCreate/>} />
+        
+
 
           <Route path="/" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -98,9 +110,9 @@ const App = () => {
         </Routes>
       </ThemeProvider>
     </div>
+
   );
 };
 
 export default App;
-
 //https://property-eof8.onrender.com/property
