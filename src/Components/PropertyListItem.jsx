@@ -84,8 +84,8 @@ const PropertyListItem = () => {
   };
 
   return (
-    <div className=" bg-[#EDF1F5] ">
-      <div className=" container mx-auto px-7 flex flex-col lg:flex-row justify-start gap-5 items-start py-5 pb-20">
+    <div className={` bg-[#EDF1F5]`}>
+      <div className=" flex flex-col lg:flex-row justify-start gap-5 items-start py-5 pb-20">
         <div className="w-full lg:basis-4/12 bg-white px-5 py-5">
           <h1 className=" px-3 mb-2 font-semibold text-xl">Search</h1>
 
@@ -172,7 +172,7 @@ const PropertyListItem = () => {
           </button>
         </div>
         {/* Rent Card Start*/}
-        <div className="w-full  lg:basis-8/12 flex flex-wrap gap-5 justify-center align-center">
+        <div className="w-full lg:basis-8/12 flex flex-wrap gap-0 sm:gap-5 justify-center items-center">
           {rentData?.map((rentProperty) => {
             return (
               <RentCard
@@ -195,17 +195,18 @@ const PropertyListItem = () => {
           })}
           {/* Pagination Start*/}
 
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-1 sm:gap-4">
             <Button
               variant="text"
               color="blue-gray"
-              className="flex items-center gap-2"
+              className="flex items-center gap-0 sm:gap-2"
               onClick={prev}
               disabled={active === 1}
             >
-              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" /> Previous
+              <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" /> 
+              <span className=" hidden sm:block">Previous</span>
             </Button>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-0 sm:gap-2">
               <IconButton {...getItemProps(1)}>1</IconButton>
               <IconButton {...getItemProps(2)}>2</IconButton>
               <IconButton {...getItemProps(3)}>3</IconButton>
@@ -215,12 +216,12 @@ const PropertyListItem = () => {
             <Button
               variant="text"
               color="blue-gray"
-              className="flex items-center gap-2"
+              className="flex items-center gap-0 sm:gap-2"
               onClick={next}
               disabled={active === 5}
             >
-              Next
-              <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+              <span className="hidden sm:block">Next</span>
+              <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
             </Button>
           </div>
           {/* Pagination End*/}

@@ -29,13 +29,13 @@ const RentCard = (rentProperty) => {
         <div className=" w-full md:basis-8/12 flex flex-col lg:flex-row md:justify-between items-center">
           <div className=" w-full md:basis-8/12 h-full md:px-5 py-5">
             <Link to={`/rentdetail/${rentProperty?.id}`}>
-              <p onClick={scrollYHandler} className="font-semibold hover:text-green-600">
-                {rentProperty?.addressLine1}{" "}
+              <p onClick={scrollYHandler} className="font-semibold hover:text-green-700 text-[#212529]">
+                {rentProperty?.addressLine1}
               </p>
             </Link>
             <p className=" text-red-300">$ {rentProperty?.price}</p>
           </div>
-          <div className=" w-full md:basis-8/12 text-gray-500 border-t-2 lg:border-t-0 lg:border-l-2 border-gray-300 md:px-5 py-5 h-full">
+          <div className=" w-full md:basis-8/12 text-gray-500 md:px-5 py-5 h-full border-t-2 lg:border-t-0 lg:border-l-2 border-[#e9ecef]  "> 
             <p className=" flex justify-start items-center gap-4">
               <LuBath size={"1.7rem"} />{" "}
               <span className=" text-gray-500	">Bathrooms</span>
@@ -50,7 +50,7 @@ const RentCard = (rentProperty) => {
             </p>
           </div>
         </div>
-        <div className=" w-full md:basis-4/12 flex gap-2 md:gap-5   justify-start items-center md:px-5 py-5 h-full border-t-2 lg::border-t-0  border-gray-300 ">
+        <div className=" w-full md:basis-4/12 flex gap-2 md:gap-5   justify-start items-center md:px-5 py-5 h-full  border-t-2 lg::border-t-0  border-[#e9ecef]">
           <div className=" basis-2/12">
             <img
               className="w-12 h-12 rounded-full"
