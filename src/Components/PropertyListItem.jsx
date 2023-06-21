@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { Fragment } from "react";
 import {
@@ -6,13 +6,13 @@ import {
   AccordionHeader,
   AccordionBody,
 } from "@material-tailwind/react";
-import RentCard from "../Components/RentCard";
-import SaleCard from "../Components/SaleCard";
+import RentCard from "./RentCard";
+import SaleCard from "./SaleCard";
 import { useGetSaleQuery } from "../redux/api/saleApi";
 import { useGetRentQuery } from "../redux/api/rentApi";
 import { Loader } from "@mantine/core";
-//import { Button, IconButton } from "@material-tailwind/react";
-//import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { Button, IconButton } from "@material-tailwind/react";
+import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 function Icon({ id, open }) {
   return (
@@ -31,52 +31,22 @@ function Icon({ id, open }) {
   );
 }
 
-const PropertyList = () => {
-  const { data: rentData, isLoading } = useGetRentQuery();
-  const { data: saleData } = useGetSaleQuery();
+const PropertyListItem = () => {
   const [open, setOpen] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-
   //const [activePage, setPage] = useState(1);
 
+  const [arr,setArr]=useState([])
 
+  const { data: rentData, isLoading } = useGetRentQuery();
+  const { data: saleData } = useGetSaleQuery();
   console.log("sd", saleData);
   console.log("rd", rentData);
 
-  /*
-  console.log("rd", rentData.slice(0, 5));
-setInterval(()=>{
-  const recordPerPage = 5;
-  const lastIndex = currentPage * recordPerPage;
-  const firstIndex = lastIndex - recordPerPage;
-  const records = rentData?.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(rentData.length / recordPerPage);
-  const numbers = [...Array(npage + 1).keys()].slice(1);
-},3000)
-    
-    
-
-  function prevPage() {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  }
-
-  function changeCPage(id) {
-    setCurrentPage(id);
-  }
-
-  function nextPage() {
-    if (currentPage !== npage) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
-*/
   //console.log(rentData.length)
 
   //const totalPage = ([...rentData].length + [...saleData].length) / 4;
   //console.log("totalPage", totalPage);
-  /*
+
   const [active, setActive] = React.useState(1);
 
   const getItemProps = (index) => ({
@@ -96,7 +66,7 @@ setInterval(()=>{
 
     setActive(active - 1);
   };
-*/
+
   if (isLoading) {
     return (
       <div className=" flex justify-center items-center h-screen">
@@ -107,6 +77,10 @@ setInterval(()=>{
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
+  };
+
+  const scrollYHandler = () => {
+    window.scroll(0, 0);
   };
 
   return (
@@ -192,25 +166,34 @@ setInterval(()=>{
               </AccordionBody>
             </Accordion>
           </Fragment>
-          <button className=" flex justify-start my-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none cursor-pointer">
-            <BiSearchAlt className="xs:mb-[4px] md:mb-1 sm:text-lg" />
+          <button className=" flex justify-start my-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded border-none cursor-pointer">
+            <BiSearchAlt className="xs:mb-[4px] md:mb-1 sm:text-lg me-1 mt-[2px]" />
             Search
           </button>
         </div>
         {/* Rent Card Start*/}
         <div className="w-full  lg:basis-8/12 flex flex-wrap gap-5 justify-center align-center">
           {rentData?.map((rentProperty) => {
-            return <RentCard key={rentProperty.id} {...rentProperty} />;
+            return (
+              <RentCard
+                key={rentProperty.id}
+                {...rentProperty}
+              />
+            );
           })}
           {/* Rent Card End*/}
 
           {/* Sale Card Start*/}
-
+          
           {saleData?.map((saleProperty) => {
-            return <SaleCard key={saleProperty.id} {...saleProperty} />;
+            return (
+              <SaleCard
+                key={saleProperty.id}
+                {...saleProperty}
+              />
+            );
           })}
-
-          {/* Pagination Start
+          {/* Pagination Start*/}
 
           <div className="flex items-center gap-4">
             <Button
@@ -240,42 +223,12 @@ setInterval(()=>{
               <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
             </Button>
           </div>
-          
-          Pagination End*/}
+          {/* Pagination End*/}
         </div>
-
-        {/*Pagination*/}
-        {/* 
-        <nav>
-          <ul>
-            <li className=" page-item">
-              <a href="#" className="page-link" onClick={prevPage}>
-                Prev
-              </a>
-            </li>
-            {numbers.map((n, i) => {
-              <li
-                className={` page-item ${currentPage === n ? "active" : ""}`}
-                key={i}
-              >
-                <a href="#" className="page-link" onClick={changeCPage(n)}>
-                  {n}
-                </a>
-              </li>;
-            })}
-            <li>
-              <a href="#" className="page-link" onClick={nextPage}>
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
-        */}
-
         {/* Sale Card End*/}
       </div>
     </div>
   );
 };
 
-export default PropertyList;
+export default PropertyListItem;

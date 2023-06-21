@@ -44,11 +44,12 @@ const RentDetail = () => {
                 </div>
               )}
             >
-              {rentDetailData?.image.map((image) => {
+              {rentDetailData?.image.map((image,i) => {
                 return (
                   <img
                     src={image}
                     alt="image 1"
+                    key={i}
                     className="h-[450px] w-full object-center object-cover"
                   />
                 );
