@@ -1,6 +1,6 @@
 
-import Clients from './pages/Clients'
-import ClientsDetails from './pages/ClientsDetai
+import Clients from './Pages/Clients'
+import ClientsDetails from './Pages/ClientsDetails';
 import React from "react";
 import { createTheme, ThemeProvider} from "@mui/material";
 
