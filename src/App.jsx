@@ -1,3 +1,6 @@
+
+import Clients from './pages/Clients'
+import ClientsDetails from './pages/ClientsDetai
 import React from "react";
 import PropertyList from "./Pages/PropertyList";
 import SaleDetail from "./Pages/SaleDetail";
@@ -6,6 +9,7 @@ import "./index.css";
 import RentDetail from "./Pages/RentDetail";
 import SaleCreate from './Pages/SaleCreate';
 import RentCreate from './Pages/RentCreate'
+
 
 const App = () => {
   const properties = [
@@ -47,8 +51,12 @@ const App = () => {
     },
   ];
   return (
-    <div>
-        <Routes>
+
+   <Routes>
+    <Route path='/clients' element={<Clients/>}/>
+    <Route path='/clientsDetail/:id' element={<ClientsDetails/>}/>
+   
+  
         <Route path={"/property"} element={<PropertyList/>} />
         <Route path='/saledetail/:id' element={<SaleDetail/>} />
         <Route path='/rentdetail/:id' element={<RentDetail/>} />
@@ -57,10 +65,9 @@ const App = () => {
         
 
         </Routes>
-    </div>
+   
   );
 };
 
 export default App;
-
 //https://property-eof8.onrender.com/property
