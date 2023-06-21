@@ -17,7 +17,12 @@ const SidebarItems = ({open, close}) => {
             path: '/customer',
             icon: <PeopleAltIcon/>,
             name: 'customer',
-        }
+        },
+        // {
+        //   path: '/clientsDetail',
+        //   icon: <PeopleAltIcon/>,
+        //   name: 'customer detail',
+        // }
     ]
 
     const propertyListItem = [
@@ -26,20 +31,25 @@ const SidebarItems = ({open, close}) => {
         icon: <VillaIcon/>,
         name: 'property list',
       },
+      // {
+      //   path: '/rentdetail',
+      //   icon: <TaskAltIcon/>,
+      //   name: 'property rent detail',
+      // },
+      // {
+      //   path: '/saledetail',
+      //   icon: <TaskAltIcon/>,
+      //   name: 'property sale detail',
+      // },
       {
-        path: '/rentdetail',
-        icon: <TaskAltIcon/>,
-        name: 'property rent detail',
-      },
-      {
-        path: '/saledetail',
-        icon: <TaskAltIcon/>,
-        name: 'property sale detail',
+        path: '/rentcreate',
+        icon: <AddHomeWorkIcon/>,
+        name: 'add rent property',
       },
       {
         path: '/salecreate',
         icon: <AddHomeWorkIcon/>,
-        name: 'add property',
+        name: 'add sale property',
       },
     ]
 
@@ -53,7 +63,7 @@ const SidebarItems = ({open, close}) => {
 
       {/* Dashboard, Customer  */} 
       <div className=" ">
-        {personalItem.map((item, i) => {
+        {personalItem?.map((item, i) => {
             return(
              <div className=" hover:bg-[#0000000a]" key={i}> {/* text-[#8d97ad] text-green-700 */}
                <NavLink to={item.path} className={`flex py-[10px] px-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] ${({ isActive })=> (isActive? "active": " border-l-4 border-transparent")}`}>
@@ -72,7 +82,7 @@ const SidebarItems = ({open, close}) => {
 
       {/* Property */}
       <div className=" ">
-        {propertyListItem.map((item, i) => {
+        {propertyListItem?.map((item, i) => {
             return(
              <div className=" hover:bg-[#0000000a]" key={i}> {/* text-[#8d97ad] text-green-700 */}
                <NavLink to={item.path} className={`flex py-[10px] px-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] ${({ isActive })=> (isActive? "active": " border-l-4 border-transparent")}`}>

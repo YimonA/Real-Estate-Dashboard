@@ -10,8 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { removeUser } from '../redux/services/authSlice';
 
-
-const Dashboard = () => {
+const Dashboard = ({children}) => {
   const [open, setOpen] = useState(true);
   const [close, setClose] = useState(false);
 
@@ -35,21 +34,14 @@ const Dashboard = () => {
       console.log(data);
     };
 
-  // useEffect(()=>{
-  //   if(window.outerWidth === 390){
-  //     return(
-
-  //       setOpen(false)
-  //     )
-      
-  //   }
-  // },[window.outerWidth])
-
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex"}}>
       <CssBaseline />
-      <Navbar open={open} setOpen={setOpen} user={user} logoutHandler={logoutHandler}/>
-      <Sidebar open={open} setOpen={setOpen} close={close} setClose={setClose} user={user} logoutHandler={logoutHandler}/>
+      <Navbar open={open} setOpen={setOpen} user={user} logoutHandler={logoutHandler}/> {/* appbar */}
+      <Sidebar open={open} setOpen={setOpen} close={close} setClose={setClose} user={user} logoutHandler={logoutHandler}/> {/* drawer */}
+      <Box component="main" className=" pt-[57px] sm:pt-[63px]" sx={{ flexGrow: 1, backgroundColor: "#EBEFF3", px: 0 }}>
+        <div className="">{children}</div> {/* for items div in sidebar */}
+      </Box>
     </Box>
   )
 }

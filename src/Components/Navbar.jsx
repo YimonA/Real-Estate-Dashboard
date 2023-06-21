@@ -100,12 +100,12 @@ function NavList({ user, logoutHandler }) {
                 <div className="h-[317px] overflow-y-scroll overflow-x-hidden">
                   {notiItems.map((item, i) => {
                     return (
-                      <div className="flex border-b border-b-[#e9ecef]" key={i}>
+                      <div className="flex border-b border-b-[#e9ecef] " key={i}>
                         <div className="flex items-center py-[9px] px-[15px] gap-4">
                           <div
                             className={` bg-[${item.color}] border-[${item.color}] rounded-full w-[40px] h-[40px] p-[10px]`}
                           >
-                            <div className=" text-white text-center text-[14px] font-extrabold m-[2px]">
+                            <div className="z-20 text-white text-center text-[14px] font-extrabold m-[2px]">
                               {item.icon}
                             </div>
                           </div>
@@ -187,6 +187,7 @@ const Navbar = (props) => {
     <AppBar
       position="fixed"
       open={open}
+      className=" w-[80%] md:w-full"
       sx={{ backgroundColor: "rgb(21, 128, 61)" }}
     >
       <div className="flex items-center justify-between gap-5">

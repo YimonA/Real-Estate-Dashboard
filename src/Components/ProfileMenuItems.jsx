@@ -22,7 +22,8 @@ const ProfileMenuItems = (props) => {
   const {isMenuOpen, setIsMenuOpen, closeMenu, user, logoutHandler } = props;
   
   return (
-    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+   <div className=" hidden sm:block">
+    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end" >
       <MenuHandler>
         <Button
           variant="text"
@@ -109,6 +110,8 @@ const ProfileMenuItems = (props) => {
         </MenuItem>
       </MenuList>
     </Menu>
+    </div>
+  
   );
 };
 

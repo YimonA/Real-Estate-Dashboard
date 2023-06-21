@@ -1,28 +1,22 @@
-
-import Clients from './Pages/Clients'
-import ClientsDetails from './Pages/ClientsDetails';
 import React from "react";
 import { createTheme, ThemeProvider} from "@mui/material";
-
-import PropertyList from "./Pages/PropertyList";
 import SaleDetail from "./Pages/SaleDetail";
 import { Route, Routes } from "react-router-dom";
-import "./index.css";
 import RentDetail from "./Pages/RentDetail";
-import SaleCreate from "./Pages/SaleCreate";
-import RentCreate from "./Pages/RentCreate";
-
-
-import 'animate.css';
 import Login from "./Pages/Login";
 import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
+import PropertyList from "./Pages/PropertyList";
 import PropertyListItem from "./Components/PropertyListItem";
 import Error from "./Pages/Error";
-import AddProperty from "./Pages/AddProperty";
 import Customer from "./Pages/Customer";
+import ClientsDetails from "./Pages/ClientsDetails";
+import AddSaleProperty from "./Pages/AddSaleProperty";
+import AddRentProperty from "./Pages/AddRentProperty";
 
+import "./index.css";
+import 'animate.css';
 
 const App = () => {
   const properties = [
@@ -68,51 +62,48 @@ const App = () => {
     palette: {
       mode: "light",
       lightWhite: {
-        main: "rgb(255,255,255,0.55)",
+        main: 'rgb(255,255,255,0.55)',
       },
       lightWhiteHover: {
-        main: "rgb(255,255,255,0.75)",
+        main: 'rgb(255,255,255,0.75)'
       },
       caption: {
-        fontSize: "14px",
-      },
+        fontSize: '14px',
+        
+      }
     },
     typography: {
-      fontFamily: ["League Spartan", "sans-serif"].join(","),
-    },
-  });
-
+      fontFamily: [
+        'League Spartan',
+        'sans-serif',
+      ].join(','),
+    }
+  })
   return (
-
     <div>
       <ThemeProvider theme={theme}>
         <Routes>
-          
-    <Route path='/clients' element={<Clients/>}/>
-    <Route path='/clientsDetail/:id' element={<ClientsDetails/>}/>
-   
-  
-        <Route path={"/property"} element={<PropertyList/>} />
         <Route path='/saledetail/:id' element={<SaleDetail/>} />
         <Route path='/rentdetail/:id' element={<RentDetail/>} />
-        <Route path='/salecreate' element={<SaleCreate/>} />
-        <Route path='/rentcreate' element={<RentCreate/>} />
+        <Route path='/salecreate' element={<AddSaleProperty/>} />
+        <Route path='/rentcreate' element={<AddRentProperty/>} />
+        <Route path='/property' element={<PropertyListItem/>} />
+
+        <Route path='/' element={<Login/>} />
+        <Route path='/dashboard' element={<Dashboard/>} />
+        <Route path='/home' element={<Home/>} />
+        <Route path='/profile' element={<Profile/>} />
+        <Route path='/propertylist' element={<PropertyList/>}/>
+        <Route path='/customer' element={<Customer/>}/>
+        <Route path="*" element={<Error/> }/>
         
-
-
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/propertylist" element={<PropertyList />} />
-          <Route path="/customer" element={<Customer />} />
-          <Route path="*" element={<Error />} />
+        <Route path='/clientsDetail/:id' element={<ClientsDetails/>}/>
         </Routes>
-      </ThemeProvider>
+        </ThemeProvider>
     </div>
-
   );
 };
 
 export default App;
+
 //https://property-eof8.onrender.com/property

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import ClientCard from "../Components/ClientCard";
+
 const Clients = () => {
     const [clients, setClients] = useState([]);
   const fetchData = async () => {
@@ -13,9 +14,10 @@ const Clients = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
-    <div className=" container mx-auto my-5 ">
-    <div className=" flex flex-wrap justify-center">
+    <div className=" ">
+    <div className=" flex flex-wrap justify-center sm:justify-between gap-4">
       {clients?.map((client) => {
         return (
           <div key={client?.id} className="  items-center gap-2 my-3 px-10">
