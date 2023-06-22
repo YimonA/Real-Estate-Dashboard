@@ -34,7 +34,21 @@ const SaleCreate = () => {
       bedRoom: "",
       diningRoom: "",
       kitchen: "",
-      image: "",
+      image: [
+        "https://plus.unsplash.com/premium_photo-1686318003868-5069a10e8377?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+        "https://v.seloger.com/s/width/600/visuels/1/0/b/p/10bpx8din43tkf2tdlgo7fv3dmg3f7gnz3u6enj00.jpg",
+        "https://v.seloger.com/s/width/600/visuels/2/a/1/2/2a12ftteof9gg0xjeo21qugu9nzlc9xskkb9q5xbk.jpg"
+        ],
+        permalink:"https://momento360.com/e/u/3d2c47a8bf914a05ae50a67918a6684a?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium&display-plan=true",
+        bullet: [
+        "EPC rating C",
+        "Unfurnished two-bedroom apartment",
+        "Private courtyard garden",
+        "Adjacent to the beautiful South Park"
+        ],
+        city: "Austin",
+        county: "Travis",
+
     },
 
     validate: {
@@ -80,7 +94,7 @@ const SaleCreate = () => {
               //console.log("t", token);
               console.log("d", data);
               //dispatch(addUser({ user: data?.user, token: data?.token }));
-              //nav("/property");
+              nav("/property");
             } catch (error) {
               console.log(error);
             }
@@ -177,7 +191,7 @@ const SaleCreate = () => {
             />
           </div>
 
-          <div className="my-5 flex flex-col lg:flex-row gap-5 justify-start items-start lg:items-center my-5">
+          <div className="my-5 flex flex-col lg:flex-row gap-5 justify-start items-start lg:items-center">
             <Select
               placeholder="Status"
               className=" w-full lg:w-52"
@@ -236,7 +250,8 @@ const SaleCreate = () => {
           {/* Upload End*/}
 
           <button
-            
+            disabled={isLoading && true}
+            type="submit"
             className="w-32 my-5 mr-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none"
           >
             {isLoading ? (

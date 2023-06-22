@@ -70,7 +70,7 @@ const PropertyListItem = () => {
   if (isLoading) {
     return (
       <div className=" flex justify-center items-center h-screen">
-        <Loader variant="dots" />
+        <Loader variant="dots" color="green"/>
       </div>
     );
   }
@@ -86,10 +86,10 @@ const PropertyListItem = () => {
   return (
     <div className={` bg-[#EDF1F5]`}>
       <div className=" flex flex-col lg:flex-row justify-start gap-5 items-start py-5 pb-20">
-        <div className="w-full lg:basis-4/12 bg-white px-5 py-5">
+        <div className="w-full lg:basis-4/12 bg-white px-5 py-5 sticky top-20 left-0 z-30">
           <h1 className=" px-3 mb-2 font-semibold text-xl">Search</h1>
 
-          <Fragment>
+          <Fragment >
             <Accordion
               open={open === 1}
               icon={<Icon id={1} open={open} className=" py-2" />}

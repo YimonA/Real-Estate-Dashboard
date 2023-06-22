@@ -35,8 +35,20 @@ const RentCreate = () => {
       bedRoom: "",
       diningRoom: "",
       kitchen: "",
-      image: "",
-    },
+      image: [
+        "https://plus.unsplash.com/premium_photo-1686318003868-5069a10e8377?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+        "https://v.seloger.com/s/width/600/visuels/1/0/b/p/10bpx8din43tkf2tdlgo7fv3dmg3f7gnz3u6enj00.jpg",
+        "https://v.seloger.com/s/width/600/visuels/2/a/1/2/2a12ftteof9gg0xjeo21qugu9nzlc9xskkb9q5xbk.jpg"
+        ],
+        permalink:"https://momento360.com/e/u/3d2c47a8bf914a05ae50a67918a6684a?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium&display-plan=true",
+        bullet: [
+        "EPC rating C",
+        "Unfurnished two-bedroom apartment",
+        "Private courtyard garden",
+        "Adjacent to the beautiful South Park"
+        ],
+        city: "Austin",
+        county: "Travis",    },
 
     validate: {
       addressLine1: (value) =>
@@ -74,13 +86,9 @@ const RentCreate = () => {
           onSubmit={form.onSubmit(async (values) => {
             try {
               const {data} = await createRent(values);
-              console.log("v", values);
-              //console.log('id',id);
-
-              //console.log("t", token);
+              
               console.log("d", data);
-              //dispatch(addUser({ user: data?.user, token: data?.token }));
-              //nav("/property");
+             nav("/propertylist");
             } catch (error) {
               console.log(error);
             }
