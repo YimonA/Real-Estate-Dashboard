@@ -10,7 +10,7 @@ const RentCard = (rentProperty) => {
   const scrollYHandler = () => {
     window.scroll(0, 0);
   };
-  console.log("rr", rentProperty?.image[0]);
+  //console.log("rr", rentProperty?.image[0]);
   return (
     <div className="w-full bg-white flex flex-col lg:flex-row justify-start items-center relative mt-5">
       <Chip
@@ -26,11 +26,11 @@ const RentCard = (rentProperty) => {
         loading="lazy"
       />
       <Link to={`/rentdetail/${rentProperty?.id}`}>
-        <div className="w-full h-fit md:basis-8/12 md:h-56 px-3 flex flex-col  bg-white ">
+        <div onClick={scrollYHandler}
+ className="w-full h-fit md:basis-8/12 md:h-56 px-3 flex flex-col  bg-white ">
           <div className=" w-full md:basis-8/12 flex flex-col lg:flex-row md:justify-between items-center">
             <div className=" w-full md:basis-8/12 h-full md:px-5 py-5">
               <p
-                onClick={scrollYHandler}
                 className="font-semibold hover:text-green-700 text-[#212529]"
               >
                 {rentProperty?.addressLine1}

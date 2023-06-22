@@ -8,6 +8,8 @@ import {
   Select,
 } from "@mantine/core";
 import { hasLength, useForm } from "@mantine/form";
+import { DateInput } from "@mantine/dates";
+
 import "../index.css";
 //import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,7 +22,7 @@ const SaleCreate = () => {
 
   const form = useForm({
     initialValues: {
-      id:Date.now(),
+      id: Date.now(),
       addressLine1: "",
       formattedAddress: "",
       price: "",
@@ -37,18 +39,18 @@ const SaleCreate = () => {
       image: [
         "https://plus.unsplash.com/premium_photo-1686318003868-5069a10e8377?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
         "https://v.seloger.com/s/width/600/visuels/1/0/b/p/10bpx8din43tkf2tdlgo7fv3dmg3f7gnz3u6enj00.jpg",
-        "https://v.seloger.com/s/width/600/visuels/2/a/1/2/2a12ftteof9gg0xjeo21qugu9nzlc9xskkb9q5xbk.jpg"
-        ],
-        permalink:"https://momento360.com/e/u/3d2c47a8bf914a05ae50a67918a6684a?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium&display-plan=true",
-        bullet: [
+        "https://v.seloger.com/s/width/600/visuels/2/a/1/2/2a12ftteof9gg0xjeo21qugu9nzlc9xskkb9q5xbk.jpg",
+      ],
+      permalink:
+        "https://momento360.com/e/u/3d2c47a8bf914a05ae50a67918a6684a?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium&display-plan=true",
+      bullet: [
         "EPC rating C",
         "Unfurnished two-bedroom apartment",
         "Private courtyard garden",
-        "Adjacent to the beautiful South Park"
-        ],
-        city: "Austin",
-        county: "Travis",
-
+        "Adjacent to the beautiful South Park",
+      ],
+      city: "Austin",
+      county: "Travis",
     },
 
     validate: {
@@ -87,7 +89,7 @@ const SaleCreate = () => {
         <form
           onSubmit={form.onSubmit(async (values) => {
             try {
-              const {data} = await createSale(values);
+              const { data } = await createSale(values);
               console.log("v", values);
               //console.log('id',id);
 
@@ -174,16 +176,25 @@ const SaleCreate = () => {
             />
           </div>
           <div className=" flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 my-5">
-            <TextInput
-              {...form.getInputProps("listedDate")}
+            <DateInput
+              valueFormat="YYYY-MM-DD HH:mm:ss"
               label="Listed Date"
+              placeholder="Date input"
+              maw={400}
+              mx="auto"
               className=" w-full"
+
             />
-            <TextInput
-              {...form.getInputProps("createdDate")}
+            <DateInput
+              valueFormat="YYYY-MM-DD HH:mm:ss"
               label="Created Date"
+              placeholder="Date input"
+              maw={400}
+              mx="auto"
               className=" w-full"
+
             />
+
             <TextInput
               {...form.getInputProps("state")}
               label="State"
@@ -204,8 +215,11 @@ const SaleCreate = () => {
               placeholder="Type"
               className=" w-full lg:w-52"
               data={[
-                { value: "single", label: "Single" },
-                { value: "double", label: "Double" },
+                { value: "apartment", label: "Apartment" },
+              { value: "villa", label: "Villa/Mansion" },
+              { value: "cottage", label: "Cottage" },
+              { value: "flat", label: "Flat" },
+              { value: "house", label: "House" },
               ]}
             />
           </div>
@@ -264,10 +278,9 @@ const SaleCreate = () => {
             )}
           </button>
           <Link to={`/property`}>
-            <button              
-            disabled={isLoading && true}
-            type="submit"
-
+            <button
+              disabled={isLoading && true}
+              type="submit"
               className="w-20 my-5 py-2 px-3 leading-[24px] text-white bg-gray-800 hover:bg-gray-900 border rounded-sm border-none"
             >
               Cancel

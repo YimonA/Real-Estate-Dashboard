@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   rent: [],
-  searchTerm: "",
+  rentSearchTerm: "",
 };
 
 export const rentSlice = createSlice({
@@ -13,11 +13,11 @@ export const rentSlice = createSlice({
     addRent:(state,{payload})=>{
         state.rent=payload;
     },
-    setSearchTerm:(state,{payload})=>{
-        state.searchTerm=payload;
+    setRentSearchTerm:(state,{payload})=>{
+        state.rentSearchTerm=payload;
     }
   },
 });
 
-export const {addRent,setSearchTerm} = rentSlice.actions;
+export const {addRent,setRentSearchTerm} = rentSlice.actions;
 export default rentSlice.reducer;

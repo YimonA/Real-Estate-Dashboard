@@ -8,6 +8,8 @@ import {
   Select,
 } from "@mantine/core";
 import { hasLength, useForm } from "@mantine/form";
+import { DateInput } from "@mantine/dates";
+
 import "../index.css";
 //import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
@@ -168,15 +170,23 @@ const RentCreate = () => {
             />
           </div>
           <div className=" flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 my-5">
-            <TextInput
-              {...form.getInputProps("listedDate")}
+          <DateInput
+              valueFormat="YYYY-MM-DD HH:mm:ss"
               label="Listed Date"
+              placeholder="Date input"
+              maw={400}
+              mx="auto"
               className=" w-full"
+
             />
-            <TextInput
-              {...form.getInputProps("createdDate")}
+            <DateInput
+              valueFormat="YYYY-MM-DD HH:mm:ss"
               label="Created Date"
+              placeholder="Date input"
+              maw={400}
+              mx="auto"
               className=" w-full"
+
             />
             <TextInput
               {...form.getInputProps("state")}
@@ -198,8 +208,11 @@ const RentCreate = () => {
               placeholder="Type"
               className=" w-full lg:w-52"
               data={[
-                { value: "single", label: "Single" },
-                { value: "double", label: "Double" },
+                { value: "apartment", label: "Apartment" },
+              { value: "villa", label: "Villa/Mansion" },
+              { value: "cottage", label: "Cottage" },
+              { value: "flat", label: "Flat" },
+              { value: "house", label: "House" },
               ]}
             />
           </div>
