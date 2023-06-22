@@ -4,14 +4,14 @@ import SaleDetail from "./Pages/SaleDetail";
 import { Route, Routes } from "react-router-dom";
 import RentDetail from "./Pages/RentDetail";
 import Login from "./Pages/Login";
-import Dashboard from "./Pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
 import Home from "./Pages/Home";
 import Profile from "./Pages/Profile";
 import PropertyList from "./Pages/PropertyList";
 import PropertyListItem from "./Components/PropertyListItem";
 import Error from "./Pages/Error";
 import Customer from "./Pages/Customer";
-import ClientsDetails from "./Pages/ClientsDetails";
+import ClientsDetails from "./pages/ClientsDetails";
 import AddSaleProperty from "./Pages/AddSaleProperty";
 import AddRentProperty from "./Pages/AddRentProperty";
 
