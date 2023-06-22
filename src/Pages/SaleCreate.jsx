@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Loader,
   TextInput,
@@ -18,11 +18,17 @@ import { useCreateSaleMutation } from "../redux/api/saleApi";
 const SaleCreate = () => {
   const [createSale, { isLoading }] = useCreateSaleMutation();
   //const token = Cookies.get("token");
+  const [typeValue, setTypeValue] = useState("");
+  const [statusValue, setStatusValue] = useState("");
+  const [lDate, setLDate] = useState("");
+  const [cDate, setCDate] = useState("");
   const nav = useNavigate();
 
   const form = useForm({
     initialValues: {
       id: Date.now(),
+      propertyType: "",
+      status: "",
       addressLine1: "",
       formattedAddress: "",
       price: "",
@@ -49,7 +55,7 @@ const SaleCreate = () => {
         "Private courtyard garden",
         "Adjacent to the beautiful South Park",
       ],
-      city: "Austin",
+      city: "",
       county: "Travis",
     },
 
@@ -89,14 +95,16 @@ const SaleCreate = () => {
         <form
           onSubmit={form.onSubmit(async (values) => {
             try {
-              const { data } = await createSale(values);
+              const { data } = await createSale(
+                values,
+                (values["propertyType"] = typeValue),
+                (values["status"] = statusValue),
+                (values["createdDate"] = cDate),
+                (values["listedDate"] = lDate)
+              );
               console.log("v", values);
-              //console.log('id',id);
-
-              //console.log("t", token);
               console.log("d", data);
-              //dispatch(addUser({ user: data?.user, token: data?.token }));
-              nav("/property");
+              nav("/propertylist");
             } catch (error) {
               console.log(error);
             }
@@ -121,19 +129,12 @@ const SaleCreate = () => {
               placeholder="Enter Description"
               label="Property Description"
             />
-            <Radio.Group name="favoriteFramework" withAsterisk>
-              <Group mt="xs">
-                <Radio value="rent" label="For Rent" color="green" />
-                <Radio value="sake" label="For Sale" color="green" />
-              </Group>
-            </Radio.Group>
             <TextInput
               {...form.getInputProps("price")}
               label="Price / Rent"
               placeholder="Enter Number"
             />
             <Textarea label="Property Address " />
-            <Textarea label="Image " />
           </div>
           {/* Property End*/}
 
@@ -142,17 +143,20 @@ const SaleCreate = () => {
             <TextInput
               {...form.getInputProps("bedrooms")}
               label="Bedrooms"
+              placeholder="eg.(1) "
               className=" w-full"
             />
             <TextInput
               {...form.getInputProps("bathrooms")}
               label="Bath Rooms"
+              placeholder="eg.(1) "
               className=" w-full"
             />
             <TextInput
               {...form.getInputProps("squareFootage")}
               label="Square Ft"
               className=" w-full"
+              placeholder="eg.(2000) "
             />
           </div>
           {/* Bedrooms End*/}
@@ -175,56 +179,82 @@ const SaleCreate = () => {
               className=" w-full"
             />
           </div>
-          <div className=" flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 my-5">
-            <DateInput
-              valueFormat="YYYY-MM-DD HH:mm:ss"
-              label="Listed Date"
-              placeholder="Date input"
-              maw={400}
-              mx="auto"
-              className=" w-full"
 
-            />
-            <DateInput
-              valueFormat="YYYY-MM-DD HH:mm:ss"
-              label="Created Date"
-              placeholder="Date input"
-              maw={400}
-              mx="auto"
-              className=" w-full"
-
-            />
-
-            <TextInput
-              {...form.getInputProps("state")}
-              label="State"
-              className=" w-full"
-            />
-          </div>
-
-          <div className="my-5 flex flex-col lg:flex-row gap-5 justify-start items-start lg:items-center">
+          <div className="my-5 flex flex-col lg:flex-row gap-5 justify-start items-start">
             <Select
               placeholder="Status"
-              className=" w-full lg:w-52"
+              className=" w-full "
+              value={statusValue}
+              onChange={setStatusValue}
               data={[
                 { value: "active", label: "Active" },
                 { value: "inactive", label: "Inactive" },
               ]}
+              styles={(theme) => ({
+                item: {
+                  // applies styles to selected item
+                  "&[data-selected]": {
+                    "&, &:hover": {
+                      backgroundColor: theme.colors.green[8],
+                      color: theme.white,
+                    },
+                  },
+
+                  // applies styles to hovered item (with mouse or keyboard)
+                  "&[data-hovered]": {},
+                },
+              })}
             />
             <Select
               placeholder="Type"
-              className=" w-full lg:w-52"
+              className=" w-full "
+              value={typeValue}
+              onChange={setTypeValue}
               data={[
                 { value: "apartment", label: "Apartment" },
-              { value: "villa", label: "Villa/Mansion" },
-              { value: "cottage", label: "Cottage" },
-              { value: "flat", label: "Flat" },
-              { value: "house", label: "House" },
+                { value: "villa", label: "Villa/Mansion" },
+                { value: "cottage", label: "Cottage" },
+                { value: "flat", label: "Flat" },
+                { value: "house", label: "House" },
               ]}
+              styles={(theme) => ({
+                item: {
+                  // applies styles to selected item
+                  "&[data-selected]": {
+                    "&, &:hover": {
+                      backgroundColor: theme.colors.green[8],
+                      color: theme.white,
+                    },
+                  },
+                  // applies styles to hovered item (with mouse or keyboard)
+                  "&[data-hovered]": {},
+                },
+              })}
             />
           </div>
           {/* Year End*/}
-
+          <div className=" flex flex-col lg:flex-row justify-start items-start gap-3 my-5">
+            <DateInput
+              valueFormat="YYYY-MM-DD HH:mm:ss"
+              label="Listed Date"
+              placeholder="Date"
+              value={lDate}
+              onChange={setLDate}
+              maw={400}
+              mx="auto"
+              className=" w-full mx-0"
+            />
+            <DateInput
+              valueFormat="YYYY-MM-DD HH:mm:ss"
+              label="Created Date"
+              placeholder="Date"
+              value={cDate}
+              onChange={setCDate}
+              maw={400}
+              mx="auto"
+              className=" w-full mx-0"
+            />
+          </div>
           {/* Amenities Start
 
           <div>
@@ -234,34 +264,34 @@ const SaleCreate = () => {
 
           {/* Dimension Start*/}
 
-          <h1 className=" text-lg mb-3">Dimensions</h1>
+          <h1 className=" text-lg">Dimensions</h1>
           <div className=" flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 my-5">
             <TextInput
               {...form.getInputProps("livingRoom")}
               label="Living Room"
+              placeholder="eg.(10x10)"
               className=" w-full"
             />
             <TextInput
               {...form.getInputProps("bedRoom")}
               label="Bedroom"
+              placeholder="eg.(10x10)"
               className=" w-full"
             />
             <TextInput
               {...form.getInputProps("diningRoom")}
               label="Dining Room "
+              placeholder="eg.(10x10)"
               className=" w-full"
             />
             <TextInput
               {...form.getInputProps("kitchen")}
               label="Kitchen"
+              placeholder="eg.(10x10)"
               className=" w-full"
             />
           </div>
           {/* Dimension End*/}
-          {/* Upload Start */}
-
-          <h1 className=" text-lg my-5">Upload Files</h1>
-          {/* Upload End*/}
 
           <button
             disabled={isLoading && true}

@@ -35,7 +35,6 @@ function Icon({ id, open }) {
 const PropertyListItem = () => {
   const { data: rentData, isLoading } = useGetRentQuery();
   const { data: saleData } = useGetSaleQuery();
-  const [open, setOpen] = useState(0);
   //console.log("sd", saleData);
   //console.log("rd", rentData);
 
@@ -43,12 +42,14 @@ const PropertyListItem = () => {
   const [tValue, setTValue] = useState(null);
   const [R, setR] = useState(rentData);
   const [S, setS] = useState(saleData);
+  useEffect(() => {
+    SeeAllHandler();
+  }, []);
 
   useEffect(() => {
     console.log(rentData);
     console.log("Rval", rValue, "tval", tValue);
   }, [rValue, tValue]);
-  //const rents = useSelector((state) => state.rentSlice);
 
   const SearchHandler = () => {
     setR([]);
@@ -58,7 +59,6 @@ const PropertyListItem = () => {
       const aa = saleData.filter(
         (a) => a.propertyType.toLowerCase() === tValue
       );
-      //console.log("aa", aa);
       setS(aa);
       setRValue("");
       setTValue("");
@@ -70,16 +70,34 @@ const PropertyListItem = () => {
       setR(bb);
       setRValue("");
       setTValue("");
+    } else if (rValue === "sale" && tValue === "") {
+      setS(saleData);
+      setRValue("");
+      setTValue("");
+    } else if (rValue === "rent" && tValue === "") {
+      setR(rentData);
+      setRValue("");
+      setTValue("");
+    } else if (rValue === null && tValue !== "") {
+      const aa = saleData.filter(
+        (a) => a.propertyType.toLowerCase() === tValue
+      );
+      const bb = rentData.filter(
+        (b) => b.propertyType.toLowerCase() === tValue
+      );
+      setS(aa);
+      setR(bb);
+      setRValue("");
+      setTValue("");
     }
     scrollYHandler();
   };
-  //console.log("R", R);
-  //console.log("S", S);
+  console.log("R", R);
+  console.log("S", S);
 
   const SeeAllHandler = () => {
     setR(rentData);
     setS(saleData);
-    scrollYHandler()
   };
 
   const [active, setActive] = React.useState(1);
