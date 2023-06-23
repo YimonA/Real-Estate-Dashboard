@@ -6,6 +6,7 @@ import {
   Textarea,
   Group,
   Select,
+  Checkbox
 } from "@mantine/core";
 import { hasLength, useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
@@ -21,6 +22,8 @@ const RentCreate = () => {
   const [statusValue, setStatusValue] = useState("");
   const [lDate, setLDate] = useState("");
   const [cDate, setCDate] = useState("");
+  const [value, setValue] = useState([]);
+
   //const token = Cookies.get("token");
   const nav = useNavigate();
 
@@ -29,7 +32,7 @@ const RentCreate = () => {
     console.log("typeValue", typeValue);
     console.log("ldate", lDate);
     console.log("cdate", cDate);
-  }, [statusValue, cDate,lDate,typeValue]);
+  }, [statusValue, cDate, lDate, typeValue]);
 
   const form = useForm({
     initialValues: {
@@ -101,7 +104,14 @@ const RentCreate = () => {
         <form
           onSubmit={form.onSubmit(async (values) => {
             try {
-              const { data } = await createRent(values,values["propertyType"]= typeValue, values["status"]= statusValue,values["createdDate"]=  cDate,values["listedDate"]= lDate);
+              const { data } = await createRent(
+                values,
+                (values["propertyType"] = typeValue),
+                (values["status"] = statusValue),
+                (values["createdDate"] = cDate),
+                (values["listedDate"] = lDate),
+                (values["bullet"] = value)
+              );
 
               console.log("d", data);
               console.log("vs", values);
@@ -138,7 +148,6 @@ const RentCreate = () => {
             />
             <Textarea label="Property Address " />
             {/*<Textarea label="Image Link " />*/}
-
           </div>
           {/* Property End*/}
 
@@ -236,6 +245,22 @@ const RentCreate = () => {
             />
           </div>
           {/* Year End*/}
+          <div className=" flex flex-col lg:flex-row justify-start items-start gap-3 my-5">
+            <Checkbox.Group
+              defaultValue={["Gym"]}
+              label="Amenties"
+              className=" text-lg"
+              onChange={setValue}
+              withAsterisk
+            >
+              <Group mt="xs">
+                <Checkbox value="Swimming Pool" label="Swimming Pool" />
+                <Checkbox value="Wifi" label="Wifi" />
+                <Checkbox value="Gym" label="Gym" />
+                <Checkbox value="Parking" label="Parking" />
+              </Group>
+            </Checkbox.Group>
+          </div>
           <div className=" flex flex-col lg:flex-row justify-start items-start lg:items-center gap-3 my-5">
             <DateInput
               valueFormat="YYYY-MM-DD HH:mm:ss"

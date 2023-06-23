@@ -4,6 +4,8 @@ import { LuBath } from "react-icons/lu";
 import { GiHomeGarage } from "react-icons/gi";
 import { HiLocationMarker } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { Chip } from "@material-tailwind/react";
+
 
 const AllCard = (allProperty) => {
   const scrollYHandler = () => {
@@ -11,12 +13,19 @@ const AllCard = (allProperty) => {
   };
   return (
     <div className="w-full bg-white flex flex-col lg:flex-row justify-start items-center relative">
+      <Chip
+        className={` ${allProperty.type==="rent"? "bg-green-700" :"bg-red-500"} absolute top-2 left-0 font-normal text-base normal-case rounded-none pb-0 z-20`}
+        color="red"
+        value={`${allProperty.type==="rent"? "For rent" :"For Sale"}`}
+      />
       <img
         src={allProperty.image[0]}
         className=" w-full h-52 lg:w-56 lg:h-56 object-center object-cover"
         alt=""
         loading="lazy"
       />
+            <Link to={`/${allProperty.type==="rent"? "rentdetail":"saledetail"}/${allProperty?.id}`}>
+
       <div
         onClick={scrollYHandler}
         className="w-full h-fit md:basis-8/12 md:h-56 px-3 flex flex-col  bg-white "
@@ -63,6 +72,7 @@ const AllCard = (allProperty) => {
           </div>
         </div>
       </div>
+      </Link>
     </div>
   );
 };

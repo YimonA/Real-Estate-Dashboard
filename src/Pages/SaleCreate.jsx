@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import {
   Loader,
   TextInput,
-  Radio,
   Textarea,
   Group,
   Select,
+  Checkbox,
 } from "@mantine/core";
 import { hasLength, useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
@@ -22,6 +22,8 @@ const SaleCreate = () => {
   const [statusValue, setStatusValue] = useState("");
   const [lDate, setLDate] = useState("");
   const [cDate, setCDate] = useState("");
+  const [value, setValue] = useState([]);
+
   const nav = useNavigate();
 
   const form = useForm({
@@ -100,7 +102,8 @@ const SaleCreate = () => {
                 (values["propertyType"] = typeValue),
                 (values["status"] = statusValue),
                 (values["createdDate"] = cDate),
-                (values["listedDate"] = lDate)
+                (values["listedDate"] = lDate),
+                (values["bullet"] = value)
               );
               console.log("v", values);
               console.log("d", data);
@@ -233,6 +236,22 @@ const SaleCreate = () => {
             />
           </div>
           {/* Year End*/}
+          <div className=" flex flex-col lg:flex-row justify-start items-start gap-3 my-5">
+            <Checkbox.Group
+              defaultValue={["Gym"]}
+              label="Amenties"
+              className=" text-lg"
+              onChange={setValue}
+              withAsterisk
+            >
+              <Group mt="xs">
+                <Checkbox value="Swimming Pool" label="Swimming Pool" />
+                <Checkbox value="Wifi" label="Wifi" />
+                <Checkbox value="Gym" label="Gym" />
+                <Checkbox value="Parking" label="Parking" />
+              </Group>
+            </Checkbox.Group>
+          </div>
           <div className=" flex flex-col lg:flex-row justify-start items-start gap-3 my-5">
             <DateInput
               valueFormat="YYYY-MM-DD HH:mm:ss"
