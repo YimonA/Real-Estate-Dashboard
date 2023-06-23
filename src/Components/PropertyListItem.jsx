@@ -17,10 +17,10 @@ const PropertyListItem = () => {
   const [R, setR] = useState(rentData);
   const [S, setS] = useState(saleData);
   const [currentPage, setCurrentPage] = useState(1);
-   const [records, setRecords] = useState([]);
-   const [npage, setNpage] = useState();
-   const [numbers, setNumbers] = useState([]);
-  
+  const [records, setRecords] = useState([]);
+  const [npage, setNpage] = useState();
+  const [numbers, setNumbers] = useState([]);
+
   const [all, setAll] = useState();
   const [toggle, setToggle] = useState(false);
   const [searchToggle, setSearchToggle] = useState(false);
@@ -45,7 +45,7 @@ const PropertyListItem = () => {
     const recordsPerPage = 4;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
-    
+
     const allD = rentData.concat(saleData);
     const records = allD.slice(firstIndex, lastIndex);
     const npage = Math.ceil(allD.length / recordsPerPage);
@@ -56,8 +56,8 @@ const PropertyListItem = () => {
     setNpage(npage);
     setNumbers(numbers);
     console.log("all", allD);
-  console.log("record", records);
-  console.log("num", numbers);
+    console.log("record", records);
+    console.log("num", numbers);
   };
 
   useEffect(() => {
@@ -69,7 +69,23 @@ const PropertyListItem = () => {
     setSearchToggle(true);
     setR([]);
     setS([]);
-    if (rValue === "sale" && tValue !== "") {
+    if (
+      rValue === null ||
+      rValue === "" ||
+      rValue === undefined &&
+      tValue !== ""
+    ) {
+      const aa = saleData.filter(
+        (a) => a.propertyType.toLowerCase() === tValue
+      );
+      const bb = rentData.filter(
+        (b) => b.propertyType.toLowerCase() === tValue
+      );
+      setS(aa);
+      setR(bb);
+      setRValue("");
+      setTValue("");
+    } else if (rValue === "sale" && tValue !== "") {
       //saleData.filter(a=>a.propertyType===tValue).map(b=>b.addressLine1);
       const aa = saleData.filter(
         (a) => a.propertyType.toLowerCase() === tValue
@@ -93,43 +109,31 @@ const PropertyListItem = () => {
       setR(rentData);
       setRValue("");
       setTValue("");
-    } else if (rValue === null && tValue !== "") {
-      const aa = saleData.filter(
-        (a) => a.propertyType.toLowerCase() === tValue
-      );
-      const bb = rentData.filter(
-        (b) => b.propertyType.toLowerCase() === tValue
-      );
-      setS(aa);
-      setR(bb);
-      setRValue("");
-      setTValue("");
     }
     scrollYHandler();
   };
 
   console.log("R", R);
   console.log("S", S);
-  
 
   function prevPage() {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
       pagi();
     }
-    scrollYHandler
+    scrollYHandler;
   }
   function changeCPage(id) {
     setCurrentPage(id);
     pagi();
-    scrollYHandler
+    scrollYHandler;
   }
   function nextPage() {
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
       pagi();
     }
-    scrollYHandler
+    scrollYHandler;
   }
 
   if (isLoading) {
@@ -213,39 +217,50 @@ const PropertyListItem = () => {
           </button>
         </div>
         <div className=" w-full lg:basis-8/12">
-                {/* All Card Start*/}
-        <div className={` ${searchToggle?'hidden':'flex'} w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}>
-          {records?.map((allProperty) => {
-                return <AllCard key={allProperty.id} searchToggle={searchToggle} {...allProperty} />;
-              })}
-        </div>
-                {/* All Card End*/}
- 
+          {/* All Card Start*/}
+          <div
+            className={` ${
+              searchToggle ? "hidden" : "flex"
+            } w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}
+          >
+            {records?.map((allProperty) => {
+              return <AllCard key={allProperty.id} {...allProperty} />;
+            })}
+          </div>
+          {/* All Card End*/}
 
-        {/* Rent Card Start*/}
-        <div className={`  ${searchToggle?'flex':'hidden'} w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}>
-          {R === []
-            ? rentData?.map((rentProperty) => {
-                return <RentCard key={rentProperty.id} {...rentProperty} />;
-              })
-            : R?.map((rentProperty) => {
-                return <RentCard key={rentProperty.id} {...rentProperty} />;
-              })}
-          {/* Rent Card End*/}
+          {/* Rent Card Start*/}
+          <div
+            className={`  ${
+              searchToggle ? "flex" : "hidden"
+            } w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}
+          >
+            {R === []
+              ? rentData?.map((rentProperty) => {
+                  return <RentCard key={rentProperty.id} {...rentProperty} />;
+                })
+              : R?.map((rentProperty) => {
+                  return <RentCard key={rentProperty.id} {...rentProperty} />;
+                })}
+            {/* Rent Card End*/}
 
-          {/* Sale Card Start*/}
-          {S === []
-            ? saleData?.map((saleProperty) => {
-                return <SaleCard key={saleProperty.id} {...saleProperty} />;
-              })
-            : S?.map((saleProperty) => {
-                return <SaleCard key={saleProperty.id} {...saleProperty} />;
-              })}
-        </div>
-        {/* Sale Card End*/}
+            {/* Sale Card Start*/}
+            {S === []
+              ? saleData?.map((saleProperty) => {
+                  return <SaleCard key={saleProperty.id} {...saleProperty} />;
+                })
+              : S?.map((saleProperty) => {
+                  return <SaleCard key={saleProperty.id} {...saleProperty} />;
+                })}
+          </div>
+          {/* Sale Card End*/}
 
-        {/* Pagination Start*/}
-        <div className=" my-5 flex flex-wrap items-center gap-1 sm:gap-4">
+          {/* Pagination Start*/}
+          <div
+            className={`${
+              searchToggle ? "hidden" : "flex"
+            } my-5 flex-wrap items-center gap-1 sm:gap-4`}
+          >
             <Button
               variant="text"
               color="blue-gray"
@@ -258,15 +273,22 @@ const PropertyListItem = () => {
             <div className="flex items-center gap-0 sm:gap-2">
               {numbers?.map((n, i) => {
                 return (
-                  <li
-                    className={`${currentPage === n ? "active" : ""}`}
+                  <Button
+                    variant="text"
+                    color="blue-gray"
+                    className={`${
+                      currentPage === n ? "active" : ""
+                    } list-none p-2 text-center rounded-none `}
                     key={i}
                   >
-                    <a href="#" onClick={() => changeCPage(n)}>
+                    <p
+                      className="hidden sm:block p-3"
+                      onClick={() => changeCPage(n)}
+                    >
                       {n}
-                    </a>
-                  </li>
-                )
+                    </p>
+                  </Button>
+                );
               })}
             </div>
             <Button
@@ -279,9 +301,8 @@ const PropertyListItem = () => {
               <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
             </Button>
           </div>
-                  {/* Pagination Start*/}
-
-          </div>
+          {/* Pagination Start*/}
+        </div>
       </div>
     </div>
   );

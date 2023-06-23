@@ -10,7 +10,7 @@ const AllCard = (allProperty) => {
     window.scroll(0, 0);
   };
   return (
-    <div className="w-full bg-white flex flex-col lg:flex-row justify-start items-center relative mt-5">
+    <div className="w-full bg-white flex flex-col lg:flex-row justify-start items-center relative">
       <img
         src={allProperty.image[0]}
         className=" w-full h-52 lg:w-56 lg:h-56 object-center object-cover"
