@@ -1,50 +1,64 @@
 import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
-//import { Fragment } from "react";
-//import {
-//   Accordion,
-//   AccordionHeader,
-//   AccordionBody,
-// } from "@material-tailwind/react";
 import RentCard from "./RentCard";
 import SaleCard from "./SaleCard";
+import AllCard from "./AllCard";
 import { useGetSaleQuery } from "../redux/api/saleApi";
 import { useGetRentQuery } from "../redux/api/rentApi";
 import { Loader, Select } from "@mantine/core";
 import { Button, IconButton } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { useSelector } from "react-redux";
-
-function Icon({ id, open }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className={`${
-        id === open ? "rotate-180" : ""
-      } h-5 w-5 transition-transform`}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-    </svg>
-  );
-}
 
 const PropertyListItem = () => {
   const { data: rentData, isLoading } = useGetRentQuery();
   const { data: saleData } = useGetSaleQuery();
-  //console.log("sd", saleData);
-  //console.log("rd", rentData);
-
   const [rValue, setRValue] = useState(null);
   const [tValue, setTValue] = useState(null);
   const [R, setR] = useState(rentData);
   const [S, setS] = useState(saleData);
+  const [currentPage, setCurrentPage] = useState(1);
+   const [records, setRecords] = useState([]);
+   const [npage, setNpage] = useState();
+   const [numbers, setNumbers] = useState([]);
+  
+  const [all, setAll] = useState();
+  const [toggle, setToggle] = useState(false);
+  const [searchToggle, setSearchToggle] = useState(false);
+
+  const SeeAllHandler = () => {
+    setSearchToggle(false);
+    setR(rentData);
+    setS(saleData);
+    pagi();
+  };
+
   useEffect(() => {
     SeeAllHandler();
+    setToggle(true);
   }, []);
+
+  useEffect(() => {
+    pagi();
+  }, [toggle === true]);
+
+  const pagi = () => {
+    const recordsPerPage = 4;
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    
+    const allD = rentData.concat(saleData);
+    const records = allD.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(allD.length / recordsPerPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+
+    setAll(allD);
+    setRecords(records);
+    setNpage(npage);
+    setNumbers(numbers);
+    console.log("all", allD);
+  console.log("record", records);
+  console.log("num", numbers);
+  };
 
   useEffect(() => {
     console.log(rentData);
@@ -52,6 +66,7 @@ const PropertyListItem = () => {
   }, [rValue, tValue]);
 
   const SearchHandler = () => {
+    setSearchToggle(true);
     setR([]);
     setS([]);
     if (rValue === "sale" && tValue !== "") {
@@ -92,31 +107,30 @@ const PropertyListItem = () => {
     }
     scrollYHandler();
   };
+
   console.log("R", R);
   console.log("S", S);
+  
 
-  const SeeAllHandler = () => {
-    setR(rentData);
-    setS(saleData);
-  };
-
-  const [active, setActive] = React.useState(1);
-
-  const getItemProps = (index) => ({
-    variant: active === index ? "filled" : "text",
-    color: active === index ? "blue" : "blue-gray",
-    onClick: () => setActive(index),
-  });
-
-  const next = () => {
-    if (active === 5) return;
-    setActive(active + 1);
-  };
-
-  const prev = () => {
-    if (active === 1) return;
-    setActive(active - 1);
-  };
+  function prevPage() {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+      pagi();
+    }
+    scrollYHandler
+  }
+  function changeCPage(id) {
+    setCurrentPage(id);
+    pagi();
+    scrollYHandler
+  }
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+      pagi();
+    }
+    scrollYHandler
+  }
 
   if (isLoading) {
     return (
@@ -142,6 +156,20 @@ const PropertyListItem = () => {
               { value: "rent", label: "Rent" },
               { value: "sale", label: "Sale" },
             ]}
+            styles={(theme) => ({
+              item: {
+                // applies styles to selected item
+                "&[data-selected]": {
+                  "&, &:hover": {
+                    backgroundColor: theme.colors.green[8],
+                    color: theme.white,
+                  },
+                },
+
+                // applies styles to hovered item (with mouse or keyboard)
+                "&[data-hovered]": {},
+              },
+            })}
           />
           <Select
             className=" my-5"
@@ -155,6 +183,20 @@ const PropertyListItem = () => {
               { value: "flat", label: "Flat" },
               { value: "house", label: "House" },
             ]}
+            styles={(theme) => ({
+              item: {
+                // applies styles to selected item
+                "&[data-selected]": {
+                  "&, &:hover": {
+                    backgroundColor: theme.colors.green[8],
+                    color: theme.white,
+                  },
+                },
+
+                // applies styles to hovered item (with mouse or keyboard)
+                "&[data-hovered]": {},
+              },
+            })}
           />
           <button
             onClick={SearchHandler}
@@ -170,9 +212,18 @@ const PropertyListItem = () => {
             See all
           </button>
         </div>
+        <div className=" w-full lg:basis-8/12">
+                {/* All Card Start*/}
+        <div className={` ${searchToggle?'hidden':'flex'} w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}>
+          {records?.map((allProperty) => {
+                return <AllCard key={allProperty.id} searchToggle={searchToggle} {...allProperty} />;
+              })}
+        </div>
+                {/* All Card End*/}
+ 
 
         {/* Rent Card Start*/}
-        <div className="w-full lg:basis-8/12 flex flex-wrap gap-0 sm:gap-5 justify-center items-center">
+        <div className={`  ${searchToggle?'flex':'hidden'} w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}>
           {R === []
             ? rentData?.map((rentProperty) => {
                 return <RentCard key={rentProperty.id} {...rentProperty} />;
@@ -183,7 +234,6 @@ const PropertyListItem = () => {
           {/* Rent Card End*/}
 
           {/* Sale Card Start*/}
-
           {S === []
             ? saleData?.map((saleProperty) => {
                 return <SaleCard key={saleProperty.id} {...saleProperty} />;
@@ -191,41 +241,47 @@ const PropertyListItem = () => {
             : S?.map((saleProperty) => {
                 return <SaleCard key={saleProperty.id} {...saleProperty} />;
               })}
-          {/* Pagination Start*/}
+        </div>
+        {/* Sale Card End*/}
 
-          <div className="my-10 flex flex-wrap items-center gap-1 sm:gap-4">
+        {/* Pagination Start*/}
+        <div className=" my-5 flex flex-wrap items-center gap-1 sm:gap-4">
             <Button
               variant="text"
               color="blue-gray"
               className="flex items-center gap-0 sm:gap-2"
-              onClick={prev}
-              disabled={active === 1}
+              onClick={prevPage}
             >
               <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" />
               <span className=" hidden sm:block">Previous</span>
             </Button>
-
             <div className="flex items-center gap-0 sm:gap-2">
-              <IconButton {...getItemProps(1)}>1</IconButton>
-              <IconButton {...getItemProps(2)}>2</IconButton>
-              <IconButton {...getItemProps(3)}>3</IconButton>
-              <IconButton {...getItemProps(4)}>4</IconButton>
-              <IconButton {...getItemProps(5)}>5</IconButton>
+              {numbers?.map((n, i) => {
+                return (
+                  <li
+                    className={`${currentPage === n ? "active" : ""}`}
+                    key={i}
+                  >
+                    <a href="#" onClick={() => changeCPage(n)}>
+                      {n}
+                    </a>
+                  </li>
+                )
+              })}
             </div>
             <Button
               variant="text"
               color="blue-gray"
               className="flex items-center gap-0 sm:gap-2"
-              onClick={next}
-              disabled={active === 5}
+              onClick={nextPage}
             >
               <span className="hidden sm:block">Next</span>
               <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
             </Button>
           </div>
-          {/* Pagination End*/}
-        </div>
-        {/* Sale Card End*/}
+                  {/* Pagination Start*/}
+
+          </div>
       </div>
     </div>
   );

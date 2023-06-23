@@ -14,7 +14,7 @@ const RentCard = (rentProperty) => {
   return (
     <div className="w-full bg-white flex flex-col lg:flex-row justify-start items-center relative mt-5">
       <Chip
-        className=" absolute top-2 left-0 font-normal text-base bg-red-700 normal-case rounded-none pb-0 z-20"
+        className={` absolute top-2 left-0 font-normal text-base bg-red-700 normal-case rounded-none pb-0 z-20`}
         color="red"
         value="For Rent"
       />
