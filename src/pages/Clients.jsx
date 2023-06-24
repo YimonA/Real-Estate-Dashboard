@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import ClientCard from "../Components/ClientCard";
-import PaginationUI from "../components/PaginationUI";
+import PaginationUI from "../Components/PaginationUI";
 
 const Clients = () => {
   const [clients, setClients] = useState([]);
