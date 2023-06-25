@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Loader,
   TextInput,
-  Radio,
   Textarea,
   Group,
   Select,
-  Checkbox
+  Checkbox,
+  Radio,
 } from "@mantine/core";
 import { hasLength, useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
@@ -14,29 +14,23 @@ import { DateInput } from "@mantine/dates";
 import "../index.css";
 //import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
-import { useCreateRentMutation } from "../redux/api/rentApi";
+import { useCreatePropertyMutation } from "../redux/api/propertyApi";
 
-const RentCreate = () => {
-  const [createRent, { isLoading }] = useCreateRentMutation();
+const PropertyCreate = () => {
+  const [createProperty, { isLoading }] = useCreatePropertyMutation();
+  //const token = Cookies.get("token");
   const [typeValue, setTypeValue] = useState("");
   const [statusValue, setStatusValue] = useState("");
   const [lDate, setLDate] = useState("");
   const [cDate, setCDate] = useState("");
   const [value, setValue] = useState([]);
-
-  //const token = Cookies.get("token");
+  const [radioValue, setRadioValue] = useState("rent");
   const nav = useNavigate();
-
-  useEffect(() => {
-    console.log("statusValue", statusValue);
-    console.log("typeValue", typeValue);
-    console.log("ldate", lDate);
-    console.log("cdate", cDate);
-  }, [statusValue, cDate, lDate, typeValue]);
 
   const form = useForm({
     initialValues: {
       id: Date.now(),
+      type: "",
       propertyType: "",
       status: "",
       addressLine1: "",
@@ -66,7 +60,6 @@ const RentCreate = () => {
         "Adjacent to the beautiful South Park",
       ],
       city: "",
-      county: "Travis",
     },
 
     validate: {
@@ -98,25 +91,27 @@ const RentCreate = () => {
             */
     },
   });
+
   return (
     <div className=" bg-[#EDF1F5] pt-5">
       <div className=" container mx-auto px-7 py-5 pb-20 bg-white">
         <form
           onSubmit={form.onSubmit(async (values) => {
             try {
-              const { data } = await createRent(
+              const { data } = await createProperty(
                 values,
                 (values["propertyType"] = typeValue),
                 (values["status"] = statusValue),
                 (values["createdDate"] = cDate),
                 (values["listedDate"] = lDate),
-                (values["bullet"] = value)
+                (values["bullet"] = value),
+                (values["type"] = radioValue)
               );
-
+              console.log("v", values);
               console.log("d", data);
-              console.log("vs", values);
-
-              nav("/propertyList");
+              setTimeout(() => {
+                nav("/");
+              }, 1000);
             } catch (error) {
               console.log(error);
             }
@@ -125,7 +120,7 @@ const RentCreate = () => {
         >
           {/* Property Start*/}
           <div className=" flex flex-col gap-3 my-5">
-            <h2 className="text-xl">Create Rent</h2>
+            <h2 className="text-xl">Create Property</h2>
             <TextInput
               {...form.getInputProps("addressLine1")}
               label="Property Name"
@@ -147,7 +142,6 @@ const RentCreate = () => {
               placeholder="Enter Number"
             />
             <Textarea label="Property Address " />
-            {/*<Textarea label="Image Link " />*/}
           </div>
           {/* Property End*/}
 
@@ -168,8 +162,8 @@ const RentCreate = () => {
             <TextInput
               {...form.getInputProps("squareFootage")}
               label="Square Ft"
-              placeholder="eg.(2000) "
               className=" w-full"
+              placeholder="eg.(2000) "
             />
           </div>
           {/* Bedrooms End*/}
@@ -192,6 +186,7 @@ const RentCreate = () => {
               className=" w-full"
             />
           </div>
+
           <div className="my-5 flex flex-col lg:flex-row gap-5 justify-start items-start">
             <Select
               placeholder="Status"
@@ -247,21 +242,36 @@ const RentCreate = () => {
           {/* Year End*/}
           <div className=" flex flex-col lg:flex-row justify-start items-start gap-3 my-5">
             <Checkbox.Group
-              defaultValue={["Gym"]}
               label="Amenties"
               className=" text-lg"
               onChange={setValue}
               withAsterisk
             >
               <Group mt="xs">
-                <Checkbox value="Swimming Pool" label="Swimming Pool" />
-                <Checkbox value="Wifi" label="Wifi" />
-                <Checkbox value="Gym" label="Gym" />
-                <Checkbox value="Parking" label="Parking" />
+                <Checkbox
+                  value="Swimming Pool"
+                  label="Swimming Pool"
+                  color="green"
+                />
+                <Checkbox value="Wifi" label="Wifi" color="green" />
+                <Checkbox value="Gym" label="Gym" color="green" />
+                <Checkbox value="Parking" label="Parking" color="green" />
               </Group>
             </Checkbox.Group>
           </div>
-          <div className=" flex flex-col lg:flex-row justify-start items-start lg:items-center gap-3 my-5">
+          <div className=" ">
+            <Radio.Group
+              value={radioValue}
+              onChange={setRadioValue}
+              name="favoriteFramework"
+              className="flex flex-col lg:flex-row justify-start items-start gap-3 my-5"
+              withAsterisk
+            >
+              <Radio value="rent" label="For rent" color="green" />
+              <Radio value="sale" label="For Sale" color="green" />
+            </Radio.Group>
+          </div>
+          <div className=" flex flex-col lg:flex-row justify-start items-start gap-3 my-5">
             <DateInput
               valueFormat="YYYY-MM-DD HH:mm:ss"
               label="Listed Date"
@@ -284,15 +294,7 @@ const RentCreate = () => {
             />
           </div>
 
-          {/* Amenities Start
-
-          <div>
-            <h1 className=" text-lg mb-3">Amenities</h1>
-          </div>
-          {/* Amenities End*/}
-
           {/* Dimension Start*/}
-
           <h1 className=" text-lg">Dimensions</h1>
           <div className=" flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 my-5">
             <TextInput
@@ -322,14 +324,18 @@ const RentCreate = () => {
           </div>
           {/* Dimension End*/}
 
-          <button className="w-32 my-5 mr-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none">
+          <button
+            disabled={isLoading && true}
+            type="submit"
+            className="w-52 my-5 mr-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none"
+          >
             {isLoading ? (
               <div className=" flex justify-center items-center gap-1">
                 <Loader color="bg-green-600" size="xs" />
                 <span>Loading....</span>
               </div>
             ) : (
-              "Add Rent"
+              "Add property"
             )}
           </button>
           <Link to={`/property`}>
@@ -347,11 +353,4 @@ const RentCreate = () => {
   );
 };
 
-export default RentCreate;
-
-{
-  /*
-             disabled={isLoading && true}
-             type="submit"
-          */
-}
+export default PropertyCreate;

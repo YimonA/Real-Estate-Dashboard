@@ -1,141 +1,141 @@
 import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
-import RentCard from "./RentCard";
-import SaleCard from "./SaleCard";
 import AllCard from "./AllCard";
-import { useGetSaleQuery } from "../redux/api/saleApi";
-import { useGetRentQuery } from "../redux/api/rentApi";
+import { useGetPropertyQuery } from "../redux/api/propertyApi";
 import { Loader, Select } from "@mantine/core";
-import { Button, IconButton } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 const PropertyListItem = () => {
-  const { data: rentData, isLoading } = useGetRentQuery();
-  const { data: saleData } = useGetSaleQuery();
+  const { data: property, isLoading } = useGetPropertyQuery();
   const [rValue, setRValue] = useState(null);
   const [tValue, setTValue] = useState(null);
-  const [R, setR] = useState(rentData);
-  const [S, setS] = useState(saleData);
+  const [P, setP] = useState();
+  const [pData, setPData] = useState(property);
   const [currentPage, setCurrentPage] = useState(1);
   const [records, setRecords] = useState([]);
   const [npage, setNpage] = useState();
   const [numbers, setNumbers] = useState([]);
-
-  const [all, setAll] = useState();
-  const [toggle, setToggle] = useState(false);
+  const [btnLoading, setBtnLoading] = useState(false);
   const [searchToggle, setSearchToggle] = useState(false);
-
-  const SeeAllHandler = () => {
-    setSearchToggle(false);
-    setR(rentData);
-    setS(saleData);
-    pagi();
-  };
 
   useEffect(() => {
     SeeAllHandler();
-    setToggle(true);
+    setBtnLoading(false);
   }, []);
 
   useEffect(() => {
-    pagi();
-  }, [toggle === true]);
-
-  const pagi = () => {
-    const recordsPerPage = 4;
-    const lastIndex = currentPage * recordsPerPage;
-    const firstIndex = lastIndex - recordsPerPage;
-
-    const allD = rentData.concat(saleData);
-    const records = allD.slice(firstIndex, lastIndex);
-    const npage = Math.ceil(allD.length / recordsPerPage);
-    const numbers = [...Array(npage + 1).keys()].slice(1);
-
-    setAll(allD);
-    setRecords(records);
-    setNpage(npage);
-    setNumbers(numbers);
-    console.log("all", allD);
-    console.log("record", records);
-    console.log("num", numbers);
-  };
+    SeeAllHandler();
+    setBtnLoading(false);
+  }, [property]);
 
   useEffect(() => {
-    console.log(rentData);
-    console.log("Rval", rValue, "tval", tValue);
-  }, [rValue, tValue]);
+    console.log("npage", npage);
+    console.log("record", records);
+    console.log("num", numbers);
+  }, [records]);
+
+  const SeeAllHandler = () => {
+    setSearchToggle(false);
+    setBtnLoading(true);
+    setPData(property);
+    setCurrentPage(1);
+    pagi(pData);
+  };
 
   const SearchHandler = () => {
-    setSearchToggle(true);
-    setR([]);
-    setS([]);
+    setBtnLoading(true);
     if (
       rValue === null ||
       rValue === "" ||
-      rValue === undefined &&
-      tValue !== ""
+      (rValue === undefined && tValue !== "")
     ) {
-      const aa = saleData.filter(
-        (a) => a.propertyType.toLowerCase() === tValue
-      );
-      const bb = rentData.filter(
-        (b) => b.propertyType.toLowerCase() === tValue
-      );
-      setS(aa);
-      setR(bb);
-      setRValue("");
-      setTValue("");
+      const aa = pData.filter((a) => a.propertyType.toLowerCase() === tValue);
+      setData(aa);
     } else if (rValue === "sale" && tValue !== "") {
-      //saleData.filter(a=>a.propertyType===tValue).map(b=>b.addressLine1);
-      const aa = saleData.filter(
-        (a) => a.propertyType.toLowerCase() === tValue
+      const aa = pData.filter(
+        (a) =>
+          a.propertyType.toLowerCase() === tValue &&
+          a.type.toLowerCase() === "sale"
       );
-      setS(aa);
-      setRValue("");
-      setTValue("");
+      setData(aa);
     } else if (rValue === "rent" && tValue !== "") {
-      const bb = rentData.filter(
-        (b) => b.propertyType.toLowerCase() === tValue
+      const aa = pData.filter(
+        (a) =>
+          a.propertyType.toLowerCase() === tValue &&
+          a.type.toLowerCase() === "rent"
       );
-      //console.log("bb", bb);
-      setR(bb);
-      setRValue("");
-      setTValue("");
+      setData(aa);
     } else if (rValue === "sale" && tValue === "") {
-      setS(saleData);
-      setRValue("");
-      setTValue("");
+      const aa = pData.filter((a) => a.type.toLowerCase() === "sale");
+      setData(aa);
     } else if (rValue === "rent" && tValue === "") {
-      setR(rentData);
-      setRValue("");
-      setTValue("");
+      const aa = pData.filter((a) => a.type.toLowerCase() === "rent");
+      setData(aa);
     }
+  };
+
+  const setData = (aa) => {
+    setP(aa);
+    setCurrentPage(1);
+    pagi(aa);
+    setSearchToggle(true);
+    setRValue("");
+    setTValue("");
     scrollYHandler();
   };
 
-  console.log("R", R);
-  console.log("S", S);
+  const pagi = (pro) => {
+    setTimeout(() => {
+          const recordsPerPage = 5;
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    const records = pro.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(pro.length / recordsPerPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+
+    setRecords(records);
+    setNpage(npage);
+    setNumbers(numbers);
+    setBtnLoading(false);
+  }, 1000);
+
+  };
+
+  useEffect(() => {
+    console.log("Rval", rValue, "tval", tValue);
+  }, [rValue, tValue]);
 
   function prevPage() {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
-      pagi();
+      pagiNum();
     }
-    scrollYHandler;
+    scrollYHandler();
   }
   function changeCPage(id) {
-    setCurrentPage(id);
-    pagi();
-    scrollYHandler;
+    if (currentPage == id) {
+      return;
+    } else {
+      setCurrentPage(id);
+      pagiNum();
+      scrollYHandler();
+    }
   }
   function nextPage() {
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
-      pagi();
+      pagiNum();
     }
-    scrollYHandler;
+    scrollYHandler();
   }
-
+  const pagiNum = () => {
+    if (searchToggle) {
+      pagi(P);
+    } else {
+      pagi(pData);
+    }
+  };
   if (isLoading) {
     return (
       <div className=" flex justify-center items-center h-screen">
@@ -216,93 +216,92 @@ const PropertyListItem = () => {
             See all
           </button>
         </div>
-        <div className=" w-full lg:basis-8/12">
-          {/* All Card Start*/}
-          <div
-            className={` ${
-              searchToggle ? "hidden" : "flex"
-            } w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}
-          >
-            {records?.map((allProperty) => {
-              return <AllCard key={allProperty.id} {...allProperty} />;
-            })}
+        {btnLoading ? (
+          <div className="w-full lg:basis-8/12 flex justify-center items-center h-screen">
+            <Loader variant="dots" color="green" />
           </div>
-          {/* All Card End*/}
-
-          {/* Rent Card Start*/}
-          <div
-            className={`  ${
-              searchToggle ? "flex" : "hidden"
-            } w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}
-          >
-            {R === []
-              ? rentData?.map((rentProperty) => {
-                  return <RentCard key={rentProperty.id} {...rentProperty} />;
-                })
-              : R?.map((rentProperty) => {
-                  return <RentCard key={rentProperty.id} {...rentProperty} />;
-                })}
-            {/* Rent Card End*/}
-
-            {/* Sale Card Start*/}
-            {S === []
-              ? saleData?.map((saleProperty) => {
-                  return <SaleCard key={saleProperty.id} {...saleProperty} />;
-                })
-              : S?.map((saleProperty) => {
-                  return <SaleCard key={saleProperty.id} {...saleProperty} />;
-                })}
-          </div>
-          {/* Sale Card End*/}
-
-          {/* Pagination Start*/}
-          <div
-            className={`${
-              searchToggle ? "hidden" : "flex"
-            } my-5 flex-wrap items-center gap-1 sm:gap-4`}
-          >
-            <Button
-              variant="text"
-              color="blue-gray"
-              className="flex items-center gap-0 sm:gap-2"
-              onClick={prevPage}
+        ) : (
+          <div className={`  w-full lg:basis-8/12`}>
+            {/* All Card Start*/}
+            <div
+              className={` w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}
             >
-              <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" />
-              <span className=" hidden sm:block">Previous</span>
-            </Button>
-            <div className="flex items-center gap-0 sm:gap-2">
-              {numbers?.map((n, i) => {
-                return (
-                  <Button
-                    variant="text"
-                    color="blue-gray"
-                    className={`${
-                      currentPage === n ? "active" : ""
-                    } list-none p-2 text-center rounded-none `}
-                    key={i}
-                  >
-                    <p
-                      className="hidden sm:block p-3"
-                      onClick={() => changeCPage(n)}
-                    >
-                      {n}
-                    </p>
-                  </Button>
-                );
-              })}
+              {records?.length >= 1 ? (
+                records.map((allProperty) => {
+                  return <AllCard key={allProperty.id} {...allProperty} />;
+                })
+              ) : (
+                <div className="w-full lg:basis-8/12 flex justify-center items-center h-screen">
+                  <h1 className=" text-lg ">No Records Yet.</h1>
+                </div>
+              )}
             </div>
-            <Button
-              variant="text"
-              color="blue-gray"
-              className="flex items-center gap-0 sm:gap-2"
-              onClick={nextPage}
-            >
-              <span className="hidden sm:block">Next</span>
-              <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
-            </Button>
+            {/* All Card End*/}
+
+            {/* Pagination Start*/}
+
+            <div className={`${records.length < 1 ? "hidden" : ""} my-5 `}>
+              <ul
+                className={`${
+                  npage > 1 ? "flex" : "hidden"
+                } items-center gap-1 lg:gap-3`}
+              >
+                {currentPage == 1 ? (
+                  <li className=" flex items-center gap-2">
+                    <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" />
+                    <a href="#">Prev</a>
+                  </li>
+                ) : (
+                  <li className=" flex items-center gap-2">
+                    <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" />
+                    <a href="#" onClick={prevPage}>
+                      Prev
+                    </a>
+                  </li>
+                )}
+                <div className="flex items-center gap-1">
+                  {numbers.length > 1 ? (
+                    numbers.map((n, i) => {
+                      return (
+                        <Button
+                          variant="text"
+                          color="blue-gray"
+                          className={`${
+                            currentPage === n ? "active" : ""
+                          } list-none text-center rounded-none p-1 `}
+                          key={i}
+                        >
+                          <p
+                            className="hidden sm:block p-3"
+                            onClick={() => changeCPage(n)}
+                          >
+                            {n}
+                          </p>
+                        </Button>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                {currentPage === npage ? (
+                  <li className=" flex items-center gap-2">
+                    <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
+                    <a href="#">Next</a>
+                  </li>
+                ) : (
+                  <li className=" flex items-center gap-2">
+                    <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
+                    <a href="#" onClick={nextPage}>
+                      Next
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </div>
+            {/* Pagination End*/}
           </div>
-          {/* Pagination Start*/}
-        </div>
+        )}
       </div>
     </div>
   );

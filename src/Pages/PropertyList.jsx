@@ -6,7 +6,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Link } from "react-router-dom";
 import PropertyListItem from "../Components/PropertyListItem";
-import RentDetail from "./RentDetail";
+import PropertyDetail from "./PropertyDetail";
 
 const PropertyList = () => {
   return (
