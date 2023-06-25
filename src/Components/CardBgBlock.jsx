@@ -1,14 +1,14 @@
-import React from 'react'
-import {
+ import React from 'react'
+ import {
     Card,
     CardHeader,
     CardBody,
     Typography,
     Avatar,
   } from "@material-tailwind/react";
-
-const BgBlockCard = ({clientData}) => {
-  return (
+ 
+ const CardBgBlock = ({clientData}) => {
+   return (
     <Card
     shadow={true}
     className="relative grid items-end rounded-none h-48 w-72 lg:w-96 justify-center overflow-hidden text-center"
@@ -38,7 +38,8 @@ const BgBlockCard = ({clientData}) => {
       </p>
     </CardBody>
   </Card>
-  )
-}
-
-export default BgBlockCard
+   )
+ }
+ 
+ export default CardBgBlock
+ 

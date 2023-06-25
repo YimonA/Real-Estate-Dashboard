@@ -4,13 +4,12 @@ import { Card, Typography } from "@material-tailwind/react";
 import { AiFillStar } from "react-icons/ai";
 import { MdArrowBack } from "react-icons/md";
 import { Link } from "react-router-dom";
-import BgBlockCard from "../Components/BgBlockCard";
-
 import Box from "@mui/material/Box";
 import Dashboard from "./Dashboard";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import CardBgBlock from "../Components/CardBgBlock";
 
 const ClientsDetails = () => {
   const location = useLocation();
@@ -75,7 +74,7 @@ const ClientsDetails = () => {
     </Link>
     <div className=" flex flex-col md:flex-row gap-3">
       <div className=" basis-1/2 md:basis-1/4 mx-auto my-5 ">
-        <BgBlockCard clientData={clientData} />
+        <CardBgBlock  clientData={clientData} />
       </div>
       <Card
         shadow={false}
