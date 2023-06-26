@@ -110,33 +110,33 @@ const propertyDetail = () => {
                   <li className=" flex justify-between items-center pb-2">
                     <span>Living Room</span>
                     <span>
-                      {propertyDetailData?.roomDimensions?.livingRoom === null
+                      {propertyDetailData?.livingRoom == null
                         ? "9x10"
-                        : propertyDetailData?.roomDimensions?.livingRoom}
+                        : propertyDetailData?.livingRoom}
                     </span>
                   </li>
                   <li className=" flex justify-between items-center pb-2">
                     <span>Bedroom</span>
                     <span>
-                      {propertyDetailData?.roomDimensions?.bedRoom === null
+                      {propertyDetailData?.bedRoom == null
                         ? "15x10"
-                        : propertyDetailData?.roomDimensions?.bedRoom}
+                        : propertyDetailData?.bedRoom}
                     </span>
                   </li>
                   <li className=" flex justify-between items-center pb-2">
                     <span>Dining Room</span>
                     <span>
-                      {propertyDetailData?.roomDimensions?.diningRoom === null
+                      {propertyDetailData?.diningRoom == null
                         ? "7x15"
-                        : propertyDetailData?.roomDimensions?.diningRoom}
+                        : propertyDetailData?.diningRoom}
                     </span>
                   </li>
                   <li className=" flex justify-between items-center pb-2">
                     <span>Kitchen</span>
                     <span>
-                      {propertyDetailData?.roomDimensions?.kitchen === null
+                      {propertyDetailData?.kitchen == null
                         ? "9x10"
-                        : propertyDetailData?.roomDimensions?.kitchen}
+                        : propertyDetailData?.kitchen}
                     </span>
                   </li>
                 </ul>
@@ -175,7 +175,7 @@ const propertyDetail = () => {
                 <li className=" flex justify-between items-center pb-2">
                   <span>Bedrooms</span>
                   <span>
-                    {propertyDetailData?.bedrooms === null
+                    {propertyDetailData?.bedrooms == null
                       ? "1"
                       : propertyDetailData?.bedrooms}
                   </span>
@@ -183,7 +183,7 @@ const propertyDetail = () => {
                 <li className=" flex justify-between items-center pb-2">
                   <span>Bathrooms</span>
                   <span>
-                    {propertyDetailData?.bathrooms === null
+                    {propertyDetailData?.bathrooms == null
                       ? "1"
                       : propertyDetailData?.bathrooms}
                   </span>
@@ -199,7 +199,7 @@ const propertyDetail = () => {
                 <li className=" flex justify-between items-center pb-2">
                   <span>Year Build</span>
                   <span>
-                    {propertyDetailData?.yearBuilt === null
+                    {propertyDetailData?.yearBuilt == null
                       ? "1995"
                       : propertyDetailData?.yearBuilt}
                   </span>
