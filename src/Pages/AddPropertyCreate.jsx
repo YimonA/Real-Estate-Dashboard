@@ -4,7 +4,7 @@ import Dashboard from "./Dashboard";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RentCreate from "./RentCreate";
+import PropertyCreate from "./PropertyCreate";
 import { Link } from "react-router-dom";
 
 const AddRentProperty = () => {
@@ -52,7 +52,7 @@ const AddRentProperty = () => {
 
       <div className="w-full px-6 py-7">
         {/* Start Write Here Add Property  */}
-        <RentCreate />
+        <PropertyCreate />
       </div>
     </Dashboard>
   );

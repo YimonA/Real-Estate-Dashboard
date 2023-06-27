@@ -1,83 +1,148 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
-import { Fragment } from "react";
-import {
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-} from "@material-tailwind/react";
-import RentCard from "./RentCard";
-import SaleCard from "./SaleCard";
-import { useGetSaleQuery } from "../redux/api/saleApi";
-import { useGetRentQuery } from "../redux/api/rentApi";
-import { Loader } from "@mantine/core";
-import { Button, IconButton } from "@material-tailwind/react";
+import AllCard from "./AllCard";
+import { useGetPropertyQuery } from "../redux/api/propertyApi";
+import { Loader, Select } from "@mantine/core";
+import { Button } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
 
-function Icon({ id, open }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className={`${
-        id === open ? "rotate-180" : ""
-      } h-5 w-5 transition-transform`}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-    </svg>
-  );
-}
-
 const PropertyListItem = () => {
-  const [open, setOpen] = useState(0);
-  //const [activePage, setPage] = useState(1);
+  const { data: property, isLoading } = useGetPropertyQuery();
+  const [rValue, setRValue] = useState(null);
+  const [tValue, setTValue] = useState(null);
+  const [P, setP] = useState();
+  const [pData, setPData] = useState(property);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [records, setRecords] = useState([]);
+  const [npage, setNpage] = useState();
+  const [numbers, setNumbers] = useState([]);
+  const [btnLoading, setBtnLoading] = useState(false);
+  const [searchToggle, setSearchToggle] = useState(false);
 
-  const [arr,setArr]=useState([])
+  useEffect(() => {
+    SeeAllHandler();
+    setBtnLoading(false);
+  }, []);
 
-  const { data: rentData, isLoading } = useGetRentQuery();
-  const { data: saleData } = useGetSaleQuery();
-  console.log("sd", saleData);
-  console.log("rd", rentData);
+  useEffect(() => {
+    SeeAllHandler();
+    setBtnLoading(false);
+  }, [property]);
 
-  //console.log(rentData.length)
+  useEffect(() => {
+    console.log("npage", npage);
+    console.log("record", records);
+    console.log("num", numbers);
+  }, [records]);
 
-  //const totalPage = ([...rentData].length + [...saleData].length) / 4;
-  //console.log("totalPage", totalPage);
-
-  const [active, setActive] = React.useState(1);
-
-  const getItemProps = (index) => ({
-    variant: active === index ? "filled" : "text",
-    color: active === index ? "blue" : "blue-gray",
-    onClick: () => setActive(index),
-  });
-
-  const next = () => {
-    if (active === 5) return;
-
-    setActive(active + 1);
+  const SeeAllHandler = () => {
+    setSearchToggle(false);
+    setBtnLoading(true);
+    setPData(property);
+    setCurrentPage(1);
+    pagi(pData);
   };
 
-  const prev = () => {
-    if (active === 1) return;
-
-    setActive(active - 1);
+  const SearchHandler = () => {
+    setBtnLoading(true);
+    if (
+      rValue === null ||
+      rValue === "" ||
+      (rValue === undefined && tValue !== "")
+    ) {
+      const aa = pData.filter((a) => a.propertyType.toLowerCase() === tValue);
+      setData(aa);
+    } else if (rValue === "sale" && tValue !== "") {
+      const aa = pData.filter(
+        (a) =>
+          a.propertyType.toLowerCase() === tValue &&
+          a.type.toLowerCase() === "sale"
+      );
+      setData(aa);
+    } else if (rValue === "rent" && tValue !== "") {
+      const aa = pData.filter(
+        (a) =>
+          a.propertyType.toLowerCase() === tValue &&
+          a.type.toLowerCase() === "rent"
+      );
+      setData(aa);
+    } else if (rValue === "sale" && tValue === "") {
+      const aa = pData.filter((a) => a.type.toLowerCase() === "sale");
+      setData(aa);
+    } else if (rValue === "rent" && tValue === "") {
+      const aa = pData.filter((a) => a.type.toLowerCase() === "rent");
+      setData(aa);
+    }
   };
 
+  const setData = (aa) => {
+    setP(aa);
+    setCurrentPage(1);
+    pagi(aa);
+    setSearchToggle(true);
+    setRValue("");
+    setTValue("");
+    scrollYHandler();
+  };
+
+  const pagi = (pro) => {
+    setTimeout(() => {
+          const recordsPerPage = 5;
+    const lastIndex = currentPage * recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    const records = pro.slice(firstIndex, lastIndex);
+    const npage = Math.ceil(pro.length / recordsPerPage);
+    const numbers = [...Array(npage + 1).keys()].slice(1);
+
+    setRecords(records);
+    setNpage(npage);
+    setNumbers(numbers);
+    setBtnLoading(false);
+  }, 1000);
+
+  };
+
+  useEffect(() => {
+    console.log("Rval", rValue, "tval", tValue);
+  }, [rValue, tValue]);
+
+  function prevPage() {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+      pagiNum();
+    }
+    scrollYHandler();
+  }
+  function changeCPage(id) {
+    if (currentPage == id) {
+      return;
+    } else {
+      setCurrentPage(id);
+      pagiNum();
+      scrollYHandler();
+    }
+  }
+  function nextPage() {
+    if (currentPage !== npage) {
+      setCurrentPage(currentPage + 1);
+      pagiNum();
+    }
+    scrollYHandler();
+  }
+  const pagiNum = () => {
+    if (searchToggle) {
+      pagi(P);
+    } else {
+      pagi(pData);
+    }
+  };
   if (isLoading) {
     return (
       <div className=" flex justify-center items-center h-screen">
-        <Loader variant="dots" />
+        <Loader variant="dots" color="green" />
       </div>
     );
   }
-
-  const handleOpen = (value) => {
-    setOpen(open === value ? 0 : value);
-  };
 
   const scrollYHandler = () => {
     window.scroll(0, 0);
@@ -86,147 +151,157 @@ const PropertyListItem = () => {
   return (
     <div className={` bg-[#EDF1F5]`}>
       <div className=" flex flex-col lg:flex-row justify-start gap-5 items-start py-5 pb-20">
-        <div className="w-full lg:basis-4/12 bg-white px-5 py-5">
-          <h1 className=" px-3 mb-2 font-semibold text-xl">Search</h1>
+        <div className="w-full lg:basis-4/12 bg-white px-5 py-5 sticky top-20 left-0 z-30">
+          <Select
+            placeholder="Status"
+            value={rValue}
+            onChange={setRValue}
+            data={[
+              { value: "rent", label: "Rent" },
+              { value: "sale", label: "Sale" },
+            ]}
+            styles={(theme) => ({
+              item: {
+                // applies styles to selected item
+                "&[data-selected]": {
+                  "&, &:hover": {
+                    backgroundColor: theme.colors.green[8],
+                    color: theme.white,
+                  },
+                },
 
-          <Fragment>
-            <Accordion
-              open={open === 1}
-              icon={<Icon id={1} open={open} className=" py-2" />}
-            >
-              <AccordionHeader
-                onClick={() => handleOpen(1)}
-                className=" py-2 border-2 px-3"
-              >
-                <p>Status</p>
-              </AccordionHeader>
-              <AccordionBody className=" border-2 pb-0">
-                <ul>
-                  <li className=" py-1 px-3 text-gray-500">Status</li>
-                  <li className=" py-1 px-3 hover:bg-green-600 hover:text-white">
-                    Rent
-                  </li>
-                  <li className=" py-1 px-3  hover:bg-green-600 hover:text-white">
-                    Sale
-                  </li>
-                </ul>
-              </AccordionBody>
-            </Accordion>
-            <Accordion
-              open={open === 2}
-              icon={<Icon id={2} open={open} className=" py-2" />}
-            >
-              <AccordionHeader
-                onClick={() => handleOpen(2)}
-                className=" py-2 border-2 px-3 mt-3"
-              >
-                <p>City</p>
-              </AccordionHeader>
-              <AccordionBody className=" border-2 pb-0 ">
-                <ul>
-                  <li className=" py-1 px-3 text-gray-500">City</li>
-                  <li className="  py-1 px-3 hover:bg-green-600 hover:text-white">
-                    US
-                  </li>
-                  <li className="  py-1 px-3 hover:bg-green-600 hover:text-white">
-                    CA
-                  </li>
-                </ul>
-              </AccordionBody>
-            </Accordion>
-            <Accordion
-              open={open === 3}
-              icon={<Icon id={3} open={open} className=" py-2" />}
-            >
-              <AccordionHeader
-                onClick={() => handleOpen(3)}
-                className=" py-2  border-2 px-3 mt-3"
-              >
-                <p className=" ">Property Type</p>
-              </AccordionHeader>
-              <AccordionBody className=" border-2 pb-0 ">
-                <ul>
-                  <li className=" py-1 px-3 text-gray-500">Property Type</li>
-                  <li className="  py-1 px-3 hover:bg-green-600 hover:text-white">
-                    Apartment
-                  </li>
-                  <li className="  py-1 px-3 hover:bg-green-600 hover:text-white">
-                    Villa/Mansion
-                  </li>
-                  <li className="  py-1 px-3 hover:bg-green-600 hover:text-white">
-                    Cottage
-                  </li>
-                  <li className="  py-1 px-3 hover:bg-green-600 hover:text-white">
-                    Flat
-                  </li>
-                  <li className="  py-1 px-3 hover:bg-green-600 hover:text-white">
-                    House
-                  </li>
-                </ul>
-              </AccordionBody>
-            </Accordion>
-          </Fragment>
-          <button className=" flex justify-start my-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded border-none cursor-pointer">
+                // applies styles to hovered item (with mouse or keyboard)
+                "&[data-hovered]": {},
+              },
+            })}
+          />
+          <Select
+            className=" my-5"
+            placeholder="Type"
+            value={tValue}
+            onChange={setTValue}
+            data={[
+              { value: "apartment", label: "Apartment" },
+              { value: "villa", label: "Villa/Mansion" },
+              { value: "cottage", label: "Cottage" },
+              { value: "flat", label: "Flat" },
+              { value: "house", label: "House" },
+            ]}
+            styles={(theme) => ({
+              item: {
+                // applies styles to selected item
+                "&[data-selected]": {
+                  "&, &:hover": {
+                    backgroundColor: theme.colors.green[8],
+                    color: theme.white,
+                  },
+                },
+
+                // applies styles to hovered item (with mouse or keyboard)
+                "&[data-hovered]": {},
+              },
+            })}
+          />
+          <button
+            onClick={SearchHandler}
+            className="w-full flex justify-center my-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded border-none cursor-pointer"
+          >
             <BiSearchAlt className="xs:mb-[4px] md:mb-1 sm:text-lg me-1 mt-[2px]" />
             Search
           </button>
+          <button
+            onClick={SeeAllHandler}
+            className="w-full mb-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded border-none cursor-pointer"
+          >
+            See all
+          </button>
         </div>
-        {/* Rent Card Start*/}
-        <div className="w-full lg:basis-8/12 flex flex-wrap gap-0 sm:gap-5 justify-center items-center">
-          {rentData?.map((rentProperty) => {
-            return (
-              <RentCard
-                key={rentProperty.id}
-                {...rentProperty}
-              />
-            );
-          })}
-          {/* Rent Card End*/}
-
-          {/* Sale Card Start*/}
-          
-          {saleData?.map((saleProperty) => {
-            return (
-              <SaleCard
-                key={saleProperty.id}
-                {...saleProperty}
-              />
-            );
-          })}
-          {/* Pagination Start*/}
-
-          <div className="flex flex-wrap items-center gap-1 sm:gap-4">
-            <Button
-              variant="text"
-              color="blue-gray"
-              className="flex items-center gap-0 sm:gap-2"
-              onClick={prev}
-              disabled={active === 1}
-            >
-              <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" /> 
-              <span className=" hidden sm:block">Previous</span>
-            </Button>
-            <div className="flex items-center gap-0 sm:gap-2">
-              <IconButton {...getItemProps(1)}>1</IconButton>
-              <IconButton {...getItemProps(2)}>2</IconButton>
-              <IconButton {...getItemProps(3)}>3</IconButton>
-              <IconButton {...getItemProps(4)}>4</IconButton>
-              <IconButton {...getItemProps(5)}>5</IconButton>
-            </div>
-            <Button
-              variant="text"
-              color="blue-gray"
-              className="flex items-center gap-0 sm:gap-2"
-              onClick={next}
-              disabled={active === 5}
-            >
-              <span className="hidden sm:block">Next</span>
-              <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
-            </Button>
+        {btnLoading ? (
+          <div className="w-full lg:basis-8/12 flex justify-center items-center h-screen">
+            <Loader variant="dots" color="green" />
           </div>
-          {/* Pagination End*/}
-        </div>
-        {/* Sale Card End*/}
+        ) : (
+          <div className={`  w-full lg:basis-8/12`}>
+            {/* All Card Start*/}
+            <div
+              className={` w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}
+            >
+              {records?.length >= 1 ? (
+                records.map((allProperty) => {
+                  return <AllCard key={allProperty.id} {...allProperty} />;
+                })
+              ) : (
+                <div className="w-full lg:basis-8/12 flex justify-center items-center h-screen">
+                  <h1 className=" text-lg ">No Records Yet.</h1>
+                </div>
+              )}
+            </div>
+            {/* All Card End*/}
+
+            {/* Pagination Start*/}
+
+            <div className={`${records.length < 1 ? "hidden" : ""} my-5 `}>
+              <ul
+                className={`${
+                  npage > 1 ? "flex" : "hidden"
+                } items-center gap-1 lg:gap-3`}
+              >
+                {currentPage == 1 ? (
+                  <li className=" flex items-center gap-2">
+                    <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" />
+                    <a href="#">Prev</a>
+                  </li>
+                ) : (
+                  <li className=" flex items-center gap-2">
+                    <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" />
+                    <a href="#" onClick={prevPage}>
+                      Prev
+                    </a>
+                  </li>
+                )}
+                <div className="flex items-center gap-1">
+                  {numbers.length > 1 ? (
+                    numbers.map((n, i) => {
+                      return (
+                        <Button
+                          variant="text"
+                          color="blue-gray"
+                          className={`${
+                            currentPage === n ? "active" : ""
+                          } list-none text-center rounded-none p-1 `}
+                          key={i}
+                        >
+                          <p
+                            className="hidden sm:block p-3"
+                            onClick={() => changeCPage(n)}
+                          >
+                            {n}
+                          </p>
+                        </Button>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </div>
+                {currentPage === npage ? (
+                  <li className=" flex items-center gap-2">
+                    <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
+                    <a href="#">Next</a>
+                  </li>
+                ) : (
+                  <li className=" flex items-center gap-2">
+                    <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
+                    <a href="#" onClick={nextPage}>
+                      Next
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </div>
+            {/* Pagination End*/}
+          </div>
+        )}
       </div>
     </div>
   );
