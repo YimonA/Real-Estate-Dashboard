@@ -7,7 +7,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import PropertyCreate from "./PropertyCreate";
 import { Link } from "react-router-dom";
 
-const AddRentProperty = () => {
+const AddPropertyCreate = () => {
   return (
     <Dashboard>
       {/* home section */}
@@ -58,4 +58,4 @@ const AddRentProperty = () => {
   );
 };
 
-export default AddRentProperty;
+export default AddPropertyCreate;
