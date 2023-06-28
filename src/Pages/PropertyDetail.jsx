@@ -22,7 +22,7 @@ const PropertyDetail = () => {
   if (isLoading) {
     return (
       <div className=" flex justify-center items-center h-screen">
-        <Loader variant="dots" color="green" />
+        <Loader variant="bars" color="green" />
       </div>
     );
   }
@@ -64,7 +64,6 @@ const PropertyDetail = () => {
                 {propertyDetailData.addressLine1}
               </p>
             </Breadcrumbs>
-            
           </div>
         </div>
       </div>
@@ -139,9 +138,14 @@ const PropertyDetail = () => {
                   <ul className=" text-gray-500 ">
                     {propertyDetailData?.bullet.map((tag) => {
                       return (
-                        <li className=" pb-2 flex gap-2 justify-start items-center">
-                          <BsCheckCircleFill className=" text-green-600 bg-white rounded-full" />
-                          {tag}
+                        <li className=" pb-2 flex gap-2 justify-start items-start">
+                          <p>
+                            <BsCheckCircleFill
+                              className=" text-green-600 bg-white rounded-full"
+                              size={"1rem"}
+                            />
+                          </p>
+                          <p>{tag}</p>
                         </li>
                       );
                     })}
@@ -342,7 +346,7 @@ const PropertyDetail = () => {
       </div>
 
       {/* footer section */}
-      <Footer/>
+      <Footer />
     </Dashboard>
   );
 };
