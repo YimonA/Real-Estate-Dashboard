@@ -5,6 +5,7 @@ import { useGetPropertyQuery } from "../redux/api/propertyApi";
 import { Loader, Select } from "@mantine/core";
 import { Button } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import '../index.css'
 
 const PropertyListItem = () => {
   const { data: property, isLoading } = useGetPropertyQuery();
@@ -219,6 +220,7 @@ const PropertyListItem = () => {
         </div>
         {btnLoading ? (
           <div className="w-full lg:basis-8/12 flex justify-center items-center h-screen">
+        <div class="custom-loader"></div>
 
           </div>
         ) : (
