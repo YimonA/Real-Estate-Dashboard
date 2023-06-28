@@ -245,7 +245,7 @@ function NavList() {
         />
 
         <div className={theater ? " relative" : "hidden"}>
-          <div className="min-w-[110rem] h-[400px] bg-white absolute top-[18px] -right-[150px] overflow-y-scroll  animate__animated animate__bounceInDown z-[3000] shadow-md">
+          <div className="min-w-[110rem] h-[460px] bg-white absolute top-[18px] -right-[150px] overflow-y-scroll  animate__animated animate__bounceInDown z-[3000] shadow-md">
             <TheaterImageLists />
           </div>
         </div>
