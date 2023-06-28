@@ -219,7 +219,7 @@ const PropertyListItem = () => {
         </div>
         {btnLoading ? (
           <div className="w-full lg:basis-8/12 flex justify-center items-center h-screen">
-            <Loader variant="dots" color="green" />
+            <div class="custom-loader"></div>
           </div>
         ) : (
           <div className={`  w-full lg:basis-8/12`}>
