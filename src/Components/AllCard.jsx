@@ -11,7 +11,8 @@ const AllCard = (allProperty) => {
     window.scroll(0, 0);
   };
   return (
-    <div className="w-full bg-white flex flex-col lg:flex-row justify-start items-center relative">
+    <div className="w-full bg-white ">
+      <Link to={`/detail/${allProperty?.id}`} className="w-full flex flex-col lg:flex-row justify-start items-center relative ">
       <Chip
         className={` ${
           allProperty.type === "rent" ? "bg-green-700" : "bg-red-500"
@@ -25,10 +26,10 @@ const AllCard = (allProperty) => {
         alt=""
         loading="lazy"
       />
-      <Link to={`/detail/${allProperty?.id}`} className="w-full h-fit md:h-56 ">
+      
         <div
           onClick={scrollYHandler}
-          className="px-3 flex flex-col  bg-white "
+          className=" w-full h-fit md:basis-9/12 md:h-56 px-3 flex flex-col  bg-white "
         >
           <div className=" w-full md:basis-8/12 flex flex-col lg:flex-row md:justify-between items-center">
             <div className=" w-full md:basis-8/12 h-full md:px-5 py-5">
