@@ -10,12 +10,13 @@ import PropertyListItem from "./Components/PropertyListItem";
 import Error from "./Pages/Error";
 import Customer from "./Pages/Customer";
 import ClientsDetails from "./Pages/ClientsDetails";
-import AddPropertyCreate from "./Pages/AddPropertyCreate";
+import AccountSetting from "./Pages/AccountSetting";
+import Calendar from "./Pages/Calendar";
 import PropertyDetail from "./Pages/PropertyDetail";
-
-
+import { ToastContainer } from "react-toastify";
 import "./index.css";
 import 'animate.css';
+import AddPropertyCreate from "./Pages/AddPropertyCreate";
 
 const App = () => {
 
@@ -42,17 +43,25 @@ const App = () => {
   })
   return (
     <div>
+      <ToastContainer></ToastContainer>
       <ThemeProvider theme={theme}>
         <Routes>
-        <Route path='/detail/:id' element={<PropertyDetail/>} />
-        <Route path='/create' element={<AddPropertyCreate/>} />
-        <Route path='/property' element={<PropertyListItem/>} />
-
-        <Route path='/' element={<Login/>} />
+        
+        <Route path='/' element={<Home/>} />
+        <Route path='/login' element={<Login/>} />
         <Route path='/dashboard' element={<Dashboard/>} />
-        <Route path='/profile' element={<Profile/>} />
+        
+        <Route path='/profile/:id' element={<Profile/>} />
+        <Route path='/accountsetting' element={<AccountSetting/>} />
         <Route path='/propertylist' element={<PropertyList/>}/>
         <Route path='/customer' element={<Customer/>}/>
+
+        <Route path='/detail/:id' element={<PropertyDetail/>} />
+        <Route path='/property' element={<PropertyListItem/>} />
+        <Route path='/create' element={<AddPropertyCreate/>} />
+
+        <Route path='/calendar' element={<Calendar/>} />
+
         <Route path="*" element={<Error/> }/>
         
         <Route path='/clientsDetail/:id' element={<ClientsDetails/>}/>

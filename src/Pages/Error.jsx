@@ -27,7 +27,7 @@ const Error = () => {
               <p className="paragraph">
                 Looks like the page you were looking for wasn't found.
               </p>
-              <Link to={'/home'}>
+              <Link to={'/'}>
               <button className="btn bg-green-600 hover:bg-green-700 text-white px-6 py-2 mt-3">Back to Home</button>
               </Link>
             </div>

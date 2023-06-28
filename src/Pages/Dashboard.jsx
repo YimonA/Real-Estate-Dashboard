@@ -1,49 +1,72 @@
-import React, { useState } from 'react'
-import Navbar from '../Components/Navbar'
-import Sidebar from '../Components/Sidebar'
-import { Box } from '@mui/material'
-import CssBaseline from "@mui/material/CssBaseline";
-
-import Cookies from "js-cookie";
-import { useLogoutMutation } from '../redux/api/authApi';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { removeUser } from '../redux/services/authSlice';
+import React, { useEffect, useState } from "react";
+import { CssBaseline, useMediaQuery } from "@mui/material";
+import { Box } from "@mui/material";
+import Navbar from "../Components/Navbar";
+import Sidebar from "../Components/Sidebar";
+import { useNavigate, useParams } from "react-router-dom";
+import NavbarMini from "../Components/NavbarMini";
+import SidebarMini from "../Components/SidebarMini";
+import { useGetUserInfosQuery } from "../redux/api/userInfosApi";
 
 const Dashboard = ({children}) => {
-  const [open, setOpen] = useState(true);
-  const [close, setClose] = useState(false);
+  const matches = useMediaQuery("(min-width:1130px)"); /* 1130px */
 
-  const user = JSON.parse(Cookies.get("user"));
-    const token = Cookies.get("token");
-    // console.log(user);
-    // console.log(token);
+  const nav = useNavigate();
 
-    const [logout] = useLogoutMutation();
+  useEffect(() => {
+    const username = localStorage.getItem('username');
+    const password = localStorage.getItem('password');
+    if (username === " " || username === null || password === " " || password === null) {
+      nav("/login");
+    }
+  }, []);
 
-    const nav = useNavigate();
+  const userinfo = localStorage.getItem("userinfo");
+  const userInfos = JSON.parse(userinfo);
+  // console.log(userInfos);
 
-    const dispatch = useDispatch();
-
-    const logoutHandler = async () => {
-      const {data} = await logout(token);
-      dispatch(removeUser());
-      if(data?.success) {
-        nav("/");
-      };
-      console.log(data);
-    };
+  const { data: admin} = useGetUserInfosQuery();
 
   return (
-    <Box sx={{ display: "flex"}}>
-      <CssBaseline />
-      <Navbar open={open} setOpen={setOpen} user={user} logoutHandler={logoutHandler}/> {/* appbar */}
-      <Sidebar open={open} setOpen={setOpen} close={close} setClose={setClose} user={user} logoutHandler={logoutHandler}/> {/* drawer */}
-      <Box component="main" className=" pt-[57px] sm:pt-[63px]" sx={{ flexGrow: 1, backgroundColor: "#EBEFF3", px: 0 }}>
-        <div className="">{children}</div> {/* for items div in sidebar */}
-      </Box>
-    </Box>
-  )
-}
+    <div>
+      {/* <span>{`(min-width:600px) matches: ${matches}`}</span>; */}
+      {matches ? (
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          <Navbar  /> 
+          {admin?.map((minmin)=>{
+              return(
+                 <Sidebar userInfos={userInfos} key={minmin.id} minmin={minmin}/>
+              )
+          })}
+         
+          <Box
+            component="main"
+            className=" pt-[57px] sm:pt-[63px]"
+            sx={{ flexGrow: 1, backgroundColor: "#EBEFF3", px: 0 }}>
+            <div className="">{children}</div> 
+          </Box>
+        </Box>
+      ) : (
+        // <MiniDrawer />
+        <Box sx={{ display: "flex" }}>
+          <CssBaseline />
+          {admin?.map((minmin)=>{
+              return(
+                <NavbarMini userInfos={userInfos} key={minmin.id} minmin={minmin}/>
+              )
+          })}
+          <SidebarMini/>
+          <Box
+            component="main"
+            className=" pt-[57px] sm:pt-[63px]"
+            sx={{ flexGrow: 1, backgroundColor: "#EBEFF3", px: 0 }}>
+            <div className="">{children}</div> 
+          </Box>
+        </Box>
+      )}
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

@@ -5,6 +5,17 @@
 @tailwind utilities;
 
 
+:root{
+  --nav-icon-color: rgba(255,255,255,.55);
+  --hover-nav-icon-color: #ffffffbf;
+  --sidebar-icon-color: #8d97ad;
+  --body-bg: #DCDBE0;
+  --text-color: #212529;
+  --border-color: #e7eaf3b3;
+  --card-text-color: #8c98a4;
+  --card-icon-color: #8c98a4;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -122,7 +133,6 @@ html {
   }
 }
 
-
 .active{
   @apply border-l-4 border-green-700 text-green-700
 }
@@ -137,3 +147,73 @@ html {
 .btn {
   @apply rounded-md text-sm md:text-lg font-medium;
 }
+
+.MuiTableRow-head th {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.MuiTableRow-root  .MuiTableCell-body {
+  font-size: 15px;
+  font-weight: 400;
+  color: #212529da;
+}
+
+@media (max-width: 768px) {
+.fc-header-toolbar{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+}
+
+.fc-toolbar-chunk .fc-today-button{
+  text-transform: capitalize;
+}
+
+.fc-toolbar-chunk .fc-toolbar-title{
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.fc-button-group .fc-dayGridMonth-button, .fc-button-group .fc-timeGridWeek-button,.fc-button-group .fc-timeGridDay-button{
+  text-transform: capitalize;
+}
+
+.fc-col-header thead{
+  background-color: #e9ecef;
+}
+
+.fc-col-header-cell .fc-col-header-cell-cushion{
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+/* .fc-button-group .fc-prev-button, .fc-button-group .fc-next-button{
+  background-color: white;
+  border: 1px solid #e9ecef;
+  color: var(--text-color);
+}*/
+/* .fc-button-group .fc-prev-button:focus, .fc-button-group .fc-next-button:focus{
+  outline: none;
+  box-shadow: none;
+} 
+.fc-button-group  .fc-prev-button:not(:disabled):active:focus, .fc-button-group  .fc-next-button:not(:disabled):active:focus{
+  box-shadow: none;
+} */
+.fc-button-group .fc-button-primary:focus{
+  outline: none;
+  box-shadow: none;
+} 
+.fc-button-group  .fc-button-primary:not(:disabled):active:focus{
+  box-shadow: none;
+}
+/* .fc-button-group .fc-prev-button:hover, .fc-button-group .fc-next-button:hover{
+  background-color: #f3faf6;
+  border: 1px solid #f3faf6;
+  color: var(--text-color);
+} */

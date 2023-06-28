@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Box from "@mui/material/Box";
 import Dashboard from "./Dashboard";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import SaleCreate from "./SaleCreate";
 import { Link } from "react-router-dom";
-import PropertyListItem from "../Components/PropertyListItem";
 import CreateButton from "../Components/CreateButton";
-import Footer from "../Components/Footer";
 
-const PropertyList = () => {
+const AddSaleProperty = () => {
   return (
     <Dashboard>
       {/* home section */}
       <div className=" w-full shadow-custom bg-[#FFF]">
         <div className="flex flex-wrap justify-between items-center px-6 py-4 ">
           <div className=" capitalize text-[#212529] text-xl w-80">
-            property lists
+            add sale property
           </div>
           <div className="flex justify-between items-center gap-3 ml-auto">
             <Breadcrumbs
@@ -28,16 +27,16 @@ const PropertyList = () => {
               }
               aria-label="breadcrumb"
             >
-              <Link to={"/"}>
+              <Link to={"/home"}>
                 <p className=" capitalize cursor-pointer text-[#212529] text-[13px]">
                   home
                 </p>
               </Link>
               <p className=" capitalize text-green-700 text-[13px]">
-                property lists
+                add property
               </p>
             </Breadcrumbs>
-            <Link to={"/create"}>
+            <Link to={"/salecreate"}>
               <CreateButton/>
             </Link>
           </div>
@@ -45,13 +44,11 @@ const PropertyList = () => {
       </div>
 
       <div className="w-full px-6 py-7">
-        <PropertyListItem />
+        {/* Start Write Here Add Property  */}
+        <SaleCreate />
       </div>
-
-      {/* footer section */}
-      <Footer/>
     </Dashboard>
   );
 };
 
-export default PropertyList;
+export default AddSaleProperty;

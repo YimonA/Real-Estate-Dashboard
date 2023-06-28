@@ -1,23 +1,33 @@
 import React, { useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
+
 import { AppBar, Toolbar } from "@mui/material";
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import TheatersIcon from "@mui/icons-material/Theaters";
+
 import { FaLink } from "react-icons/fa";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { SlSettings } from "react-icons/sl";
-import { TfiUser, TfiEmail } from "react-icons/tfi";
 import { MdChevronRight } from "react-icons/md";
-import TheaterImageLists from "./TheaterImageLists";
+import ProfileMenuItems from "./ProfileMenuItems";
+import { BiSearchAlt } from "react-icons/bi";
 
-const drawerWidth = 240;
+import { useNavigate } from "react-router-dom";
+import { TfiUser, TfiEmail, TfiSettings } from "react-icons/tfi";
 
-function NavList() {
+const drawerWidth = 64;
+
+function NavList({minmin}) {
   /* { user, logoutHandler } */
+
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const closeMenu = () => setIsMenuOpen(false);
 
   const [noti, setNoti] = useState(false);
   const [message, setMessage] = useState(false);
-  const [theater, setTheater] = useState(false);
+
+  const [profileState, setProfileState] = useState(true);
+
+  const nav = useNavigate();
 
   const notiItems = [
     {
@@ -49,12 +59,11 @@ function NavList() {
       p2: "9:02 AM",
     },
   ];
-
   const messageItems = [
     {
       image:
         "https://adminpro-free-nuxtjs.netlify.app/images/users/1.jpg",
-        color: "#ACACAC",
+      color: "#e46a76",
       title: "Pavan kumar",
       p1: "Just see the my admin!",
       p2: "9:30 AM",
@@ -62,7 +71,7 @@ function NavList() {
     {
       image:
         "https://adminpro-free-nuxtjs.netlify.app/images/users/4.jpg",
-        color: "#ACACAC",
+      color: "#15803d",
       title: "Sonu Nigam",
       p1: "I've sung a song! See you at",
       p2: "9:10 AM",
@@ -70,7 +79,7 @@ function NavList() {
     {
       image:
         "https://adminpro-free-nuxtjs.netlify.app/images/users/3.jpg",
-        color: "#ACACAC",
+      color: "#ACACAC",
       title: "Arijit Sinh",
       p1: "I am a singer!",
       p2: "9:08 AM",
@@ -86,37 +95,31 @@ function NavList() {
   ];
 
   const notiHandler = () => {
-    if (message || theater) {
+    if (message) {
       setMessage(false);
-      setTheater(false);
     }
     setNoti(!noti);
   };
 
   const messageHandler = () => {
-    if (noti || theater) {
+    if (noti) {
       setNoti(false);
-      setTheater(false);
     }
     setMessage(!message);
   };
 
-  const theaterHandler = () => {
-    if (noti || message) {
-      setNoti(false);
-      setMessage(false);
-    }
-    setTheater(!theater);
+  
+  const username = localStorage.getItem("username");
+  const logoutHandler = () => {
+    localStorage.removeItem("username");
+    nav("/login");
   };
 
-  console.log(noti + " NNNNNN");
-  console.log(message + " MMMMMMMMM");
   return (
     <ul className="my-2 mb-0 mt-0 flex flex-wrap items-center gap-6 me-5">
       <div className="relative flex">
         <TfiEmail
           className="text-[21px] text-[var(--nav-icon-color)] cursor-pointer hover:text-[var(--hover-nav-icon-color)]"
-          // onClick={()=> setNoti(!noti)}
           onClick={notiHandler}
         />
         <span className="animate-ping absolute w-[16px] h-[16px] border border-5 border-[#d32f2f] rounded-full -top-[10px] -right-[4px] bg-[#d32f2f] z-10 "></span>
@@ -147,7 +150,7 @@ function NavList() {
                             className={` bg-[${item.color}] border-[${item.color}] rounded-full w-[40px] h-[40px] p-[10px]`}
                           >
                             <div className="z-20 text-white text-center text-[14px] font-extrabold m-[2px]">
-                             <span  style={{fill:"red"}}> {item.icon} </span>
+                              {item.icon}
                             </div>
                           </div>
                           <div className="text-[#212529]">
@@ -173,7 +176,6 @@ function NavList() {
           </div>
         </div>
       </div>
-
       <div className="relative flex">
         <EditNoteIcon
           className="text-[30px] text-[var(--nav-icon-color)] cursor-pointer hover:text-[var(--hover-nav-icon-color)]"
@@ -204,7 +206,7 @@ function NavList() {
                       >
                         <div className="flex items-center py-[9px] px-[15px] gap-4">
                           <div
-                            className={` rounded-full w-[70px] h-[70px] p-[10px]`} /*  w-[40px] h-[40px] bg-[${item.color}] border-[${item.color}] */
+                            className={`  rounded-full w-[70px] h-[70px] p-[10px]`} /*  w-[40px] h-[40px] bg-[${item.color}] border-[${item.color}] */
                           >
                             <div className="z-20 text-white text-center text-[14px] font-extrabold m-[2px] ">
                               <img
@@ -237,43 +239,26 @@ function NavList() {
           </div>
         </div>
       </div>
-      <div className="relative">
-        <TheatersIcon
-          // color="lightWhite"
-          className=" text-[var(--nav-icon-color)] cursor-pointer hover:text-[var(--hover-nav-icon-color)]"
-          onClick={theaterHandler}
-        />
 
-        <div className={theater ? " relative" : "hidden"}>
-          <div className="min-w-[110rem] h-[400px] bg-white absolute top-[18px] -right-[150px] overflow-y-scroll  animate__animated animate__bounceInDown z-[3000] shadow-md">
-            <TheaterImageLists />
-          </div>
-        </div>
-      </div>
-      {/* <ProfileMenuItems
+      <ProfileMenuItems
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
         closeMenu={closeMenu}
-        
-      /> */}{" "}
-      {/* user={user} logoutHandler={logoutHandler} */}
+        minmin={minmin}
+      />
     </ul>
   );
 }
 
-const Navbar = () => {
+const NavbarMini = ({userInfos, minmin}) => {
   const theme = useTheme();
 
   return (
     <AppBar
-      position="fixed"
-      className=" w-[80%] md:w-full"
-      sx={{
-        width: `calc(100% - ${drawerWidth}px)`,
-        ml: `${drawerWidth}px`,
-        backgroundColor: "rgb(21, 128, 61)",
-      }} /* boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" */
-    >
+        position="fixed"
+        className=" w-[100%] md:w-full"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` , backgroundColor: "rgb(21, 128, 61)", }} /* boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" */
+      >
       <div className="flex items-center justify-between gap-5">
         <div className="flex flex-wrap items-center gap-4">
           <Toolbar>
@@ -281,30 +266,17 @@ const Navbar = () => {
               type="text"
               name="search"
               id="search"
-              placeholder="Search & enter"
+              placeholder="Search & enter" 
               className=" ps-5 py-1 border-dark-900 border rounded-full focus:outline-none text-black hidden md:block focus:w-[300px] duration-[2000] ease-in-out transition-all"
             />
-
-            {/* <div className=" md:w-[380px] rounded-full bg-white border border-[#8d97ad]">
-              <form action="" className="flex-between-center gap-2 pl-4 pr-1">
-                <div className="flex-center-center gap-1 ">
-                  <BiSearchAlt className="text-xl sm:text-2xl text-[#8d97ad]" />
-                  <input
-                    type="text"
-                    className="border border-none focus:outline-none w-48 xs:w-[250px] sm:w-96 md:w-[400px] text-sm md:text-lg p-[5px] text-black"
-                    placeholder="Search something here"
-                  />
-                </div>
-              </form>
-            </div> */}
           </Toolbar>
         </div>
         <div className="">
-          <NavList /> {/* user={user} logoutHandler={logoutHandler} */}
+          <NavList minmin={minmin}/> 
         </div>
       </div>
     </AppBar>
   );
 };
 
-export default Navbar;
+export default NavbarMini;

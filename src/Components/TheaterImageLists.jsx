@@ -6,7 +6,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 export default function TheaterImageLists() {
   return (
     <Box sx={{ width: 1000, height: 400,  margin: 'auto', }}>
-      <ImageList variant="masonry" cols={4} gap={10}>
+      <ImageList variant="masonry" cols={4} gap={10} sx={{paddingTop: 5, paddingBottom: 5}}>
         {itemData.map((item) => (
           <ImageListItem key={item.img}>
             <img
