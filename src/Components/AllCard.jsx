@@ -25,10 +25,10 @@ const AllCard = (allProperty) => {
         alt=""
         loading="lazy"
       />
-      <Link to={`/detail/${allProperty?.id}`}>
+      <Link to={`/detail/${allProperty?.id}`} className="w-full h-fit md:h-56 ">
         <div
           onClick={scrollYHandler}
-          className="w-full h-fit md:basis-8/12 md:h-56 px-3 flex flex-col  bg-white "
+          className="px-3 flex flex-col  bg-white "
         >
           <div className=" w-full md:basis-8/12 flex flex-col lg:flex-row md:justify-between items-center">
             <div className=" w-full md:basis-8/12 h-full md:px-5 py-5">
