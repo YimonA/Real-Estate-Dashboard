@@ -69,10 +69,11 @@ const Clients = () => {
           </div>
         </>
       ) : (
-        <div className="flex h-screen items-center justify-center  ">
-          <div className="px-5 py-3 text-xs font-medium leading-none text-center text-green-800 bg-green-200 rounded-full animate-pulse ">
+        <div className="flex h-screen items-center justify-center ">
+          {/* <div className="px-5 py-3 text-xs font-medium leading-none text-center text-green-800 bg-green-200 rounded-full animate-pulse ">
             loading...
-          </div>
+          </div> */}
+          <div class="custom-loader"></div>
         </div>
       )}
     </div>

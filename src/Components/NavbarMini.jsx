@@ -20,7 +20,7 @@ function NavList({minmin}) {
   /* { user, logoutHandler } */
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const closeMenu = () => setIsMenuOpen(false);
+  // const closeMenu = () => setIsMenuOpen(false);
 
   const [noti, setNoti] = useState(false);
   const [message, setMessage] = useState(false);
@@ -95,19 +95,28 @@ function NavList({minmin}) {
   ];
 
   const notiHandler = () => {
-    if (message) {
+    if (message || isMenuOpen) {
       setMessage(false);
+      setIsMenuOpen(false);
     }
     setNoti(!noti);
   };
 
   const messageHandler = () => {
-    if (noti) {
+    if (noti || isMenuOpen) {
       setNoti(false);
+      setIsMenuOpen(false);
     }
     setMessage(!message);
   };
 
+  const profileMenuHandler = () => {
+    if (noti || message) {
+      setNoti(false);
+      setMessage(false);
+    }
+    setIsMenuOpen(!isMenuOpen);
+  };
   
   const username = localStorage.getItem("username");
   const logoutHandler = () => {
@@ -116,10 +125,10 @@ function NavList({minmin}) {
   };
 
   return (
-    <ul className="my-2 mb-0 mt-0 flex flex-wrap items-center gap-6 me-5">
+    <ul className="my-2 mb-0 mt-0 flex flex-wrap items-center gap-2 me-5">
       <div className="relative flex">
         <TfiEmail
-          className="text-[21px] text-[var(--nav-icon-color)] cursor-pointer hover:text-[var(--hover-nav-icon-color)]"
+          className={`text-[21px] cursor-pointer hover:text-[var(--hover-nav-icon-color)] ${ noti ? "text-[var(--hover-nav-icon-color)]" : "text-[var(--nav-icon-color)]"}`}
           onClick={notiHandler}
         />
         <span className="animate-ping absolute w-[16px] h-[16px] border border-5 border-[#d32f2f] rounded-full -top-[10px] -right-[4px] bg-[#d32f2f] z-10 "></span>
@@ -132,7 +141,7 @@ function NavList({minmin}) {
               : " hidden"
           }
         >
-          <div className=" w-[330px] h-[428] bg-white absolute top-[48px] -right-[15px] border border-[#e9ecef] rounded z-10 text-black">
+          <div className=" w-[330px] h-[428] bg-white absolute top-[40px] -right-[70px] md:top-[48px] md:-right-[15px] border border-[#e9ecef] rounded z-10 text-black">
             <ul>
               <li className=" px-[20px] py-[15px] text-[15px] font-semibold border-b border-b-[#e9ecef]">
                 Notification
@@ -178,7 +187,7 @@ function NavList({minmin}) {
       </div>
       <div className="relative flex">
         <EditNoteIcon
-          className="text-[30px] text-[var(--nav-icon-color)] cursor-pointer hover:text-[var(--hover-nav-icon-color)]"
+          className={`text-[30px] cursor-pointer hover:text-[var(--hover-nav-icon-color)] ${ message ? "text-[var(--hover-nav-icon-color)]" : "text-[var(--nav-icon-color)]"}`}
           onClick={messageHandler}
         />
         <span className="animate-ping absolute w-[16px] h-[16px] border border-5 border-[#d32f2f] rounded-full -top-[6px] right-[5px] bg-[#d32f2f] z-10 "></span>
@@ -191,7 +200,7 @@ function NavList({minmin}) {
               : " hidden"
           }
         >
-          <div className=" w-[330px] h-[428] bg-white absolute top-[48px] -right-[15px] border border-[#e9ecef] rounded z-10 text-black">
+          <div className=" w-[330px] h-[428] bg-white absolute top-[40px] -right-[60px] md:top-[48px] md:-right-[15px] border border-[#e9ecef] rounded z-10 text-black">
             <ul>
               <li className=" px-[20px] py-[15px] text-[15px] font-semibold border-b border-b-[#e9ecef]">
                 You have 4 new messages
@@ -241,9 +250,8 @@ function NavList({minmin}) {
       </div>
 
       <ProfileMenuItems
+      profileMenuHandler={profileMenuHandler}
         isMenuOpen={isMenuOpen}
-        setIsMenuOpen={setIsMenuOpen}
-        closeMenu={closeMenu}
         minmin={minmin}
       />
     </ul>

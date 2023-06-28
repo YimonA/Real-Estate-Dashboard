@@ -139,7 +139,8 @@ const PropertyListItem = () => {
   if (isLoading) {
     return (
       <div className=" flex justify-center items-center h-screen">
-        <Loader variant="bars" color="green" />
+        {/* <Loader variant="dots" color="green" /> */}
+        <div class="custom-loader"></div>
       </div>
     );
   }
@@ -218,7 +219,7 @@ const PropertyListItem = () => {
         </div>
         {btnLoading ? (
           <div className="w-full lg:basis-8/12 flex justify-center items-center h-screen">
-            <Loader variant="bars" color="green" />
+
           </div>
         ) : (
           <div className={`  w-full lg:basis-8/12`}>
