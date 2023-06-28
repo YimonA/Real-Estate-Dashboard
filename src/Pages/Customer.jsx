@@ -5,6 +5,8 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Clients from "./Clients";
+import Footer from "../Components/Footer";
+import { Link } from "react-router-dom";
 
 const Customer = () => {
   return (
@@ -25,9 +27,11 @@ const Customer = () => {
               }
               aria-label="breadcrumb"
             >
+              <Link to={"/"}>
               <p className=" capitalize cursor-pointer text-[#212529] text-[13px]">
                 home
               </p>
+              </Link>
               <p className=" capitalize text-green-700 text-[13px]">customer</p>
             </Breadcrumbs>
             {/* <div className="hidden md:block">
@@ -44,6 +48,10 @@ const Customer = () => {
         {/* Start Write Here Customer */}
         <Clients />
       </div>
+
+      {/* footer section */}
+      <Footer/>
+      
     </Dashboard>
   );
 };

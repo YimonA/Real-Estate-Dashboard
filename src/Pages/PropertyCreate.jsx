@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Loader,
   TextInput,
@@ -94,7 +94,7 @@ const PropertyCreate = () => {
 
   return (
     <div className=" bg-[#EDF1F5] pt-5">
-      <div className=" container mx-auto px-7 py-5 pb-20 bg-white">
+      <div className="  mx-auto px-7 py-5 pb-20 bg-white">
         <form
           onSubmit={form.onSubmit(async (values) => {
             try {

@@ -6,6 +6,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import PropertyCreate from "./PropertyCreate";
 import { Link } from "react-router-dom";
+import Footer from "../Components/Footer";
 
 const AddPropertyCreate = () => {
   return (
@@ -14,7 +15,7 @@ const AddPropertyCreate = () => {
       <div className=" w-full shadow-custom bg-[#FFF]">
         <div className="flex flex-wrap justify-between items-center px-6 py-4 ">
           <div className=" capitalize text-[#212529] text-xl w-80">
-            add rent property
+            add property
           </div>
           <div className="flex justify-between items-center gap-3 ml-auto">
             <Breadcrumbs
@@ -26,7 +27,7 @@ const AddPropertyCreate = () => {
               }
               aria-label="breadcrumb"
             >
-              <Link to={"/home"}>
+              <Link to={"/"}>
                 <p className=" capitalize cursor-pointer text-[#212529] text-[13px]">
                   home
                 </p>
@@ -35,17 +36,6 @@ const AddPropertyCreate = () => {
                 add property
               </p>
             </Breadcrumbs>
-            <Link to={"/salecreate"}>
-              <div className="hidden md:block">
-                <button className=" px-3 py-2 bg-[#03a9f3] rounded text-white capitalize hover:bg-[#29b6f5] ">
-                  <AddCircleIcon
-                    className="me-[2px] mb-[2px]"
-                    fontSize="14px"
-                  />
-                  <span className="text-[15px] font-medium"> create new</span>
-                </button>
-              </div>
-            </Link>
           </div>
         </div>
       </div>
@@ -54,6 +44,9 @@ const AddPropertyCreate = () => {
         {/* Start Write Here Add Property  */}
         <PropertyCreate />
       </div>
+
+      {/* footer */}
+      <Footer/>
     </Dashboard>
   );
 };

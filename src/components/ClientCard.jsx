@@ -1,53 +1,39 @@
 import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Typography,
-  Avatar,
-} from "@material-tailwind/react";
+import { Card, Avatar } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-const ClientCard = ({client}) => {
-    console.log(client);
-  const scrollTop=()=>{
-    window.scroll(0,0);
-  }
+const ClientCard = ({ client }) => {
+  console.log(client);
+  const scrollTop = () => {
+    window.scroll(0, 0);
+  };
   return (
     <div className=" w-full ">
-    <Link to={`/clientsDetail/${client?.id}` } state={client}>
-    <Card onClick={scrollTop}
-       shadow={true} 
-       className=" hover:shadow-xl transition-all bg-[#fafafa] rounded-none  flex flex-col px-8 py-2 w-52 h-72"
-     >
-       <CardHeader
-         color="transparent"
-         floated={false}
-         shadow={false}
-         className="mx-0 flex justify-center gap-4 pt-0 pb-8"
-       >
-         <Avatar
-           className=""
-           size="xl"
-           variant="circular"
-           src={client?.image}
-           alt="image"
-         />
-       </CardHeader>
-       <CardBody className="mb-3 p-0 justify-center">
-         <div className="flex w-full flex-col justify-center items-center gap-0.5">
-           <Typography variant="h3" className="text-green-600">
-             {client?.firstName}
-           </Typography>
-           <Typography className="text-green-500 text-sm">
-             {client?.company?.title.slice(0, 15)}
-           </Typography>
-         </div>
-       </CardBody>
-     </Card>
-    </Link>
-   </div>
-  )
-}
+      <Link to={`/clientsDetail/${client?.id}`} state={client}>
+        <Card
+          onClick={scrollTop}
+          href="#"
+          className="flex flex-row items-center bg-[#fafafa]   rounded-none shadow hover:shadow-md transition-all w-72 md:w-96   hover:bg-gray-100 "
+        >
+          <Avatar
+            className=""
+            size="xxl"
+            variant="circular"
+            src={client?.image}
+            alt="image"
+          />
+          <div className="flex flex-col  p-4 leading-normal">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">
+              {client?.firstName + " " + client?.lastName}
+            </h5>
+            <p className="mb-3 text-xs text-gray-700  ">
+              {client?.company?.title}
+            </p>
+          </div>
+        </Card>
+      </Link>
+    </div>
+  );
+};
 
-export default ClientCard
+export default ClientCard;
