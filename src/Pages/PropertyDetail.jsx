@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { useGetDetailPropertyQuery } from "../redux/api/propertyApi";
 import { Input, Loader, Textarea } from "@mantine/core";
 
-const propertyDetail = () => {
+const PropertyDetail = () => {
   const { id } = useParams();
   const { data: propertyDetailData, isLoading } = useGetDetailPropertyQuery(id);
 

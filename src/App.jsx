@@ -11,6 +11,8 @@ import Error from "./Pages/Error";
 import Customer from "./Pages/Customer";
 import ClientsDetails from "./Pages/ClientsDetails";
 import AddPropertyCreate from "./Pages/AddPropertyCreate";
+import PropertyDetail from "./Pages/PropertyDetail";
+
 
 import "./index.css";
 import 'animate.css';
@@ -42,7 +44,7 @@ const App = () => {
     <div>
       <ThemeProvider theme={theme}>
         <Routes>
-        <Route path='/detail/:id' element={<SaleDetail/>} />
+        <Route path='/detail/:id' element={<PropertyDetail/>} />
         <Route path='/create' element={<AddPropertyCreate/>} />
         <Route path='/property' element={<PropertyListItem/>} />
 
