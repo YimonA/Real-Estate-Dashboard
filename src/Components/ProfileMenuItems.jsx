@@ -20,7 +20,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const ProfileMenuItems = (props) => {
 
-  const {isMenuOpen, setIsMenuOpen, closeMenu, minmin} = props;
+  const {isMenuOpen, profileMenuHandler, minmin} = props;
 
   const nav = useNavigate();
 
@@ -31,7 +31,7 @@ const ProfileMenuItems = (props) => {
   
   return (
    <div className="">
-    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end" >
+    <Menu open={isMenuOpen} handler={profileMenuHandler} placement="bottom-end" >
       <MenuHandler>
         <Button
           variant="text"
