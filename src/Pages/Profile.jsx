@@ -146,7 +146,8 @@ const Profile = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader size="xl" variant="bars" color="green" />
+        {/* <Loader size="xl" variant="bars" color="green" /> */}
+        <div class="custom-loader"></div>
       </div>
     );
   }

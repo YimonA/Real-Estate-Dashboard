@@ -139,7 +139,8 @@ const PropertyListItem = () => {
   if (isLoading) {
     return (
       <div className=" flex justify-center items-center h-screen">
-        <Loader variant="dots" color="green" />
+        {/* <Loader variant="dots" color="green" /> */}
+        <div class="custom-loader"></div>
       </div>
     );
   }
