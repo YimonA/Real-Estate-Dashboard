@@ -141,8 +141,8 @@ function NavList({minmin}) {
               : " hidden"
           }
         >
-          <div className=" w-[330px] h-[428] bg-white absolute top-[40px] -right-[70px] md:top-[48px] md:-right-[15px] border border-[#e9ecef] rounded z-10 text-black">
-            <ul>
+          <div className={` w-[305px] h-[428] bg-white absolute top-[40px] -right-[7.5rem] md:top-[48px] md:-right-[15px] border border-[#e9ecef] rounded z-10 text-black`}> {/* -right-[7.7rem] -right-[70px] */}
+              <ul>
               <li className=" px-[20px] py-[15px] text-[15px] font-semibold border-b border-b-[#e9ecef]">
                 Notification
               </li>
@@ -182,6 +182,7 @@ function NavList({minmin}) {
                 <MdChevronRight className=" font-bold" />
               </li>
             </ul>
+            
           </div>
         </div>
       </div>
@@ -200,7 +201,7 @@ function NavList({minmin}) {
               : " hidden"
           }
         >
-          <div className=" w-[330px] h-[428] bg-white absolute top-[40px] -right-[60px] md:top-[48px] md:-right-[15px] border border-[#e9ecef] rounded z-10 text-black">
+          <div className=" w-[305px] h-[428] bg-white absolute top-[40px] -right-[5rem] md:top-[48px] md:-right-[15px] border border-[#e9ecef] rounded z-10 text-black">
             <ul>
               <li className=" px-[20px] py-[15px] text-[15px] font-semibold border-b border-b-[#e9ecef]">
                 You have 4 new messages
