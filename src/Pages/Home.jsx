@@ -20,32 +20,47 @@ import PropertyOverview from "../Components/PropertyOverview";
 import Footer from "../Components/Footer";
 import { useGetPropertyQuery } from "../redux/api/propertyApi";
 
-
+const drawerWidth = 64;
 
 const Home = () => {
   const { data: property } = useGetPropertyQuery();
   // console.log(property)
 
   const [total, setTotal] = useState(0);
-  const [sale, setSale] = useState(10);
-  const [rent, setRent] = useState(10);
+  const [sale, setSale] = useState(0);
+  const [rent, setRent] = useState(0);
 
   useEffect(() => {
-    
     if (
       property !== undefined &&
       property?.length !== 0
     ) {
       setTotal(property.length);
-    }
+
+      const ss = property.filter((p) => p.type.toLowerCase() === "sale");
+      if (
+        ss !== undefined &&
+        ss?.length !== 0
+      ) {
+        setSale(ss.length);
+      }
+
+      const rr = property.filter((p) => p.type.toLowerCase() === "rent");
+      if (
+        rr !== undefined &&
+        rr?.length !== 0
+      ) {
+        setRent(rr.length);
+      }
+      }
   });
 
   return (
     <Dashboard>
       {/* home section */}
-      <div className=" w-full shadow-custom bg-[#FFF] ">
-        <div className="flex flex-wrap justify-between items-center px-6 py-4 ">
-          <div className=" capitalize text-[var(--text-color)] text-xl w-80">
+      <div className={` w-[calc(100% - ${drawerWidth}px)] ml-[${drawerWidth}px] shadow-custom bg-[#FFF] `}>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center px-3 md:px-6  py-3 md:py-4">
+          <div className=" capitalize text-[var(--text-color)] text-lg md:text-xl mt-[6px] md:mt-0">
             real estate dashboard
           </div>
           <div className="flex justify-between items-center gap-3 ml-auto">
@@ -75,7 +90,7 @@ const Home = () => {
       </div>
 
       {/* grid , px-6*/}
-      <div className="w-full px-6 pt-6">
+      <div className="w-full px-3 md:px-6 pt-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           <div className="bg-white">
             <div className=" p-[20px]">
@@ -133,25 +148,25 @@ const Home = () => {
       </div>
 
       {/* chart */}
-      <div className="w-full px-6 pt-6">
+      <div className="w-full px-3 md:px-6 pt-6">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
           <div className="md:col-span-12 lg:col-span-8 ">
             <div className="bg-white p-[20px]">
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col gap-2 md:flex-row md:justify-between md:items-center mb-0 md:mb-4">
                 <h1 className="uppercase text-[16px] font-semibold text-[var(--text-color)] mb-3">
                   properties stats
                 </h1>
-                <div className="flex items-center gap-2 -mt-3">
-                  <BsCircleFill fill="#B8ECF0" size={15} />
-                  <span className=" text-sm text-[var(--text-color)]">
+                <div className="flex items-center gap-2 -mt-3 mb-7 md:mb-0">
+                  <BsCircleFill fill="#B8ECF0" className=" text-xs md:text-md" />
+                  <span className=" text-xs md:text-sm text-[var(--text-color)]">
                     For Sale
                   </span>
-                  <BsCircleFill fill="#B3C1D7" size={15} />
-                  <span className=" text-sm text-[var(--text-color)]">
+                  <BsCircleFill fill="#B3C1D7" className=" text-xs md:text-md" />
+                  <span className=" text-xs md:text-sm text-[var(--text-color)]">
                     For Rent
                   </span>
-                  <BsCircleFill fill="#FCC9BA" size={15} />
-                  <span className=" text-sm text-[var(--text-color)]">All</span>
+                  <BsCircleFill fill="#FCC9BA" className=" text-xs md:text-md" />
+                  <span className=" text-xs md:text-sm text-[var(--text-color)]">All</span>
                 </div>
               </div>
               <BarChart />
@@ -159,37 +174,37 @@ const Home = () => {
           </div>
 
           <div className="md:col-span-12 lg:col-span-4">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               <div className="bg-white p-[20px]">
-                <h1 className="uppercase text-[16px] font-semibold text-[var(--text-color)] mb-3">
+                <h1 className="uppercase text-[16px] font-semibold text-[var(--text-color)] mb-2">
                   property sales income
                 </h1>
                 <div className="flex flex-wrap justify-between items-end">
-                  <div className=" w-1/2 ">
-                    <p className=" text-[36px] text-[#03a9f3] mb-2">$64057</p>
-                    <p className=" uppercase text-[#6c757d] mb-4 text-sm">
+                  <div className=" w-1/2">
+                    <p className=" text-[36px] text-[#03a9f3] mb-1">$64057</p>
+                    <p className=" uppercase text-[#6c757d] mb-2 text-sm">
                       january 2023
                     </p>
-                    <p className=" font-medium text-[var(--text-color)] pb-4 ">
+                    <p className=" font-medium text-[var(--text-color)] pb-2 ">
                       (150 Sales)
                     </p>
                   </div>
-                  <div className=" w-1/2 ">
+                  <div className=" w-1/2">
                     <BarChartSale />
                   </div>
                 </div>
               </div>
               <div className="bg-[#ab8ce4] p-[20px]">
-                <h1 className="uppercase text-[16px] font-semibold text-white mb-3">
+                <h1 className="uppercase text-[16px] font-semibold text-white mb-2">
                   property on rent income
                 </h1>
                 <div className="flex flex-wrap justify-between items-end">
-                  <div className=" w-1/2 ">
-                    <p className=" text-[36px] text-white mb-2">$30447</p>
-                    <p className=" uppercase text-white mb-4 text-sm">
+                  <div className=" w-1/2">
+                    <p className=" text-[36px] text-white mb-1">$30447</p>
+                    <p className=" uppercase text-white mb-2 text-sm">
                       january 2023
                     </p>
-                    <p className=" font-medium text-white pb-4 ">(110 Sales)</p>
+                    <p className=" font-medium text-white pb-2 ">(110 Sales)</p>
                   </div>
                   <div className=" w-1/2 ">
                     <BarChartRent />
@@ -202,7 +217,7 @@ const Home = () => {
       </div>
 
       {/* property overview */}
-      <div className="w-full px-6 py-6">
+      <div className="w-full px-3 md:px-6 py-6">
         <div className="grid grid-cols-1 gap-5">
           <div className="bg-white p-[20px]">
             <h1 className="uppercase text-[16px] font-semibold text-[var(--text-color)] mb-3">

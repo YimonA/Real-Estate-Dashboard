@@ -65,7 +65,7 @@ const BarChartRent = () => {
   }
 
   return (
-    <div className="w-[88px] h-[173px] ml-auto">
+    <div className="w-[88px] ml-auto">
       <Bar
         data={data}
         options={options}

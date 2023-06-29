@@ -148,6 +148,31 @@ html {
   @apply rounded-md text-sm md:text-lg font-medium;
 }
 
+
+/* custom loader */
+.custom-loader {
+  --d:22px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  color: #15803D;
+  box-shadow: 
+    calc(1*var(--d))      calc(0*var(--d))     0 0,
+    calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1px,
+    calc(0*var(--d))      calc(1*var(--d))     0 2px,
+    calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
+    calc(-1*var(--d))     calc(0*var(--d))     0 4px,
+    calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
+    calc(0*var(--d))      calc(-1*var(--d))    0 6px;
+  animation: s7 1s infinite steps(8);
+}
+
+@keyframes s7 {
+  100% {transform: rotate(1turn)}
+}
+
+
+/* calendar css */
 .MuiTableRow-head th {
   font-size: 17px;
   font-weight: 500;
@@ -158,14 +183,6 @@ html {
   font-size: 15px;
   font-weight: 400;
   color: #212529da;
-}
-
-@media (max-width: 768px) {
-.fc-header-toolbar{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 }
 
 .fc-toolbar-chunk .fc-today-button{
@@ -193,18 +210,6 @@ html {
   font-size: 14px;
 }
 
-/* .fc-button-group .fc-prev-button, .fc-button-group .fc-next-button{
-  background-color: white;
-  border: 1px solid #e9ecef;
-  color: var(--text-color);
-}*/
-/* .fc-button-group .fc-prev-button:focus, .fc-button-group .fc-next-button:focus{
-  outline: none;
-  box-shadow: none;
-} 
-.fc-button-group  .fc-prev-button:not(:disabled):active:focus, .fc-button-group  .fc-next-button:not(:disabled):active:focus{
-  box-shadow: none;
-} */
 .fc-button-group .fc-button-primary:focus{
   outline: none;
   box-shadow: none;
@@ -212,29 +217,57 @@ html {
 .fc-button-group  .fc-button-primary:not(:disabled):active:focus{
   box-shadow: none;
 }
-/* .fc-button-group .fc-prev-button:hover, .fc-button-group .fc-next-button:hover{
-  background-color: #f3faf6;
-  border: 1px solid #f3faf6;
-  color: var(--text-color);
-} */
 
-.custom-loader {
-  --d:22px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  color: #15803D;
-  box-shadow: 
-    calc(1*var(--d))      calc(0*var(--d))     0 0,
-    calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1px,
-    calc(0*var(--d))      calc(1*var(--d))     0 2px,
-    calc(-0.707*var(--d)) calc(0.707*var(--d)) 0 3px,
-    calc(-1*var(--d))     calc(0*var(--d))     0 4px,
-    calc(-0.707*var(--d)) calc(-0.707*var(--d))0 5px,
-    calc(0*var(--d))      calc(-1*var(--d))    0 6px;
-  animation: s7 1s infinite steps(8);
+.fc-scrollgrid-sync-inner{
+  padding: 15px;
 }
 
-@keyframes s7 {
-  100% {transform: rotate(1turn)}
+
+/* bar-chart css */
+#canvas-container {
+  /* width:80vw; */
+  /* height: 37.5vh; */
+  height: 39vh;
+  position: relative;
+  padding: 20px;
+}
+
+
+@media (max-width: 760px) {
+  .fc .fc-toolbar{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  }
+  .fc .fc-button{
+    font-size: 0.6em;
+    margin-bottom: 10px;
+  }
+  .fc-toolbar-chunk .fc-toolbar-title {
+    font-size: 15px !important;
+  }
+  .fc-col-header-cell .fc-col-header-cell-cushion{
+    font-size: 13px !important;
+    font-weight: 600;
+  }
+  .fc-daygrid-day-number{
+    font-size: 14px;
+  }
+
+  .fc-scrollgrid-sync-inner{
+    padding: 0;
+  }
+  
+  #canvas-container {
+    height: 40vh;
+    width: auto;
+    padding: 0;
+    padding-right: 15px !important;
+ }
+}
+
+@media (max-width: 768px){
+  .fc-scrollgrid-sync-inner{
+    padding: 10px;
+  }
 }

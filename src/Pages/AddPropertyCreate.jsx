@@ -8,13 +8,15 @@ import PropertyCreate from "./PropertyCreate";
 import { Link } from "react-router-dom";
 import Footer from "../Components/Footer";
 
+const drawerWidth = 64;
+
 const AddPropertyCreate = () => {
   return (
     <Dashboard>
       {/* home section */}
-      <div className=" w-full shadow-custom bg-[#FFF]">
-        <div className="flex flex-wrap justify-between items-center px-6 py-4 ">
-          <div className=" capitalize text-[#212529] text-xl w-80">
+      <div className={` w-[calc(100% - ${drawerWidth}px)] ml-[${drawerWidth}px] shadow-custom bg-[#FFF] `}>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center px-3 md:px-6  py-3 md:py-4">
+          <div className=" capitalize text-[var(--text-color)] text-lg md:text-xl mt-[6px] md:mt-0">
             add property
           </div>
           <div className="flex justify-between items-center gap-3 ml-auto">
@@ -40,8 +42,8 @@ const AddPropertyCreate = () => {
         </div>
       </div>
 
-      <div className="w-full px-6 py-7">
-        {/* Start Write Here Add Property  */}
+      {/* Start Write Here Add Property  */}
+      <div className="w-full px-3 md:px-6 py-7">
         <PropertyCreate />
       </div>
 

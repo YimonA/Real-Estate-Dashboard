@@ -152,8 +152,8 @@ const PropertyListItem = () => {
 
   return (
     <div className={` bg-[#EDF1F5]`}>
-      <div className=" flex flex-col lg:flex-row justify-start gap-5 items-start py-5 pb-20">
-        <div className="w-full lg:basis-4/12 bg-white px-5 py-5 sticky top-20 left-0 z-30">
+      <div className=" flex flex-col lg:flex-row justify-start gap-5 items-start">
+        <div className="w-full lg:basis-4/12 bg-white px-4 md:px-5 py-5 sticky top-14 lg:top-20 left-0 z-30">
           <Select
             placeholder="Status"
             value={rValue}
@@ -213,7 +213,7 @@ const PropertyListItem = () => {
           </button>
           <button
             onClick={SeeAllHandler}
-            className="w-full mb-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded border-none cursor-pointer"
+            className="w-full  py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded border-none cursor-pointer"
           >
             See all
           </button>

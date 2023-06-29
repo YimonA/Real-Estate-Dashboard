@@ -125,7 +125,7 @@ function NavList({minmin}) {
   };
 
   return (
-    <ul className="my-2 mb-0 mt-0 flex flex-wrap items-center gap-2 me-5">
+    <ul className="my-2 mb-0 mt-0 flex flex-wrap items-center gap-2 me-5 py-[10px]">
       <div className="relative flex">
         <TfiEmail
           className={`text-[21px] cursor-pointer hover:text-[var(--hover-nav-icon-color)] ${ noti ? "text-[var(--hover-nav-icon-color)]" : "text-[var(--nav-icon-color)]"}`}

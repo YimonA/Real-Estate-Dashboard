@@ -20,26 +20,26 @@ const BarChart = () => {
         label: "For Sale",
         backgroundColor: "#B8ECF0",
         borderColor: "#B8ECF0",
-        data: [100, 75, 50, 75, 50, 75, 75, 100],
+        data: [100, 75, 50, 75, 50, 75, 75, 100], 
       },
       {
         label: "For Rent",
         backgroundColor: "#B3C1D7",
         borderColor: "#B3C1D7",
-        data: [90, 65, 40, 65, 40, 65, 65, 90],
+        data: [90, 65, 40, 65, 40, 65, 65, 90], 
       },
       {
         label: "All",
         backgroundColor: "#FCC9BA",
         borderColor: "#FCC9BA",
-        
-        data: [60, 40, 30, 40, 30, 40, 40, 40],
+        data: [60, 40, 30, 40, 30, 40, 40, 40], 
       },
     ],
   };
 
   const options = {
-    responsive: true,
+    // responsive: true,
+    maintainAspectRatio : false,
     plugins: {
       legend: {
         display: false,
@@ -67,11 +67,10 @@ const BarChart = () => {
   }
 
   return (
-    <div className="">
+    <div id="canvas-container">
       <Bar
         data={data}
         options={options}
-        style={{ width: "50vw", height: "50vh", padding: "20px" }}
       />
     </div>
   );

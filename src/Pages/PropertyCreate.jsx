@@ -93,8 +93,8 @@ const PropertyCreate = () => {
   });
 
   return (
-    <div className=" bg-[#EDF1F5] pt-5">
-      <div className="  mx-auto px-7 py-5 pb-20 bg-white">
+    <div className=" bg-[#EDF1F5]">
+      <div className="  mx-auto px-4 md:px-7 py-2 pb-4 bg-white">
         <form
           onSubmit={form.onSubmit(async (values) => {
             try {
@@ -120,7 +120,7 @@ const PropertyCreate = () => {
         >
           {/* Property Start*/}
           <div className=" flex flex-col gap-3 my-5">
-            <h2 className="text-xl">Create Property</h2>
+            {/* <h2 className="text-xl">Create Property</h2> */}
             <TextInput
               {...form.getInputProps("addressLine1")}
               label="Property Name"
@@ -327,7 +327,7 @@ const PropertyCreate = () => {
           <button
             disabled={isLoading && true}
             type="submit"
-            className="w-52 my-5 mr-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none"
+            className=" w-32 mr-2 md:w-52 my-3 md:my-5 md:mr-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-[0.25rem] border-none"
           >
             {isLoading ? (
               <div className=" flex justify-center items-center gap-1">
@@ -342,7 +342,7 @@ const PropertyCreate = () => {
             <button
               disabled={isLoading && true}
               type="submit"
-              className="w-20 my-5 py-2 px-3 leading-[24px] text-white bg-gray-800 hover:bg-gray-900 border rounded-sm border-none"
+              className="w-20 py-2 px-3 leading-[24px] text-white bg-gray-800 hover:bg-gray-900 border rounded-[0.25rem] border-none"
             >
               Cancel
             </button>
