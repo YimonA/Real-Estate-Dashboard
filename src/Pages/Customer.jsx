@@ -8,13 +8,15 @@ import Clients from "./Clients";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
 
+const drawerWidth = 64;
+
 const Customer = () => {
   return (
     <Dashboard>
       {/* home section */}
-      <div className=" w-full shadow-custom bg-[#FFF]">
-        <div className="flex flex-wrap justify-between items-center px-6 py-4 ">
-          <div className=" capitalize text-[#212529] text-xl w-80">
+      <div className={` w-[calc(100% - ${drawerWidth}px)] ml-[${drawerWidth}px] shadow-custom bg-[#FFF] `}>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center px-3 md:px-6  py-3 md:py-4">
+          <div className=" capitalize text-[var(--text-color)] text-lg md:text-xl mt-[6px] md:mt-0">
             customer
           </div>
           <div className="flex justify-between items-center gap-3 ml-auto">
@@ -28,7 +30,7 @@ const Customer = () => {
               aria-label="breadcrumb"
             >
               <Link to={"/"}>
-              <p className=" capitalize cursor-pointer text-[#212529] text-[13px]">
+              <p className=" capitalize cursor-pointer text-[var(--text-color)] text-[13px]">
                 home
               </p>
               </Link>
@@ -44,9 +46,9 @@ const Customer = () => {
         </div>
       </div>
 
-      <div className="w-full px-6 py-7">
-        {/* Start Write Here Customer */}
-        <Clients />
+      {/* Start Write Here Customer */}
+      <div className="w-full px-3 md:px-6 py-7">
+        {/* <Clients /> */}
       </div>
 
       {/* footer section */}

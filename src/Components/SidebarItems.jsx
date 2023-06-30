@@ -135,7 +135,8 @@ const SidebarItems = () => {
 
         /* true */
 
-        <div className=" mt-10">
+        <div className=" mt-10 flex flex-col gap-36 md:gap-72">
+          <div className=" ">
           {/* Dashboard, Customer  */}
           <div className=" ">
             {personalItem?.map((item, i) => {
@@ -173,14 +174,15 @@ const SidebarItems = () => {
               );
             })}
           </div>
+          </div>
 
           {/* logout */}
-          <div className=" hover:bg-[#0000000a]">
+          <div className="">
             <div
               onClick={logoutHandler}
               className={`flex  p-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] `}
             >
-              <div className={` -ms-[6px] mt-[14rem]`}>
+              <div className={` -ms-[6px] `}> {/* mt-[10rem] */}
                 <HiOutlineLogout size={30} />
               </div>
             </div>

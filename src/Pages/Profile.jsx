@@ -146,7 +146,6 @@ const Profile = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        {/* <Loader size="xl" variant="bars" color="green" /> */}
         <div class="custom-loader"></div>
       </div>
     );
@@ -185,7 +184,7 @@ const Profile = () => {
         {/* <div className="flex flex-wrap w-[30rem] justify-center mx-auto items-center mt-3">
        {swal ?  <Alert severity="success" className="animate__animated animate__bounceInDown">"Good job!", You Edited Successfully - check it out!</Alert> : " "} 
       </div> */}
-        <div className="w-full px-6 py-7">
+        <div className="w-full px-3 md:px-6 py-7">
           {/* Start Write Here Profile */}
           <div className="grid grid-cols-1 gap-4 sm:px-10 mx-auto">
             <div className="h-[7.5rem] sm:h-[10rem] rounded-xl p-[1rem] bg-[#16a34a0d] "></div>{" "}
@@ -228,7 +227,7 @@ const Profile = () => {
         </div>
 
         {/* card */}
-        <div className="w-full px-6">
+        <div className="w-full px-3 md:px-6">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-5 sm:px-10 mx-auto">
             <div className="md:col-span-12 lg:col-span-4 ">
               <div className="border border-1 border-[var(--border-color)] rounded-lg shadow-md overflow-hidden sticky top-[82px] bg-[#FFF]">
@@ -393,15 +392,17 @@ const Profile = () => {
                         className=" col-span-12 md:col-span-9"
                       >
                         <FormControlLabel
+                        color="green"
                           value="female"
-                          control={<Radio />}
+                          control={<Radio color="success"/>}
                           label="Female"
                           checked={gender === 'female'}
                           onChange={(e) => setGender(e.target.value)}
                         />
                         <FormControlLabel
+                        color="green"
                           value="male"
-                          control={<Radio />}
+                          control={<Radio color="success"/>}
                           label="Male"
                           checked={gender === 'male'}
                           onChange={(e) => setGender(e.target.value)}
@@ -463,7 +464,7 @@ const Profile = () => {
                       />
                     </div>
 
-                    <div className=" grid grid-cols-12 py-3">
+                    <div className=" grid grid-cols-12 gap-3 py-3">
                       <label
                         htmlFor="location"
                         className=" col-span-12 md:col-span-3 my-auto text-[var(--text-color)]"
@@ -472,7 +473,7 @@ const Profile = () => {
                       </label>
                       <TextInput
                       required
-                        className=" col-span-12 md:col-span-5 me-3"
+                        className=" col-span-12 md:col-span-5"
                         placeholder="Your address"
                         withAsterisk
                         defaultValue={address}
@@ -592,6 +593,7 @@ const Profile = () => {
                       </label>
                       <TextInput
                       required
+                      readOnly
                         className=" col-span-12 md:col-span-9"
                         placeholder="Your new password"
                         withAsterisk

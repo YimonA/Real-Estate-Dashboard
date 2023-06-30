@@ -12,15 +12,13 @@ import CreateButton from "../Components/CreateButton";
 import { INITIAL_EVENTS, createEventId } from "../utils/event-utils";
 import Footer from "../Components/Footer";
 
+const drawerWidth = 64;
+
 const Calendar = () => {
   const [state, setState] = useState({
     currentEvents: []
   });
-  // const state = {
-  //   weekendsVisible: true,
-  //   currentEvents: [],
-  // };
-  console.log(state);
+// console.log(state);
 
 const handleDateSelect = (selectInfo) => {
     const title = prompt("Please enter a new title for your event");
@@ -57,18 +55,6 @@ const handleDateSelect = (selectInfo) => {
       clickInfo.event.remove();
     }
   };
-// const handleEvents = (events) => {
-//    setState = ({
-//       currentEvents: events,
-//     });
-//   };
-  
-  // useEffect(()=>{
-  //   setState = ({
-  //           currentEvents: renderEventContent,
-  //         });
-  // },[])
-
 
   const events=[
     {
@@ -85,29 +71,13 @@ const handleDateSelect = (selectInfo) => {
       borderColor: 'green'
     }
   ]
- 
-
-  // const renderSidebarEvent = (event) => {
-  //   return (
-  //     <li key={event.id}>
-  //       <b>
-  //         {formatDate(event.start, {
-  //           year: "numeric",
-  //           month: "short",
-  //           day: "numeric",
-  //         })}
-  //       </b>
-  //       <i>{event.title}</i>
-  //     </li>
-  //   );
-  // };
 
   return (
     <Dashboard>
       {/* home section */}
-      <div className=" w-full shadow-custom bg-[#FFF] ">
-        <div className="flex flex-wrap justify-between items-center px-6 py-4 ">
-          <div className=" capitalize text-[var(--text-color)] text-xl w-80">
+      <div className={` w-[calc(100% - ${drawerWidth}px)] ml-[${drawerWidth}px] shadow-custom bg-[#FFF]`}>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center px-3 md:px-6  py-3 md:py-4">
+          <div className=" capitalize text-[var(--text-color)] text-lg md:text-xl mt-[6px] md:mt-0">{/* w-80 */}
             calendar
           </div>
           <div className="flex justify-between items-center gap-3 ml-auto">
@@ -125,7 +95,9 @@ const handleDateSelect = (selectInfo) => {
                 home
               </p>
               </Link>
-              <p className=" capitalize text-green-700 text-[13px]">calendar</p>
+              <p className=" capitalize text-green-700 text-[13px]">
+                calendar
+              </p>
             </Breadcrumbs>
             <Link to={"/create"}>
               <CreateButton />
@@ -135,9 +107,9 @@ const handleDateSelect = (selectInfo) => {
       </div>
 
       {/* calendar */}
-      <div className="w-full px-6 py-6">
+      <div className="w-full px-3 md:px-6 py-6">
         <div className="grid grid-cols-1 gap-5">
-          <div className="bg-white p-[20px]">
+          <div className="bg-white p-[10px] md:p-[20px]">
             <div className=" overflow-x-auto">
               <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
@@ -175,28 +147,8 @@ const handleDateSelect = (selectInfo) => {
                 
                 eventClick={handleEventClick} //delete
 
-                height={"80vh"}
+                // height={"80vh"}
               />
-            </div>
-            
-            <div className=" mt-10">
-              
-              {/* <ul>
-                {state.currentEvents.map((event) => {
-                  return (
-                    <li key={event.id}>
-                      <b>
-                        {formatDate(event.start, {
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </b>
-                      <i>{event.title}</i>
-                    </li>
-                  );
-                })}
-              </ul> */}
             </div>
           </div>
         </div>
