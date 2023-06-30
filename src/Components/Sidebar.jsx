@@ -39,9 +39,9 @@ const Sidebar = ({userInfos, minmin}) => {
   const nav = useNavigate();
 
   const [profileState, setProfileState] = useState(true);
-  const username = localStorage.getItem("username");
+  const username = sessionStorage.getItem("username");
   const logoutHandler = () => {
-    localStorage.removeItem("username");
+    sessionStorage.removeItem("username");
     nav("/login");
   };
 

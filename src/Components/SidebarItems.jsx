@@ -180,7 +180,7 @@ const SidebarItems = () => {
           <div className="">
             <div
               onClick={logoutHandler}
-              className={`flex  p-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] `}
+              className={`flex  p-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] cursor-pointer `}
             >
               <div className={` -ms-[6px] `}> {/* mt-[10rem] */}
                 <HiOutlineLogout size={30} />
