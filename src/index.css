@@ -264,6 +264,11 @@ html {
     padding: 0;
     padding-right: 15px !important;
  }
+ .Toastify__toast-theme--light{
+  width: 85%;
+  margin: auto;
+  margin-top: 15px;
+ }
 }
 
 @media (max-width: 768px){
