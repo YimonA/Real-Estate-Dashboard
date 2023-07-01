@@ -4,8 +4,8 @@ import { BsCheckCircleFill } from "react-icons/bs";
 import { AiOutlinePhone } from "react-icons/ai";
 
 import { Carousel } from "@material-tailwind/react";
-import { useParams } from "react-router-dom";
-import { useGetDetailPropertyQuery } from "../redux/api/propertyApi";
+import { useNavigate, useParams, } from "react-router-dom";
+import { useGetDetailPropertyQuery,useDeletePropertyMutation } from "../redux/api/propertyApi";
 import { Input, Loader, Textarea } from "@mantine/core";
 import Dashboard from "./Dashboard";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -13,11 +13,14 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Link } from "react-router-dom";
 import CreateButton from "../Components/CreateButton";
+import Swal from "sweetalert2";
 import Footer from "../Components/Footer";
 
 const PropertyDetail = () => {
   const { id } = useParams();
   const { data: propertyDetailData, isLoading } = useGetDetailPropertyQuery(id);
+  const [deleteProperty] = useDeletePropertyMutation();
+  const nav = useNavigate();
 
   if (isLoading) {
     return (
@@ -29,6 +32,26 @@ const PropertyDetail = () => {
   }
   console.log("id", id);
   console.log("p", propertyDetailData);
+
+  const deleteHandler = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#138A3F",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        await deleteProperty(propertyDetailData?.id);
+        setTimeout(() => {
+          nav("/");
+        }, 1000);
+      }
+    });
+  };
 
   return (
     <Dashboard>
@@ -103,16 +126,29 @@ const PropertyDetail = () => {
                     );
                   })}
                 </Carousel>
-
-                <p className=" text-lg py-5" style={{ fontWeight: "550" }}>
+                <p
+                  className=" flex justify-start items-center gap-2 text-lg py-5"
+                  style={{ fontWeight: "550" }}
+                >
+                  <HiLocationMarker className=" text-red-400 mb-2" />
                   {propertyDetailData?.formattedAddress}
                 </p>
-                <p className=" flex justify-start items-center gap-2 text-lg text-gray-500 mb-2 ">
-                  <HiLocationMarker className=" text-red-400 mb-2" />{" "}
-                  {propertyDetailData?.city} / {propertyDetailData?.state} /
-                  {propertyDetailData?.county}
-                </p>
-
+                <div className=" flex flex-col md:flex-row  gap-3">
+                  <Link to={`/edit/${propertyDetailData?.id}`}>
+                    <button
+                      type="submit"
+                      className="w-32 mb-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none"
+                    >
+                      Edit
+                    </button>
+                  </Link>
+                  <button
+                    className="w-32 mb-5 py-2 px-3 leading-[24px] text-white bg-red-500 hover:bg-red-700 border rounded-sm border-none"
+                    onClick={() => deleteHandler(propertyDetailData?.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
                 <p className=" text-lg text-gray-500 border-t-2 border-gray-300 pt-5 pb-10">
                   {propertyDetailData?.description}
                 </p>
@@ -137,9 +173,11 @@ const PropertyDetail = () => {
                     Amenities
                   </p>
                   <ul className=" text-gray-500 ">
-                    {propertyDetailData?.bullet.map((tag) => {
+                    {propertyDetailData?.bullet.map((tag,i) => {
                       return (
-                        <li className=" pb-2 flex gap-2 justify-start items-start">
+                        <li
+                        key={i}
+                        className=" pb-2 flex gap-2 justify-start items-start">
                           <p>
                             <BsCheckCircleFill
                               className=" text-green-600 bg-white rounded-full"
@@ -245,10 +283,7 @@ const PropertyDetail = () => {
                     <span>Square Footage</span>
                     <span>{propertyDetailData?.squareFootage}</span>
                   </li>
-                  <li className=" flex justify-between items-center pb-2">
-                    <span>lotSize</span>
-                    <span>{propertyDetailData?.lotSize}</span>
-                  </li>
+
                   <li className=" flex justify-between items-center pb-2">
                     <span>Year Build</span>
                     <span>
@@ -328,15 +363,11 @@ const PropertyDetail = () => {
 
                   <li className=" flex justify-between items-center pb-2">
                     <span>Create Date</span>
-                    <span>
-                      {propertyDetailData?.createdDate.substring(0, 10)}
-                    </span>
+                    <span>{propertyDetailData?.createdDate.substring(0, 10)}</span>
                   </li>
                   <li className=" flex justify-between items-center pb-2">
                     <span>Listed Date</span>
-                    <span>
-                      {propertyDetailData?.listedDate.substring(0, 10)}
-                    </span>
+                    <span>{propertyDetailData?.listedDate.substring(0, 10)}</span>
                   </li>
                 </ul>
               </div>

@@ -93,8 +93,8 @@ const PropertyCreate = () => {
   });
 
   return (
-    <div className=" bg-[#EDF1F5]">
-      <div className="  mx-auto px-4 md:px-7 py-2 pb-4 bg-white">
+    <div className=" bg-[#EDF1F5] pt-5">
+      <div className=" container mx-auto px-7 py-5 pb-20 bg-white">
         <form
           onSubmit={form.onSubmit(async (values) => {
             try {
@@ -120,11 +120,11 @@ const PropertyCreate = () => {
         >
           {/* Property Start*/}
           <div className=" flex flex-col gap-3 my-5">
-            {/* <h2 className="text-xl">Create Property</h2> */}
+            <h2 className="text-xl">Create Property</h2>
             <TextInput
               {...form.getInputProps("addressLine1")}
-              label="Property Name"
-              placeholder="Enter Name"
+              label="Property Address"
+              placeholder="Enter Address"
               className="myInput"
             />
             <TextInput
@@ -138,10 +138,9 @@ const PropertyCreate = () => {
             />
             <TextInput
               {...form.getInputProps("price")}
-              label="Price / Rent"
+              label="Price"
               placeholder="Enter Number"
             />
-            <Textarea label="Property Address " />
           </div>
           {/* Property End*/}
 
@@ -173,12 +172,12 @@ const PropertyCreate = () => {
             <TextInput
               {...form.getInputProps("yearBuilt")}
               label="Year Built"
-              className=" w-full"
+              className=" w-full "
             />
             <TextInput
               {...form.getInputProps("city")}
               label="City"
-              className=" w-full"
+              className=" w-full "
             />
             <TextInput
               {...form.getInputProps("state")}
@@ -202,8 +201,8 @@ const PropertyCreate = () => {
                   // applies styles to selected item
                   "&[data-selected]": {
                     "&, &:hover": {
-                      backgroundColor: theme.colors.green[8],
-                      color: theme.white,
+                      backgroundColor: theme.colors.blue[0],
+                      color: theme.black,
                     },
                   },
 
@@ -219,7 +218,7 @@ const PropertyCreate = () => {
               onChange={setTypeValue}
               data={[
                 { value: "apartment", label: "Apartment" },
-                { value: "villa", label: "Villa/Mansion" },
+                { value: "villa", label: "Villa" },
                 { value: "cottage", label: "Cottage" },
                 { value: "flat", label: "Flat" },
                 { value: "house", label: "House" },
@@ -229,8 +228,8 @@ const PropertyCreate = () => {
                   // applies styles to selected item
                   "&[data-selected]": {
                     "&, &:hover": {
-                      backgroundColor: theme.colors.green[8],
-                      color: theme.white,
+                      backgroundColor: theme.colors.blue[0],
+                      color: theme.black,
                     },
                   },
                   // applies styles to hovered item (with mouse or keyboard)
@@ -256,6 +255,14 @@ const PropertyCreate = () => {
                 <Checkbox value="Wifi" label="Wifi" color="green" />
                 <Checkbox value="Gym" label="Gym" color="green" />
                 <Checkbox value="Parking" label="Parking" color="green" />
+                <Checkbox value="Balcony" label="Balcony" color="green" />
+                <Checkbox value="WaterFront" label="WaterFront" color="green" />
+                <Checkbox value="Garden" label="Garden" color="green" />
+                <Checkbox
+                  value="Basketball Court"
+                  label="Basketball Court"
+                  color="green"
+                />
               </Group>
             </Checkbox.Group>
           </div>
@@ -273,7 +280,7 @@ const PropertyCreate = () => {
           </div>
           <div className=" flex flex-col lg:flex-row justify-start items-start gap-3 my-5">
             <DateInput
-              valueFormat="YYYY-MM-DD HH:mm:ss"
+              valueFormat="YYYY-MM-DD"
               label="Listed Date"
               placeholder="Date"
               value={lDate}
@@ -283,7 +290,7 @@ const PropertyCreate = () => {
               className=" w-full mx-0"
             />
             <DateInput
-              valueFormat="YYYY-MM-DD HH:mm:ss"
+              valueFormat="YYYY-MM-DD"
               label="Created Date"
               placeholder="Date"
               value={cDate}
@@ -293,8 +300,15 @@ const PropertyCreate = () => {
               className=" w-full mx-0"
             />
           </div>
+          {/* Amenities Start
+
+          <div>
+            <h1 className=" text-lg mb-3">Amenities</h1>
+          </div>
+          {/* Amenities End*/}
 
           {/* Dimension Start*/}
+
           <h1 className=" text-lg">Dimensions</h1>
           <div className=" flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 my-5">
             <TextInput
@@ -327,22 +341,22 @@ const PropertyCreate = () => {
           <button
             disabled={isLoading && true}
             type="submit"
-            className=" w-32 mr-2 md:w-52 my-3 md:my-5 md:mr-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-[0.25rem] border-none"
+            className="w-52 my-5 mr-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none"
           >
             {isLoading ? (
               <div className=" flex justify-center items-center gap-1">
-                <Loader color="bg-green-600" size="xs" />
+                <Loader color="white" size="xs" />
                 <span>Loading....</span>
               </div>
             ) : (
-              "Add property"
+              "Create Property"
             )}
           </button>
-          <Link to={`/property`}>
+          <Link to={`/`}>
             <button
               disabled={isLoading && true}
               type="submit"
-              className="w-20 py-2 px-3 leading-[24px] text-white bg-gray-800 hover:bg-gray-900 border rounded-[0.25rem] border-none"
+              className="w-20 my-5 py-2 px-3 leading-[24px] text-white bg-gray-800 hover:bg-gray-900 border rounded-sm border-none"
             >
               Cancel
             </button>
