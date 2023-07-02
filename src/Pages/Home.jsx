@@ -176,7 +176,7 @@ const Home = () => {
           <div className="md:col-span-12 lg:col-span-4">
             <div className="flex flex-col gap-5">
               <div className="bg-white p-[20px]">
-                <h1 className="uppercase text-[16px] font-semibold text-[var(--text-color)] mb-2">
+                <h1 className="uppercase text-[16px] font-semibold text-[var(--text-color)]"> 
                   property sales income
                 </h1>
                 <div className="flex flex-wrap justify-between items-end">
@@ -185,7 +185,7 @@ const Home = () => {
                     <p className=" uppercase text-[#6c757d] mb-2 text-sm">
                       january 2023
                     </p>
-                    <p className=" font-medium text-[var(--text-color)] pb-2 ">
+                    <p className=" font-medium text-[var(--text-color)] pt-1 pb-2">
                       (150 Sales)
                     </p>
                   </div>
@@ -195,16 +195,16 @@ const Home = () => {
                 </div>
               </div>
               <div className="bg-[#ab8ce4] p-[20px]">
-                <h1 className="uppercase text-[16px] font-semibold text-white mb-2">
+                <h1 className="uppercase text-[16px] font-semibold text-white ">
                   property on rent income
                 </h1>
                 <div className="flex flex-wrap justify-between items-end">
                   <div className=" w-1/2">
-                    <p className=" text-[36px] text-white mb-1">$30447</p>
+                    <p className=" text-[36px] text-white mb-1 ">$30447</p>
                     <p className=" uppercase text-white mb-2 text-sm">
                       january 2023
                     </p>
-                    <p className=" font-medium text-white pb-2 ">(110 Sales)</p>
+                    <p className=" font-medium text-white pt-1 pb-2">(110 Sales)</p>
                   </div>
                   <div className=" w-1/2 ">
                     <BarChartRent />
