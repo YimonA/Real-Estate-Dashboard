@@ -16,6 +16,8 @@ import CreateButton from "../Components/CreateButton";
 import Swal from "sweetalert2";
 import Footer from "../Components/Footer";
 
+const drawerWidth = 64;
+
 const PropertyDetail = () => {
   const { id } = useParams();
   const { data: propertyDetailData, isLoading } = useGetDetailPropertyQuery(id);
@@ -26,25 +28,26 @@ const PropertyDetail = () => {
     return (
       <div className=" flex justify-center items-center h-screen">
         {/* <Loader variant="dots" color="green" /> */}
-        <div class="custom-loader"></div>
+        <div className="custom-loader"></div>
       </div>
     );
   }
   console.log("id", id);
-  console.log("p", propertyDetailData);
+  console.log("p", propertyDetailData.propertyType);
 
   const deleteHandler = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
       icon: "warning",
+      customClass: 'swal-wide',
       showCancelButton: true,
       confirmButtonColor: "#138A3F",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        Swal.fire("Deleted!", `Your ${propertyDetailData.propertyType} information has been deleted.`, "success");
         await deleteProperty(propertyDetailData?.id);
         setTimeout(() => {
           nav("/");
@@ -56,10 +59,10 @@ const PropertyDetail = () => {
   return (
     <Dashboard>
       {/* home section */}
-      <div className=" w-full shadow-custom bg-[#FFF]">
-        <div className="flex flex-wrap justify-between items-center px-6 py-4 ">
-          <div className=" capitalize text-[#212529] text-xl w-80">
-            property detail
+      <div className={` w-[calc(100% - ${drawerWidth}px)] ml-[${drawerWidth}px] shadow-custom bg-[#FFF] `}>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center px-3 md:px-6  py-3 md:py-4">
+          <div className=" capitalize text-[var(--text-color)] text-lg md:text-xl mt-[6px] md:mt-0">
+          property detail
           </div>
           <div className="flex justify-between items-center gap-3 ml-auto">
             <Breadcrumbs
@@ -72,9 +75,9 @@ const PropertyDetail = () => {
               aria-label="breadcrumb"
             >
               <Link to={"/"}>
-                <p className=" capitalize cursor-pointer text-[#212529] text-[13px]">
-                  home
-                </p>
+              <p className=" capitalize cursor-pointer text-[var(--text-color)] text-[13px]">
+                home
+              </p>
               </Link>
               <Link to={"/propertylist"}>
                 <p
@@ -92,9 +95,9 @@ const PropertyDetail = () => {
         </div>
       </div>
 
-      <div className="w-full py-7">
+      <div className="w-full py-6">
         <div className=" bg-[#EDF1F5] ">
-          <div className=" mx-auto flex flex-col lg:flex-row justify-between items-start gap-5 px-5 ">
+          <div className=" mx-auto flex flex-col lg:flex-row justify-between items-start gap-5 px-3 md:px-5">
             <div className="basis-8/12 ">
               <div className=" mb-5 px-5 py-5 bg-white">
                 <Carousel
@@ -134,17 +137,17 @@ const PropertyDetail = () => {
                   <HiLocationMarker className=" text-red-400 mb-2" />
                   {propertyDetailData?.formattedAddress}
                 </p>
-                <div className=" flex flex-col md:flex-row  gap-3">
+                <div className=" flex md:flex-row  gap-3">
                   <Link to={`/edit/${propertyDetailData?.id}`}>
                     <button
                       type="submit"
-                      className="w-32 mb-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none"
+                      className=" w-20 md:w-32 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-[0.25rem] border-none"
                     >
                       Edit
                     </button>
                   </Link>
                   <button
-                    className="w-32 mb-5 py-2 px-3 leading-[24px] text-white bg-red-500 hover:bg-red-700 border rounded-sm border-none"
+                    className=" w-20 md:w-32 mb-5 py-2 px-3 leading-[24px] text-white bg-red-500 hover:bg-red-700 border rounded-[0.25rem] border-none"
                     onClick={() => deleteHandler(propertyDetailData?.id)}
                   >
                     Delete

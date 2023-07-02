@@ -24,7 +24,7 @@ const Error = () => {
               />
               <h1 className="header-2 mb-6 dark:text-white">page not found?</h1>
               <p className="paragraph">Whoops, this is embarassing.</p>
-              <p className="paragraph">
+              <p className="paragraph text-center">
                 Looks like the page you were looking for wasn't found.
               </p>
               <Link to={'/'}>
@@ -32,7 +32,7 @@ const Error = () => {
               </Link>
             </div>
             <div className="mt-1 mb-[100px]">
-              <p className="paragraph">
+              <p className="paragraph text-center text-sm md:text-lg">
                 &copy; 2023 Hously. Design & Develop with
                 <RxHeartFilled className="text-red-600 inline-block mb-1" /> by
                 Team-F.

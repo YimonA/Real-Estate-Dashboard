@@ -270,6 +270,11 @@ html {
   margin-top: 15px;
  }
 
+ .swal-wide{
+  width: 80% !important;
+  margin-left: 70px !important;
+}
+
 }
 
 @media (max-width: 768px){
