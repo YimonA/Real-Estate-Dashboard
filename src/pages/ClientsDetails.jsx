@@ -66,14 +66,14 @@ const ClientsDetails = () => {
         </div>
       </div>
 
-      <div className="container  mx-auto my-5 ">
+      <div className="mx-auto px-5 md:px-10  my-5 ">
     <Link to={"/customer"}>
       <div className="px-8 md:px-0">
         <MdArrowBack className="w-7 h-7" />
       </div>
     </Link>
-    <div className=" flex flex-col items-center justify-center md:flex-row md:gap-3">
-      <div className=" basis-1/2 md:basis-1/4 mx-auto my-5  ">
+    <div className=" flex flex-col md:flex-row items-center justify-center mx-0  md:gap-3">
+      <div className=" basis-1/2 md:basis-1/4 mx-auto my-5   ">
         <CardBgBlock  clientData={clientData} />
       </div>
       <Card
@@ -92,7 +92,7 @@ const ClientsDetails = () => {
             <p className=" text-sm  font-semibold">{clientData?.phone}</p>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row ">
           <div className=" basis-1/2 px-4 py-2">
             <p className=" text-sm text-gray-600">Email</p>
             <p className=" text-sm  font-semibold">{clientData?.email}</p>
