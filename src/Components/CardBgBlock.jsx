@@ -11,7 +11,7 @@
    return (
     <Card
     shadow={true}
-    className="relative grid items-end rounded-none h-48 w-72 lg:w-96 justify-center overflow-hidden text-center"
+    className="relative grid items-end rounded-none h-44 w-60 lg:w-96 justify-center overflow-hidden text-center"
   >
     <CardHeader
       floated={false}
