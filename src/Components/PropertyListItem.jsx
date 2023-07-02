@@ -5,6 +5,7 @@ import { useGetPropertyQuery } from "../redux/api/propertyApi";
 import { Loader, Select } from "@mantine/core";
 import { Button } from "@material-tailwind/react";
 import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+import {IoIosArrowBack,IoIosArrowForward} from 'react-icons/io'
 import '../index.css'
 
 const PropertyListItem = () => {
@@ -243,22 +244,24 @@ const PropertyListItem = () => {
 
             {/* Pagination Start*/}
 
-            <div className={`${records.length < 1 ? "hidden" : ""} my-5 `}>
+            <div className={`${records.length < 1 ? "hidden" : ""} my-5 flex justify-center`}>
               <ul
                 className={`${
                   npage > 1 ? "flex" : "hidden"
                 } items-center gap-1 lg:gap-3`}
               >
                 {currentPage == 1 ? (
-                  <li className=" flex items-center gap-2">
-                    <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" />
-                    <a href="#">Prev</a>
+                  <li className=" flex items-center gap-2 mr-2 hover:bg-gray-300">
+                    
+                    <a href="#">
+                    <IoIosArrowBack strokeWidth={2} size={'2rem'} className=" w-6" />
+                    </a>
                   </li>
                 ) : (
-                  <li className=" flex items-center gap-2">
-                    <ArrowLeftIcon strokeWidth={2} className="h-3 w-3" />
+                  <li className=" flex items-center gap-2 mr-2 hover:bg-gray-300">
                     <a href="#" onClick={prevPage}>
-                      Prev
+                    <IoIosArrowBack strokeWidth={2} size={'2rem'} className=" w-6" />
+                      
                     </a>
                   </li>
                 )}
@@ -275,7 +278,7 @@ const PropertyListItem = () => {
                           key={i}
                         >
                           <p
-                            className="hidden sm:block p-3"
+                            className=" p-3"
                             onClick={() => changeCPage(n)}
                           >
                             {n}
@@ -288,15 +291,17 @@ const PropertyListItem = () => {
                   )}
                 </div>
                 {currentPage === npage ? (
-                  <li className=" flex items-center gap-2">
-                    <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
-                    <a href="#">Next</a>
+                  <li className=" flex items-center gap-2 ml-2 hover:bg-gray-300">
+                    
+                    <a href="#">
+                    <IoIosArrowForward strokeWidth={2} size={'2rem'} className="w-6" />
+                    </a>
                   </li>
                 ) : (
-                  <li className=" flex items-center gap-2">
-                    <ArrowRightIcon strokeWidth={2} className="h-3 w-3" />
+                  <li className=" flex items-center gap-2 ml-2 hover:bg-gray-300">
                     <a href="#" onClick={nextPage}>
-                      Next
+                    <IoIosArrowForward strokeWidth={2} size={'2rem'} className="w-6" />
+                      
                     </a>
                   </li>
                 )}
