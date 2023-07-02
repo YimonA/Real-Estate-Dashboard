@@ -17,6 +17,7 @@ import { ToastContainer } from "react-toastify";
 import "./index.css";
 import 'animate.css';
 import AddPropertyCreate from "./Pages/AddPropertyCreate";
+import PropertyEdit from "./Pages/PropertyEdit"
 
 const App = () => {
 
@@ -57,6 +58,8 @@ const App = () => {
         <Route path='/customer' element={<Customer/>}/>
 
         <Route path='/detail/:id' element={<PropertyDetail/>} />
+        <Route path='/edit/:id' element={<PropertyEdit/>} />
+
         <Route path='/property' element={<PropertyListItem/>} />
         <Route path='/create' element={<AddPropertyCreate/>} />
 
