@@ -4,9 +4,9 @@ import Dashboard from "./Dashboard";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import Clients from "./Clients";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
+import Clients from "./Clients";
 
 const drawerWidth = 64;
 
@@ -47,8 +47,8 @@ const Customer = () => {
       </div>
 
       {/* Start Write Here Customer */}
-      <div className="w-full px-3 md:px-6 py-7">
-        {/* <Clients /> */}
+      <div className="w-full px-2 md:px-6 py-7">
+        <Clients/>
       </div>
 
       {/* footer section */}

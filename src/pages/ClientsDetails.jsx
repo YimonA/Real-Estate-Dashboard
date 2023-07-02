@@ -19,7 +19,7 @@ const ClientsDetails = () => {
     <Dashboard>
       {/* home section */}
       <div className=" w-full shadow-custom bg-[#FFF]">
-        <div className="flex flex-wrap justify-between items-center px-6 py-4 ">
+        <div className="flex flex-wrap justify-between items-center px-3 py-4 ">
           <div className=" capitalize text-[#212529] text-xl w-80">
             customer detail
           </div>
@@ -66,77 +66,77 @@ const ClientsDetails = () => {
         </div>
       </div>
 
-      <div className=" container mx-auto my-5 ">
+      <div className="mx-auto px-5 md:px-10  my-5 ">
     <Link to={"/customer"}>
-      <div className=" px-8 md:px-0">
+      <div className="px-8 md:px-0">
         <MdArrowBack className="w-7 h-7" />
       </div>
     </Link>
-    <div className=" flex flex-col md:flex-row gap-3">
-      <div className=" basis-1/2 md:basis-1/4 mx-auto my-5 ">
+    <div className=" flex flex-col md:flex-row items-center justify-center mx-0  md:gap-3">
+      <div className=" basis-1/2 md:basis-1/4 mx-auto my-5   ">
         <CardBgBlock  clientData={clientData} />
       </div>
       <Card
         shadow={false}
-        className=" basic-1/2 md:basis-3/4 mx-auto my-5 w-72 lg:w-96 rounded-none bg-[#fafafa]"
+        className=" basic-1/2 md:basis-3/4 mx-auto my-5 w-60 lg:w-96 rounded-none bg-[#fafafa]"
       >
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col md:flex-row">
           <div className=" basis-1/2 px-4 py-2">
             <p className=" text-sm text-gray-600">Full Name</p>
-            <p className=" font-semibold">
+            <p className=" text-sm  font-semibold">
               {clientData?.firstName + " " + clientData?.lastName}
             </p>
           </div>
           <div className=" basis-1/2 px-4 py-2">
             <p className=" text-sm text-gray-600">Phone </p>
-            <p className=" font-semibold">{clientData?.phone}</p>
+            <p className=" text-sm  font-semibold">{clientData?.phone}</p>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col md:flex-row ">
           <div className=" basis-1/2 px-4 py-2">
             <p className=" text-sm text-gray-600">Email</p>
-            <p className=" font-semibold">{clientData?.email}</p>
+            <p className=" text-sm  font-semibold">{clientData?.email}</p>
           </div>
           <div className=" basis-1/2 px-4 py-2">
             <p className=" text-sm text-gray-600">Address </p>
-            <p className=" font-semibold">
+            <p className=" text-sm  font-semibold">
               {" "}
               {clientData?.address?.address}
             </p>
           </div>
         </div>
-        <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col md:flex-row">
           <div className=" basis-1/2 px-4 py-2">
             <p className=" text-sm text-gray-600">Job </p>
-            <p className=" font-semibold">{clientData?.company?.title}</p>
+            <p className=" text-sm  font-semibold">{clientData?.company?.title}</p>
           </div>
           <div className=" basis-1/2 px-4 py-2">
             <p className=" text-sm text-gray-600">Company</p>
-            <p className=" font-semibold">{clientData?.company?.name}</p>
+            <p className=" text-sm  font-semibold">{clientData?.company?.name}</p>
           </div>
         </div>
       </Card>
     </div>
-    <div className=" flex flex-col md:flex-row gap-x-3">
+    <div className=" flex flex-col md:flex-row md:gap-x-3">
      
-        <Card shadow={false} className="basis-1/2  mx-auto my-5 w-72 lg:w-96 rounded-none bg-transparent">
-          <Typography variant="h4" className="px-4">
+        <Card shadow={false} className="basis-1/2  mx-auto my-5 w-60 lg:w-96 rounded-none bg-transparent">
+          <Typography variant="h4" className=" ps-1">
             Transaction History
           </Typography>
           <div className="flex flex-col ">
-            <div className="basis-1/2 px-4 py-2">
+            <div className="basis-1/2 ps-2 py-2">
               <p className="text-sm text-gray-600">Transaction date</p>
               <p className=" font-semibold">
                 {clientData?.company?.transactionDate}
               </p>
             </div>
-            <div className="basis-1/2 px-4 py-2">
+            <div className="basis-1/2 ps-2 py-2">
               <p className="text-sm text-gray-600">Bank Account</p>
               <p className=" font-semibold">
                 {clientData?.company?.cardNumber}
               </p>
             </div>
-            <div className="basis-1/2 px-4 py-2">
+            <div className="basis-1/2 ps-2 py-2">
               <p className="text-sm text-gray-600">
                 Deal Status - currently
               </p>
@@ -148,12 +148,12 @@ const ClientsDetails = () => {
         </Card>
      
       
-        <Card shadow={false} className=" basic-1/2 mx-auto my-5 w-72 lg:w-96 rounded-none bg-transparent">
-          <Typography variant="h4" className=" px-4">
+        <Card shadow={false} className=" basic-1/2 mx-auto my-5 w-60 lg:w-96 rounded-none bg-transparent">
+          <Typography variant="h4" className=" ps-1">
             Reviewed by {clientData?.firstName}
           </Typography>
           <div className="flex flex-col ">
-            <div className="basis-1/2 px-4 py-2">
+            <div className="basis-1/2 ps-2 py-2">
               <p className=" flex flex-row gap-2">
                 <span>
                   <AiFillStar className="text-yellow-600 mt-1" />

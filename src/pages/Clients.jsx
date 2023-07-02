@@ -45,13 +45,13 @@ const Clients = () => {
   }, [clients]);
 
   return (
-    <div className=" container mx-auto my-5 ">
+    <div className="  mx-auto my-3 ">
       {clients?.length > 0 ? (
         <>
-          <div className=" flex flex-wrap justify-center ">
+          <div className=" flex flex-wrap lg:gap-x-7 lg:gap-y-4 items-center justify-center ">
             {pageData?.map((client) => {
               return (
-                <div key={client?.id} className=" my-3 px-8">
+                <div key={client?.id} className=" my-3 lg:px-5 ">
                   <ClientCard client={client} />
                 </div>
               );
