@@ -226,10 +226,11 @@ html {
 /* bar-chart css */
 #canvas-container {
   /* width:80vw; */
-  /* height: 37.5vh; */
-  height: 39vh;
+  /* height: 38.5vh;  large screen */ 
+  height: 39.5vh; /* 40 */
   position: relative;
   padding: 20px;
+  /* background-color: blue; */
 }
  
 @media (max-width: 760px) {
@@ -274,5 +275,16 @@ html {
 @media (max-width: 768px){
   .fc-scrollgrid-sync-inner{
     padding: 10px;
+  }
+}
+
+@media (min-width: 1441px) {
+  #canvas-container {
+    /* width:80vw; */
+    /* height: 37.5vh; */
+    height: 36.7vh; 
+    position: relative;
+    padding: 20px;
+    /* background-color: red; */
   }
 }

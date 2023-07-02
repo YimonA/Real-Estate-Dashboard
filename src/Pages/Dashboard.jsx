@@ -25,7 +25,15 @@ const Dashboard = ({children}) => {
   const userInfos = JSON.parse(userinfo);
   // console.log(userInfos);
 
-  const { data: admin} = useGetUserInfosQuery();
+  const { data: admin, isLoading} = useGetUserInfosQuery();
+
+  if (isLoading) {
+    return (
+      <div className=" flex justify-center items-center h-screen">
+        <div class="custom-loader"></div>
+      </div>
+    );
+  }
 
   return (
     <div>
