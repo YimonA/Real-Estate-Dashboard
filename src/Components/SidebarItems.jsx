@@ -6,7 +6,8 @@ import AddHomeWorkIcon from "@mui/icons-material/AddHomeWork";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 import { HiOutlineLogout } from "react-icons/hi";
-import EventNoteIcon from '@mui/icons-material/EventNote';
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import { Tooltip, Button } from "@mantine/core";
 
 const SidebarItems = () => {
   const matches = useMediaQuery("(min-width:1130px)"); /*no < 1130px */
@@ -75,7 +76,6 @@ const SidebarItems = () => {
       {/* divider */}
 
       {matches ? (
-
         /* false */
 
         <div>
@@ -132,57 +132,62 @@ const SidebarItems = () => {
           </div>
         </div>
       ) : (
-
         /* true */
 
         <div className=" mt-10 flex flex-col gap-36 md:gap-72">
           <div className=" ">
-          {/* Dashboard, Customer  */}
-          <div className=" ">
-            {personalItem?.map((item, i) => {
-              return (
-                <div className=" hover:bg-[#0000000a]" key={i}>
-                  <NavLink
-                    to={item.path}
-                    className={`flex p-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] ${({
-                      isActive,
-                    }) =>
-                      isActive ? "active" : " border-l-4 border-transparent"}`}
-                  >
-                    <div className={` -ms-[6px] `}>{item.icon}</div>
-                  </NavLink>
-                </div>
-              );
-            })}
-          </div>
+            {/* Dashboard, Customer  */}
+            <div className=" ">
+              {personalItem?.map((item, i) => {
+                return (
+                  <div className=" hover:bg-[#0000000a]" key={i}>
+                    <NavLink
+                      to={item.path}
+                      className={`flex  p-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] ${({
+                        isActive,
+                      }) =>
+                        isActive
+                          ? "active"
+                          : " border-l-4 border-transparent"}`}
+                    >
+                      <div className={` -ms-[6px] `}>{item.icon}</div>
+                    </NavLink>
+                  </div>
+                );
+              })}
+            </div>
 
-          {/* Property */}
-          <div className=" ">
-            {propertyListItem?.map((item, i) => {
-              return (
-                <div className=" hover:bg-[#0000000a]" key={i}>
-                  <NavLink
-                    to={item.path}
-                    className={`flex  p-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] ${({
-                      isActive,
-                    }) =>
-                      isActive ? "active" : " border-l-4 border-transparent"}`}
-                  >
-                    <div className={` -ms-[6px] `}>{item.icon}</div>
-                  </NavLink>
-                </div>
-              );
-            })}
-          </div>
+            {/* Property */}
+            <div className=" ">
+              {propertyListItem?.map((item, i) => {
+                return (
+                  <div className=" hover:bg-[#0000000a]" key={i}>
+                    <NavLink
+                      to={item.path}
+                      className={`flex  p-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] ${({
+                        isActive,
+                      }) =>
+                        isActive
+                          ? "active"
+                          : " border-l-4 border-transparent"}`}
+                    >
+                      <div className={` -ms-[6px] `}>{item.icon}</div>
+                    </NavLink>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* logout */}
           <div className="">
             <div
               onClick={logoutHandler}
-              className={`flex  p-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] `}
+              className={`flex  p-[20px] gap-[15px] text-[16px] transition-all duration-[0.5s] text-[#8d97ad] cursor-pointer `}
             >
-              <div className={` -ms-[6px] `}> {/* mt-[10rem] */}
+              <div className={` -ms-[6px] `}>
+                {" "}
+                {/* mt-[10rem] */}
                 <HiOutlineLogout size={30} />
               </div>
             </div>

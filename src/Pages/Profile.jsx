@@ -57,7 +57,7 @@ const Profile = () => {
 
   const [editUserInfos] = useEditUserInfosMutation();
 
-  const userinfo = localStorage.getItem("userinfo");
+  const userinfo = sessionStorage.getItem("userinfo");
   const userInfos = JSON.parse(userinfo);
 
   useEffect(() => {
@@ -133,8 +133,8 @@ const Profile = () => {
     };
     editUserInfos(newData);
     setTimeout(() => {
-      const localStoragepassword = localStorage.getItem('password');
-      if (localStoragepassword !== password ) {
+      const sessionStoragepassword = sessionStorage.getItem('password');
+      if (sessionStoragepassword !== password ) {
       nav("/login");
     }else{
       toast.success("Edited Successfully.");

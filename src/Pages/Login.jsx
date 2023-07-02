@@ -1,4 +1,4 @@
-import { PasswordInput, TextInput } from "@mantine/core";
+import { Loader, PasswordInput, TextInput } from "@mantine/core";
 import { IconEyeCheck, IconEyeOff } from "@tabler/icons-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,17 +9,22 @@ const Login = () => {
   const [password, setPassword] = useState("123");
 
   const [id, setId ] = useState(1);
+  
+  const [loading, setLoading] = useState(false);
 
   const nav = useNavigate();
 
   useEffect(() => {
-    localStorage.clear();
+    // localStorage.clear();
+    sessionStorage.clear();
   }, []);
 
   const loginHandler = (e) => {
     e.preventDefault();
+    setLoading(true); 
     fetch("https://admin-api-fb9x.onrender.com/admin/" + id)
       .then((res) => {
+        setLoading(false);
         return res.json();
       })
       .then((resp) => {
@@ -28,17 +33,17 @@ const Login = () => {
         } else {
           if (resp.username === username && resp.password === password) {
             toast.success("Login Successfully.");
-            localStorage.setItem("username", username);
-            localStorage.setItem("password", password);
-            localStorage.setItem("userinfo", JSON.stringify(resp));
+            sessionStorage.setItem("username", username);
+            sessionStorage.setItem("password", password);
+            sessionStorage.setItem("userinfo", JSON.stringify(resp));
             nav("/");
-            // console.log(resp);
           } else {
             toast.error("Please enter a valid password");
           }
         }
       })
       .catch((err) => {
+        setLoading(false);
         toast.error("Login failed due to " + err.message);
       });
   };
@@ -87,11 +92,19 @@ const Login = () => {
               />
             </div>
 
+              
             <button
+              disabled={loading && true}
               type="submit"
-              className=" mb-3 p-2 w-full fs-[17px] leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-lg"
+              className={` mb-3 p-2 w-full fs-[17px] leading-[24px] border rounded-lg ${ loading ? ' cursor-not-allowed bg-[#cccccc] text-[#666666]' : 'cursor-pointer bg-[#16a34a] hover:bg-[#138a3f] text-white'}`}
             >
-              Login
+              {loading ? (
+              <div className=" flex justify-center items-center gap-1">
+              <span>Loading....</span>
+            </div>
+            ) : (
+              "Login"
+            )}
             </button>
           </form>
         </div>

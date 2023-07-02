@@ -14,14 +14,14 @@ const Dashboard = ({children}) => {
   const nav = useNavigate();
 
   useEffect(() => {
-    const username = localStorage.getItem('username');
-    const password = localStorage.getItem('password');
+    const username = sessionStorage.getItem('username');
+    const password = sessionStorage.getItem('password');
     if (username === " " || username === null || password === " " || password === null) {
       nav("/login");
     }
   }, []);
 
-  const userinfo = localStorage.getItem("userinfo");
+  const userinfo = sessionStorage.getItem("userinfo");
   const userInfos = JSON.parse(userinfo);
   // console.log(userInfos);
 
