@@ -122,6 +122,7 @@ const PropertyDetail = () => {
                         src={image}
                         alt="image 1"
                         className="h-[450px] w-full object-center object-cover"
+                        loading="lazy"
                       />
                     );
                   })}

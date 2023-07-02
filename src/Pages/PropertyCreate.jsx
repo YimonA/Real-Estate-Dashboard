@@ -6,19 +6,21 @@ import {
   Group,
   Select,
   Checkbox,
-  Radio,
 } from "@mantine/core";
 import { hasLength, useForm } from "@mantine/form";
 import { DateInput } from "@mantine/dates";
 
 import "../index.css";
-//import Cookies from "js-cookie";
 import { Link, useNavigate } from "react-router-dom";
 import { useCreatePropertyMutation } from "../redux/api/propertyApi";
 
+
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+
 const PropertyCreate = () => {
   const [createProperty, { isLoading }] = useCreatePropertyMutation();
-  //const token = Cookies.get("token");
   const [typeValue, setTypeValue] = useState("");
   const [statusValue, setStatusValue] = useState("");
   const [lDate, setLDate] = useState("");
@@ -250,33 +252,40 @@ const PropertyCreate = () => {
                 <Checkbox
                   value="Swimming Pool"
                   label="Swimming Pool"
-                  color="green"
                 />
-                <Checkbox value="Wifi" label="Wifi" color="green" />
-                <Checkbox value="Gym" label="Gym" color="green" />
-                <Checkbox value="Parking" label="Parking" color="green" />
-                <Checkbox value="Balcony" label="Balcony" color="green" />
-                <Checkbox value="WaterFront" label="WaterFront" color="green" />
-                <Checkbox value="Garden" label="Garden" color="green" />
+                <Checkbox value="Wifi" label="Wifi" />
+                <Checkbox value="Gym" label="Gym" />
+                <Checkbox value="Parking" label="Parking" />
+                <Checkbox value="Balcony" label="Balcony" />
+                <Checkbox value="WaterFront" label="WaterFront" />
+                <Checkbox value="Garden" label="Garden" />
                 <Checkbox
                   value="Basketball Court"
                   label="Basketball Court"
-                  color="green"
                 />
               </Group>
             </Checkbox.Group>
           </div>
           <div className=" ">
-            <Radio.Group
+          <RadioGroup
+              aria-labelledby="demo-controlled-radio-buttons-group"
+              name="controlled-radio-buttons-group"
               value={radioValue}
-              onChange={setRadioValue}
-              name="favoriteFramework"
-              className="flex flex-col lg:flex-row justify-start items-start gap-3 my-5"
-              withAsterisk
+              onChange={(e) => setRadioValue(e.target.value)}
             >
-              <Radio value="rent" label="For rent" color="green" />
-              <Radio value="sale" label="For Sale" color="green" />
-            </Radio.Group>
+              <FormControlLabel
+                color="success"
+                value="rent"
+                control={<Radio />}
+                label="For Rent"
+              />
+              <FormControlLabel
+                color="success"
+                value="sale"
+                control={<Radio />}
+                label="For Sale"
+              />
+            </RadioGroup>
           </div>
           <div className=" flex flex-col lg:flex-row justify-start items-start gap-3 my-5">
             <DateInput
@@ -300,14 +309,6 @@ const PropertyCreate = () => {
               className=" w-full mx-0"
             />
           </div>
-          {/* Amenities Start
-
-          <div>
-            <h1 className=" text-lg mb-3">Amenities</h1>
-          </div>
-          {/* Amenities End*/}
-
-          {/* Dimension Start*/}
 
           <h1 className=" text-lg">Dimensions</h1>
           <div className=" flex flex-col lg:flex-row justify-between items-start lg:items-center gap-3 my-5">
