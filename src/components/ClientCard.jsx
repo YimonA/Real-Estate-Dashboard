@@ -13,7 +13,7 @@ const ClientCard = ({ client }) => {
         <Card
           onClick={scrollTop}
           href="#"
-          className="flex flex-row items-center bg-[#fafafa]   rounded-none shadow hover:shadow-md transition-all w-64 md:w-96 px-5   hover:bg-gray-100 "
+          className="flex flex-row items-center bg-[#fafafa]   rounded-none shadow hover:shadow-md transition-all w-[17.5rem] md:w-96 px-5 hover:bg-gray-100"
         >
           <Avatar
             className=""
@@ -23,7 +23,7 @@ const ClientCard = ({ client }) => {
             alt="image"
           />
           <div className="flex flex-col  p-4 leading-normal">
-            <h5 className="mb-2 text-xl lg:text-2xl font-bold tracking-normal text-gray-900 ">
+            <h5 className="mb-2 text-lg lg:text-2xl font-bold tracking-normal text-gray-900 ">
               {client?.firstName + " " + client?.lastName}
             </h5>
             <p className="mb-1 text-xs text-gray-700  ">

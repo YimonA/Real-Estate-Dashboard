@@ -45,13 +45,13 @@ const Clients = () => {
   }, [clients]);
 
   return (
-    <div className="  mx-auto my-3 ">
+    <div className="  mx-auto">
       {clients?.length > 0 ? (
         <>
           <div className=" flex flex-wrap lg:gap-x-7 lg:gap-y-4 items-center justify-center ">
             {pageData?.map((client) => {
               return (
-                <div key={client?.id} className=" my-3 lg:px-5 ">
+                <div key={client?.id} className=" my-3 px-2 lg:px-5 ">
                   <ClientCard client={client} />
                 </div>
               );
@@ -73,7 +73,7 @@ const Clients = () => {
           {/* <div className="px-5 py-3 text-xs font-medium leading-none text-center text-green-800 bg-green-200 rounded-full animate-pulse ">
             loading...
           </div> */}
-          <div class="custom-loader"></div>
+          <div className="custom-loader"></div>
         </div>
       )}
     </div>

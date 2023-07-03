@@ -11,6 +11,8 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CardBgBlock from "../Components/CardBgBlock";
 
+const drawerWidth = 64;
+
 const ClientsDetails = () => {
   const location = useLocation();
   const clientData = location.state;
@@ -18,9 +20,9 @@ const ClientsDetails = () => {
   return (
     <Dashboard>
       {/* home section */}
-      <div className=" w-full shadow-custom bg-[#FFF]">
-        <div className="flex flex-wrap justify-between items-center px-3 py-4 ">
-          <div className=" capitalize text-[#212529] text-xl w-80">
+      <div className={` w-[calc(100% - ${drawerWidth}px)] ml-[${drawerWidth}px] shadow-custom bg-[#FFF] `}>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center px-3 md:px-6  py-3 md:py-4">
+          <div className=" capitalize text-[var(--text-color)] text-lg md:text-xl mt-[6px] md:mt-0">
             customer detail
           </div>
           <div className="flex justify-between items-center gap-3 ml-auto">
@@ -33,10 +35,10 @@ const ClientsDetails = () => {
               }
               aria-label="breadcrumb"
             >
-              <Link to={"/home"}>
-                <p className=" capitalize cursor-pointer text-[#212529] text-[13px]">
-                  home
-                </p>
+              <Link to={"/"}>
+              <p className=" capitalize cursor-pointer text-[var(--text-color)] text-[13px]">
+                home
+              </p>
               </Link>
               <Link to={"/customer"}>
                 <p
@@ -46,39 +48,29 @@ const ClientsDetails = () => {
                   customer
                 </p>
               </Link>
-
               <p className=" capitalize text-green-700  text-[13px]">
                 {clientData?.firstName + " " + clientData?.lastName}
               </p>
             </Breadcrumbs>
-            {/* <Link to={"/salecreate"}>
-                <div className="hidden md:block">
-                  <button className=" px-3 py-2 bg-[#03a9f3] rounded text-white capitalize hover:bg-[#29b6f5] ">
-                    <AddCircleIcon
-                      className="me-[2px] mb-[2px]"
-                      fontSize="14px"
-                    />
-                    <span className="text-[15px] font-medium"> create new</span>
-                  </button>
-                </div>
-              </Link> */}
+            
           </div>
         </div>
       </div>
 
-      <div className="mx-auto px-5 md:px-10  my-5 ">
+
+      <div className="mx-auto md:px-10  my-5 ">
     <Link to={"/customer"}>
-      <div className="px-8 md:px-0">
+      <div className="px-3 md:px-0">
         <MdArrowBack className="w-7 h-7" />
       </div>
     </Link>
     <div className=" flex flex-col md:flex-row items-center justify-center mx-0  md:gap-3">
-      <div className=" basis-1/2 md:basis-1/4 mx-auto my-5   ">
+      <div className=" basis-1/2 md:basis-1/4 mx-auto my-5">
         <CardBgBlock  clientData={clientData} />
       </div>
       <Card
         shadow={false}
-        className=" basic-1/2 md:basis-3/4 mx-auto my-5 w-60 lg:w-96 rounded-none bg-[#fafafa]"
+        className=" basic-1/2 md:basis-3/4 mx-auto my-5 w-72 md:w-60 lg:w-96 rounded-none bg-[#fafafa]"
       >
         <div className="flex flex-col md:flex-row">
           <div className=" basis-1/2 px-4 py-2">
@@ -119,7 +111,7 @@ const ClientsDetails = () => {
     </div>
     <div className=" flex flex-col md:flex-row md:gap-x-3">
      
-        <Card shadow={false} className="basis-1/2  mx-auto my-5 w-60 lg:w-96 rounded-none bg-transparent">
+        <Card shadow={false} className="basis-1/2  mx-auto my-5 w-72 md:w-60 lg:w-96 rounded-none bg-transparent">
           <Typography variant="h4" className=" ps-1">
             Transaction History
           </Typography>
@@ -148,7 +140,7 @@ const ClientsDetails = () => {
         </Card>
      
       
-        <Card shadow={false} className=" basic-1/2 mx-auto my-5 w-60 lg:w-96 rounded-none bg-transparent">
+        <Card shadow={false} className=" basic-1/2 mx-auto my-5 w-72 md:w-60 lg:w-96 rounded-none bg-transparent">
           <Typography variant="h4" className=" ps-1">
             Reviewed by {clientData?.firstName}
           </Typography>

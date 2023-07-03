@@ -142,7 +142,7 @@ const PropertyListItem = () => {
     return (
       <div className=" flex justify-center items-center h-screen">
         {/* <Loader variant="dots" color="green" /> */}
-        <div class="custom-loader"></div>
+        <div className="custom-loader"></div>
       </div>
     );
   }
@@ -221,14 +221,14 @@ const PropertyListItem = () => {
         </div>
         {btnLoading ? (
           <div className="w-full lg:basis-8/12 flex justify-center items-center h-screen">
-        <div class="custom-loader"></div>
+        <div className="custom-loader"></div>
 
           </div>
         ) : (
           <div className={`  w-full lg:basis-8/12`}>
             {/* All Card Start*/}
             <div
-              className={` w-full flex flex-wrap gap-0 sm:gap-5 justify-center items-center`}
+              className={` w-full flex flex-wrap gap-3 sm:gap-5 justify-center items-center`}
             >
               {records?.length >= 1 ? (
                 records.map((allProperty) => {

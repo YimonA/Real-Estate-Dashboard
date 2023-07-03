@@ -36,18 +36,12 @@ const Customer = () => {
               </Link>
               <p className=" capitalize text-green-700 text-[13px]">customer</p>
             </Breadcrumbs>
-            {/* <div className="hidden md:block">
-                <button className=" px-3 py-2 bg-[#03a9f3] rounded text-white capitalize hover:bg-[#29b6f5] ">
-                  <AddCircleIcon className="me-[2px] mb-[2px]" fontSize="14px"/>
-                 <span className="text-[15px] font-medium"> create new</span>
-                </button>
-              </div> */}
           </div>
         </div>
       </div>
 
       {/* Start Write Here Customer */}
-      <div className="w-full px-2 md:px-6 py-7">
+      <div className="w-full px-0 md:px-6 py-3 mb-4">
         <Clients/>
       </div>
 

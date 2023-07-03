@@ -12,6 +12,10 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
+import Dashboard from "./Dashboard";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import Footer from "../Components/Footer";
 
 const PropertyEdit = () => {
   const { id } = useParams();
@@ -92,13 +96,45 @@ const PropertyEdit = () => {
       nav("/");
     });
   };
+
+  const drawerWidth = 64;
+
   return (
-    <div className=" bg-[#EDF1F5] pt-5">
-      <div className=" container mx-auto px-7 py-5 pb-20 bg-white">
+    <Dashboard>
+      <div className={` w-[calc(100% - ${drawerWidth}px)] ml-[${drawerWidth}px] shadow-custom bg-[#FFF] `}>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center px-3 md:px-6  py-3 md:py-4">
+          <div className=" capitalize text-[var(--text-color)] text-lg md:text-xl mt-[6px] md:mt-0">
+            property edit
+          </div>
+          <div className="flex justify-between items-center gap-3 ml-auto">
+            <Breadcrumbs
+              separator={
+                <NavigateNextIcon
+                  fontSize="small"
+                  className=" text-[#8d97ad]"
+                />
+              }
+              aria-label="breadcrumb"
+            >
+              <Link to={"/"}>
+              <p className=" capitalize cursor-pointer text-[var(--text-color)] text-[13px]">
+                home
+              </p>
+              </Link>
+              <p className=" capitalize text-green-700 text-[13px]">
+               property edit
+              </p>
+            </Breadcrumbs>
+          </div>
+        </div>
+      </div>
+    
+    <div className=" bg-[#EDF1F5] px-3 lg:px-6 py-7">
+      <div className=" mx-auto px-4 md:px-7 py-[2px] md:py-1 pb-4 bg-white "> {/* container-fluid mx-auto px-4 md:px-7 py-5 pb-20 bg-white */}
         <form onSubmit={editHandler} className=" w-full ">
           {/* Property Start*/}
           <div className=" flex flex-col gap-3 my-5">
-            <h2 className="text-xl">Edit Property</h2>
+            {/* <h2 className="text-xl">Edit Property</h2> */}
             <div className=" flex flex-col mb-3">
               <label htmlFor="">Property Address</label>
               <input
@@ -295,21 +331,21 @@ const PropertyEdit = () => {
               >
                 <FormControlLabel
                   value="rent"
-                  control={<Radio />}
+                  control={<Radio color="success" />}
                   label="For rent"
                   checked={type === "rent"}
-                  color="success"
+                  color="green"
                 />
                 <FormControlLabel
                   value="sale"
-                  control={<Radio />}
+                  control={<Radio color="success" />}
                   label="For Sale"
                   checked={type === "sale"}
-                  color="success"
+                  color="green"
                 />
               </RadioGroup>
             </div>
-            <div className=" flex flex-col lg:flex-row gap-3  mb-3">
+            <div className=" flex flex-col lg:flex-row gap-3 ">
               <div className=" w-full flex flex-col">
                 <label htmlFor="">Living Room</label>
                 <input
@@ -354,21 +390,23 @@ const PropertyEdit = () => {
           </div>
           <button
             disabled={isLoading && true}
-            className="w-full md:w-32 my-2 mr-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-sm border-none"
+            type="submit"
+            className=" w-32 mr-2 md:w-52 my-3 md:my-5 md:mr-5 py-2 px-3 leading-[24px] text-white bg-[#16a34a] hover:bg-[#138a3f] border rounded-[0.25rem] border-none"
           >
             {isLoading ? (
               <div className=" flex justify-center items-center gap-1">
-                <Loader color="white" size="xs" />
+                <Loader color="bg-green-600" size="xs" />
                 <span>Loading....</span>
               </div>
             ) : (
               "Edit property"
             )}
           </button>
-          <Link to={`/`}>
+          <Link to={`/propertylist`}>
             <button
               disabled={isLoading && true}
-              className="w-full md:w-20 my-2 py-2 px-3 leading-[24px] text-white bg-gray-800 hover:bg-gray-900 border rounded-sm border-none"
+              type="submit"
+              className="w-20 py-2 px-3 leading-[24px] text-white bg-gray-800 hover:bg-gray-900 border rounded-[0.25rem] border-none"
             >
               Cancel
             </button>
@@ -377,6 +415,11 @@ const PropertyEdit = () => {
         </form>
       </div>
     </div>
+
+    {/* footer section */}
+    <Footer/>
+
+    </Dashboard>
   );
 };
 
