@@ -39,6 +39,7 @@ const PropertyCreate = () => {
       formattedAddress: "",
       price: "",
       bedrooms: "",
+      state:"",
       bathrooms: "",
       squareFootage: "",
       yearBuilt: "",
