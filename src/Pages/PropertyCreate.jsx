@@ -81,16 +81,6 @@ const PropertyCreate = () => {
       yearBuilt: hasLength({ min: 3 }),
       livingRoom: (value) =>
         value.length < 3 ? "Living Room must have at least 3 characters" : null,
-      bedRoom: (value) =>
-        value.length < 3
-          ? "Bedroom Location must have at least 3 characters"
-          : null,
-      diningRoom: (value) =>
-        value.length < 3
-          ? "Dining Room Location must have at least 3 characters"
-          : null,
-      kitchen: (value) =>
-        value.length < 3 ? "Kitchen must have at least 3 characters" : null,
             */
     },
   });
